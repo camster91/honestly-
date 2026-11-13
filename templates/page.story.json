@@ -19,33 +19,16 @@
     "people": {
       "type": "ht-people",
       "blocks": {
-        "p1": {
-          "type": "person",
-          "settings": {}
-        },
-        "p2": {
-          "type": "person",
-          "settings": {}
-        },
-        "p3": {
-          "type": "person",
-          "settings": {}
-        }
+        "p1": { "type": "person", "settings": {} },
+        "p2": { "type": "person", "settings": {} },
+        "p3": { "type": "person", "settings": {} }
       },
-      "block_order": [
-        "p1",
-        "p2",
-        "p3"
-      ],
+      "block_order": ["p1", "p2", "p3"],
       "settings": {
         "scheme": "wheat",
         "eyebrow": "The people / 01",
         "heading": "From our farmers\nto your family."
       }
-    },
-    "page": {
-      "type": "main-page",
-      "settings": {}
     },
     "harvest": {
       "type": "ht-split",
@@ -63,16 +46,7 @@
         "button_link": "shopify://collections/all"
       }
     },
-    "newsletter": {
-      "type": "ht-newsletter",
-      "settings": {}
-    }
+    "newsletter": { "type": "ht-newsletter", "settings": {} }
   },
-  "order": [
-    "hero",
-    "people",
-    "page",
-    "harvest",
-    "newsletter"
-  ]
+  "order": ["hero", "people", "harvest", "newsletter"]
 }
