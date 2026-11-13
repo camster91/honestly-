@@ -5,7 +5,7 @@
   "@type": "Organization",
   "name": {{ shop.name | json }},
   "url": {{ request.origin | json }},
-  "logo": {{ 'ht-logo.svg' | asset_url | prepend: 'https:' | json }},
+  "logo": {{ 'ht-badge.svg' | asset_url | prepend: 'https:' | json }},
   "description": {{ shop.description | default: 'Rice grown in Texas and milled in Brookshire, TX.' | json }},
   "address": { "@type": "PostalAddress", "addressLocality": "Brookshire", "addressRegion": "TX", "addressCountry": "US" }
 }

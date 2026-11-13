@@ -1,48 +1,38 @@
-{%- comment -%}
-  Usage: {% render 'product-card', product: product, eager: false %}
-{%- endcomment -%}
+{%- comment -%} Shop-all card (Figma 5:1933). Usage: {% render 'product-card', product: product %} {%- endcomment -%}
 {%- capture bg -%}{% render 'variety-color', title: product.title %}{%- endcapture -%}
 {%- liquid
   assign t = product.title | downcase
-  assign label = product.type
+  assign label = product.type | upcase
   if t contains 'bundle' or t contains 'variety'
-    assign label = 'Variety pack'
-  elsif t contains 'pack of'
-    assign label = 'Multipack'
+    assign label = 'VARIETY PACK'
+  elsif t contains 'pack of' or t contains 'multipack'
+    assign label = 'MULTIPACKS'
   elsif t contains 'jasmine'
-    assign label = 'Jasmine'
+    assign label = 'JASMINE'
   elsif t contains 'brown'
-    assign label = 'Brown rice'
+    assign label = 'BROWN RICE'
   elsif t contains 'white'
-    assign label = 'White rice'
+    assign label = 'WHITE RICE'
   endif
   assign v = product.selected_or_first_available_variant
 -%}
-<div class="card" style="--card-bg: {{ bg | strip }};">
-  <div class="card__top">
-  <a class="card__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+<div class="o1-pcard" style="--card: {{ bg | strip }};">
+  <a class="o1-pcard__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
     {%- if product.featured_media -%}
-      {{ product.featured_media | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', sizes: '(min-width: 990px) 33vw, (min-width: 481px) 50vw, 100vw', alt: product.featured_media.alt | escape }}
-    {%- else -%}
-      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {{ product.featured_media | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400, 600, 800', sizes: '(min-width: 750px) 28vw, 90vw', alt: '' }}
     {%- endif -%}
   </a>
-  {%- unless product.available -%}
-    <span class="card__badge card__badge--soldout">Sold out</span>
-  {%- else -%}
-    {%- if product.compare_at_price > product.price -%}<span class="card__badge">Sale</span>{%- endif -%}
-  {%- endunless -%}
+  {%- if product.compare_at_price > product.price and product.available -%}<span class="o1-pcard__badge">Sale</span>{%- endif -%}
+  {%- unless product.available -%}<span class="o1-pcard__badge" style="background: var(--navy)">Sold out</span>{%- endunless -%}
   {%- if product.available and product.has_only_default_variant -%}
-    <button type="button" class="card__quick" data-quick-add="{{ v.id }}" aria-label="Add {{ product.title | escape }} to bag">{% render 'icon', name: 'plus' %}</button>
+    <button type="button" class="o1-pcard__add" data-quick-add="{{ v.id }}" aria-label="Add {{ product.title | escape }} to bag">+</button>
   {%- elsif product.available -%}
-    <a class="card__quick" href="{{ product.url }}" aria-label="Choose options for {{ product.title | escape }}">{% render 'icon', name: 'plus' %}</a>
+    <a class="o1-pcard__add" href="{{ product.url }}" aria-label="Choose options for {{ product.title | escape }}">+</a>
   {%- endif -%}
-  </div>
-  {%- if label != blank -%}<p class="card__type">{{ label }}</p>{%- endif -%}
-  <a class="card__title" href="{{ product.url }}">{{ product.title }}</a>
-  <p class="card__price">
-    {%- if product.price_varies -%}From {% endif -%}
+  {%- if label != blank -%}<p class="o1-pcard__type">{{ label }}</p>{%- endif -%}
+  <a class="o1-pcard__title" href="{{ product.url }}">{{ product.title }}</a>
+  <p class="o1-pcard__price">
     {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
-    {{ product.price | money }}
+    {%- if product.price_varies -%}From {% endif -%}{{ product.price | money }}
   </p>
 </div>

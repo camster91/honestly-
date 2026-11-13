@@ -1,0 +1,6 @@
+{%- comment -%} Pattern band. Usage: {% render 'band', color: 'red' %} {%- endcomment -%}
+<div class="band{% if color == 'red' %} band--red{% endif %}" aria-hidden="true">
+  <img class="band__extra band__extra--l" src="{{ 'ht-band.svg' | asset_url }}" alt="" width="1440" height="202" loading="lazy">
+  <img src="{{ 'ht-band.svg' | asset_url }}" alt="" width="1440" height="202" loading="lazy">
+  <img class="band__extra band__extra--r" src="{{ 'ht-band.svg' | asset_url }}" alt="" width="1440" height="202" loading="lazy">
+</div>
