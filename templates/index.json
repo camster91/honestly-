@@ -1,96 +1,54 @@
 {
   "sections": {
-    "hero": {
-      "type": "ht-hero",
-      "settings": {
-        "scheme": "cream",
-        "heading": "Good rice.\nTexas roots.",
-        "text": "<p>White, brown and jasmine rice. Grown in Texas, milled in Brookshire, made for your everyday table.</p>",
-        "button_label": "Shop Texas rice",
-        "button_link": "shopify://collections/all",
-        "link_label": "Our Texas story",
-        "stage_color": "#fff0a4",
-        "show_texas": true,
-        "caption": "Three varieties. Your everyday rice."
-      }
-    },
-    "varieties": {
-      "type": "ht-varieties",
+    "hero": { "type": "o1-hero", "settings": { "title": "Our rice, grown in Texas", "button_1_label": "Shop Our Rice", "button_1_link": "shopify://collections/all", "button_2_label": "About", "button_2_link": "shopify://pages/about-us", "show_sticker": true, "sticker_alt": "Now available in HEB" } },
+    "singles": {
+      "type": "o1-products",
       "blocks": {
-        "white": { "type": "variety", "settings": { "product": "enriched-long-grain-white-rice-2lb", "fallback": "ht-pack-white", "color": "#fff0a4", "meta": "Long grain · 2 lb", "title": "Enriched white", "texture": "Light & fluffy", "use": "For family favorites, sides and sauces.", "unit": "bag", "button_label": "Choose white" } },
-        "brown": { "type": "variety", "settings": { "product": "long-grain-brown-rice", "fallback": "ht-pack-brown", "color": "#efe7cf", "meta": "Long grain · 2 lb", "title": "Brown", "texture": "Hearty & nutty", "use": "For grain bowls and satisfying sides.", "unit": "bag", "button_label": "Choose brown" } },
-        "jasmine": { "type": "variety", "settings": { "product": "jasmine-rice", "fallback": "ht-pack-jasmine", "color": "#e9e2f1", "meta": "Long grain · 2 lb", "title": "Jasmine", "texture": "Fragrant & tender", "use": "For curries, stir-fries and rice bowls.", "unit": "bag", "button_label": "Choose jasmine" } }
+        "white": { "type": "product", "settings": { "product": "enriched-long-grain-white-rice-2lb", "label": "Long\nGrain", "color": "#fff0a4", "text_color": "#003da6", "big_label": true, "builtin": "ht-o1-pack-white" } },
+        "brown": { "type": "product", "settings": { "product": "long-grain-brown-rice", "label": "long\ngrain\nbrown", "color": "#9b6811", "text_color": "#fffde9", "builtin": "ht-o1-pack-brown" } },
+        "jasmine": { "type": "product", "settings": { "product": "jasmine-rice", "label": "Jasmine", "color": "#512474", "text_color": "#fffde9", "big_label": true, "builtin": "ht-o1-pack-jasmine" } }
       },
       "block_order": ["white", "brown", "jasmine"],
-      "settings": {
-        "scheme": "cream",
-        "eyebrow": "Three varieties. Find your favorite.",
-        "heading": "Find your everyday rice.",
-        "text": "<p>Start with the texture you love. Choose a single 2 lb bag or explore our multipacks.</p>",
-        "link_label": "Shop all rice",
-        "link_url": "shopify://collections/all",
-        "note": "Shipping rates shown at checkout."
-      }
+      "settings": { "layout": "singles", "title": "Shop our rice", "text": "Texas-grown long grain white, long grain brown and jasmine rice. Dried, milled and packed in Brookshire, then straight to your table.", "show_star": false }
     },
-    "bundle": {
-      "type": "ht-bundle",
-      "settings": {
-        "product": "rice-variety-bundle-6-lbs-total-enriched-white-rice-brown-rice-jasmine-rice",
-        "scheme": "red",
-        "caption": "White + brown + jasmine",
-        "eyebrow": "Your first taste of Honestly Texas",
-        "heading": "New here?\nTry all three.",
-        "text": "<p>One bag of enriched white, one brown and one jasmine. Find your favorite, one meal at a time.</p>",
-        "specs": "3 × 2 lb bags · 6 lb total",
-        "button_label": "View variety pack",
-        "note": "Shipping rates shown at checkout."
-      }
+    "values": {
+      "type": "o1-values",
+      "blocks": {
+        "c1": { "type": "card", "settings": { "text": "Honestly Texas wants you to know where your food comes from by tracing a farm to fork supply food chain." } },
+        "c2": { "type": "card", "settings": { "text": "Honestly Texas farmers work to reduce the water used to grow rice, and in the off season promote wildlife habitat." } },
+        "c3": { "type": "card", "settings": { "text": "Honestly Texas growers are in Texas. The rice is dried, milled, and packaged in Texas. We are Honestly Texas." } }
+      },
+      "block_order": ["c1", "c2", "c3"],
+      "settings": {}
     },
-    "roots": {
-      "type": "ht-split",
-      "settings": {
-        "scheme": "wheat",
-        "fallback": "ht-grower",
-        "fallback_alt": "A Texas rice grower standing beside his combine",
-        "ratio": "4/3",
-        "caption": "Real Texas growers. Real Texas roots.",
-        "eyebrow": "Our Texas roots / Brookshire, TX",
-        "heading": "Texas grown.\nBrookshire milled.",
-        "text": "<p>Our rice starts on Texas farms and is dried, milled and packed in Brookshire. Get to know the people and place behind every bag.</p><p>Our growers reuse rainwater and leave winter habitat for migrating waterfowl. Care that carries from field to table.</p>",
-        "button_label": "Meet our growers",
-        "button_link": "shopify://pages/about-us"
-      }
+    "multis": {
+      "type": "o1-products",
+      "blocks": {
+        "jasmine": { "type": "product", "settings": { "product": "long-grain-jasmine-rice-2-lbs-pack-of-3", "label": "Jasmine", "color": "#512474", "text_color": "#fffde9", "builtin": "ht-o1-multi-jasmine" } },
+        "variety": { "type": "product", "settings": { "product": "rice-variety-bundle-6-lbs-total-enriched-white-rice-brown-rice-jasmine-rice", "label": "Variety\nPack", "color": "#003da6", "text_color": "#fffde9", "builtin": "ht-o1-multi-variety" } },
+        "brown": { "type": "product", "settings": { "product": "long-grain-brown-rice-2-lbs-pack-of-3", "label": "Long\nGrain\nBrown", "color": "#9b6811", "text_color": "#fffde9", "builtin": "ht-o1-multi-brown" } }
+      },
+      "block_order": ["jasmine", "variety", "brown"],
+      "settings": { "layout": "multis", "title": "Shop our multi packs", "text": "Stock the pantry with three 2 lb bags of your favorite, or try all three varieties in one pack.", "show_star": true }
     },
     "recipes": {
-      "type": "ht-recipes",
+      "type": "o1-recipes",
       "blocks": {
-        "feature": { "type": "feature", "settings": { "eyebrow": "With long-grain white rice", "title": "Chipotle chicken & rice quesadillas", "text": "A little rice. A very good dinner.", "product": "enriched-long-grain-white-rice-2lb", "button_label": "Shop white rice", "recipe_url": "https://www.usarice.com/thinkrice/recipes", "recipe_label": "Recipe at USA Rice" } },
-        "soup": { "type": "recipe", "settings": { "fallback": "ht-recipe-soup", "title": "Spicy chicken & rice soup", "text": "With brown rice", "recipe_url": "https://www.usarice.com/thinkrice/recipes", "recipe_label": "USA Rice recipe" } },
-        "champorado": { "type": "recipe", "settings": { "fallback": "ht-recipe-champorado", "title": "Vegan champorado", "text": "Jasmine + glutinous rice", "recipe_url": "https://www.usarice.com/thinkrice/recipes", "recipe_label": "USA Rice recipe" } }
+        "r1": { "type": "recipe", "settings": { "name": "Chipotle Chicken and Rice Quesadillas", "label": "Ft.\nLong Grain\nWhite Rice", "builtin": "ht-o1-recipe-quesadilla", "url": "https://www.usarice.com/thinkrice/recipes/chipotle-chicken-and-rice-quesadillas" } },
+        "r2": { "type": "recipe", "settings": { "name": "Spicy Bone Broth, Chicken & Rice Soup", "label": "Ft.\nBrown\nRice", "builtin": "ht-o1-recipe-soup", "url": "https://www.usarice.com/thinkrice/recipes/spicy-bone-broth-chicken-rice-soup" } },
+        "r3": { "type": "recipe", "settings": { "name": "Vegan Champorado", "label": "Ft.\nJasmine\nRice", "builtin": "ht-o1-recipe-champorado", "url": "https://www.usarice.com/thinkrice/recipes/vegan-champorado" } }
       },
-      "block_order": ["feature", "soup", "champorado"],
-      "settings": {
-        "scheme": "cream",
-        "eyebrow": "Start with rice. Make it yours.",
-        "heading": "Tonight starts with rice.",
-        "more_label": "More recipes at USA Rice",
-        "more_url": "https://www.usarice.com/thinkrice/recipes"
-      }
+      "block_order": ["r1", "r2", "r3"],
+      "settings": { "title": "Whats for dinner tonight?", "more_label": "Find more delicious recipes at USARice.com", "more_url": "https://www.usarice.com/thinkrice/recipes" }
     },
-    "find_store": {
-      "type": "ht-find-store",
-      "settings": { "heading": "A little Texas, closer to home.", "text": "Find Honestly Texas at a store near you.", "button_label": "Find a store", "button_link": "shopify://pages/contact" }
-    },
-    "newsletter": {
-      "type": "ht-newsletter",
-      "settings": {
-        "scheme": "yellow",
-        "heading": "Good things\nare growing.",
-        "text": "Recipes, rice stories and a little news from home. Straight to your inbox.",
-        "button_label": "Sign me up",
-        "consent": "By signing up, you agree to receive emails from Honestly Texas. Unsubscribe anytime."
-      }
+    "farmers": { "type": "o1-farmers", "settings": { "title": "From our Farmers\nto your family" } },
+    "feature": { "type": "o1-feature", "settings": { "title": "Good rice.\nEvery day.", "text": "<p>From a quick weeknight side to the main event, Honestly Texas rice cooks up light, fluffy and full of flavor.</p>" } },
+    "socials": {
+      "type": "o1-socials",
+      "blocks": { "p1": { "type": "post", "settings": {} }, "p2": { "type": "post", "settings": {} }, "p3": { "type": "post", "settings": {} }, "p4": { "type": "post", "settings": {} }, "p5": { "type": "post", "settings": {} } },
+      "block_order": ["p1", "p2", "p3", "p4", "p5"],
+      "settings": { "title": "Recently on socials", "handle": "@HonestlyTexas" }
     }
   },
-  "order": ["hero", "varieties", "bundle", "roots", "recipes", "find_store", "newsletter"]
+  "order": ["hero", "singles", "values", "multis", "recipes", "farmers", "feature", "socials"]
 }
