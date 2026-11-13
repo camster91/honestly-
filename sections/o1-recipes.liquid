@@ -1,6 +1,6 @@
 <section class="o1 o1-recipes" aria-labelledby="Rec-{{ section.id }}">
   <div class="o1__canvas">
-    <h2 class="o1-title" id="Rec-{{ section.id }}">{{ section.settings.title }}</h2>
+    <h2 class="o1-title" id="Rec-{{ section.id }}">{{ section.settings.title | newline_to_br }}</h2>
     {%- for block in section.blocks -%}
       <a class="o1-recipe reveal" href="{{ block.settings.url | default: section.settings.more_url }}" target="_blank" rel="noopener" {{ block.shopify_attributes }}>
         <span class="o1-recipe__img">

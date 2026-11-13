@@ -1,8 +1,10 @@
 <section class="o1 o1-land" aria-labelledby="Land-{{ section.id }}">
   <div class="o1__canvas">
     {%- if section.settings.eyebrow != blank -%}<p class="o1__abs o1-land__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-    <h2 class="o1__abs hh o1-land__title" id="Land-{{ section.id }}">{{ section.settings.title }}</h2>
-    <div class="o1__abs o1-land__text">{{ section.settings.text }}</div>
+    <div class="o1__abs o1-land__copy">
+      <h2 class="hh o1-land__title" id="Land-{{ section.id }}">{{ section.settings.title }}</h2>
+      <div class="o1-land__text">{{ section.settings.text }}</div>
+    </div>
     <div class="o1__abs o1-land__img reveal">
       {%- if section.settings.image != blank -%}
         {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '700, 1000, 1400', sizes: '(min-width: 750px) 45vw, 90vw', alt: section.settings.image.alt | escape }}

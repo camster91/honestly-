@@ -27,7 +27,7 @@
 
     <div class="o1-pdp__main" style="--card: {{ section.settings.main_color }};">
       {%- if first -%}
-        <img data-gallery-main{% if first.aspect_ratio < 1.25 %} class="is-photo"{% endif %}
+        <img data-gallery-main
           src="{{ first | image_url: width: 1400 }}"
           srcset="{{ first | image_url: width: 700 }} 700w, {{ first | image_url: width: 1000 }} 1000w, {{ first | image_url: width: 1400 }} 1400w"
           sizes="(min-width: 750px) 47vw, 90vw" width="{{ first.preview_image.width }}" height="{{ first.preview_image.height }}" fetchpriority="high"
