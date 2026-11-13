@@ -13,192 +13,172 @@
   if t contains 'pack of' or t contains 'multipack'
     assign is_multi = true
   endif
+  assign first = current_variant.featured_media | default: product.featured_media
 -%}
-{%- capture bg -%}{% render 'variety-color', title: product.title %}{%- endcapture -%}
-
-<section class="pdp" data-product>
-  <div class="page-width">
+<section class="o1-pdp" data-product>
+  <div class="o1-pdp__canvas" data-gallery>
     <nav aria-label="Breadcrumb">
-      <ol class="breadcrumbs">
+      <ol class="o1-pdp__crumbs" style="list-style:none;margin:0;padding:0">
         <li><a href="{{ routes.all_products_collection_url }}">Shop all</a></li>
-        {%- if collection -%}<li><a href="{{ collection.url }}">{{ collection.title }}</a></li>{%- endif -%}
+        <li aria-hidden="true">/</li>
         <li aria-current="page">{{ product.title }}</li>
       </ol>
     </nav>
 
-    <div class="pdp__grid">
-      <div class="pdp__gallery" data-gallery style="--card-bg: {{ bg | strip }};">
-        {%- assign first = current_variant.featured_media | default: product.featured_media -%}
-        <div class="pdp__main-media">
-          {%- if first -%}
-            <img data-gallery-main{% if first.aspect_ratio < 1.25 %} class="is-photo"{% endif %}
-              src="{{ first | image_url: width: 1200 }}"
-              srcset="{{ first | image_url: width: 600 }} 600w, {{ first | image_url: width: 900 }} 900w, {{ first | image_url: width: 1200 }} 1200w, {{ first | image_url: width: 1600 }} 1600w"
-              sizes="(min-width: 990px) 55vw, 100vw" width="{{ first.preview_image.width }}" height="{{ first.preview_image.height }}" fetchpriority="high"
-              alt="{{ first.alt | default: product.title | escape }}">
-          {%- else -%}
-            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-          {%- endif -%}
-        </div>
-        {%- if product.media.size > 1 -%}
-          <ul class="pdp__thumbs" aria-label="Product images">
-            {%- for media in product.media -%}
-              {%- if media.media_type == 'image' -%}
-                <li>
-                  <button type="button" class="pdp__thumb" data-gallery-thumb
-                    data-src="{{ media | image_url: width: 1200 }}"
-                    data-srcset="{{ media | image_url: width: 600 }} 600w, {{ media | image_url: width: 1200 }} 1200w"
-                    data-alt="{{ media.alt | default: product.title | escape }}"
-                    {% if media.aspect_ratio < 1.25 %}data-photo{% endif %}
-                    aria-current="{% if media.id == first.id %}true{% else %}false{% endif %}"
-                    aria-label="Show image {{ forloop.index }}">
-                    {{ media | image_url: width: 240 | image_tag: loading: 'lazy', alt: '' }}
-                  </button>
-                </li>
-              {%- endif -%}
-            {%- endfor -%}
-          </ul>
-        {%- endif -%}
-      </div>
+    <div class="o1-pdp__main" style="--card: {{ section.settings.main_color }};">
+      {%- if first -%}
+        <img data-gallery-main{% if first.aspect_ratio < 1.25 %} class="is-photo"{% endif %}
+          src="{{ first | image_url: width: 1400 }}"
+          srcset="{{ first | image_url: width: 700 }} 700w, {{ first | image_url: width: 1000 }} 1000w, {{ first | image_url: width: 1400 }} 1400w"
+          sizes="(min-width: 750px) 47vw, 90vw" width="{{ first.preview_image.width }}" height="{{ first.preview_image.height }}" fetchpriority="high"
+          alt="{{ first.alt | default: product.title | escape }}">
+      {%- endif -%}
+    </div>
 
-      <div class="pdp__info">
-        {%- for block in section.blocks -%}
-          {%- case block.type -%}
-            {%- when 'vendor' -%}
-              <p class="pdp__vendor" {{ block.shopify_attributes }}>{{ block.settings.text | default: product.vendor }}</p>
-            {%- when 'title' -%}
-              <h1 class="pdp__title" {{ block.shopify_attributes }}>{{ product.title }}</h1>
-            {%- when 'price' -%}
-              <div {{ block.shopify_attributes }}>
-                <p class="pdp__price" data-price>
-                  {{ current_variant.price | money }}
-                  {%- if current_variant.compare_at_price > current_variant.price -%}<s>{{ current_variant.compare_at_price | money }}</s>{%- endif -%}
-                </p>
-                {%- if current_variant.unit_price_measurement -%}
-                  <p class="pdp__unit">{{ current_variant.unit_price | money }} / {% if current_variant.unit_price_measurement.reference_value != 1 %}{{ current_variant.unit_price_measurement.reference_value }}{% endif %}{{ current_variant.unit_price_measurement.reference_unit }}</p>
-                {%- endif -%}
-              </div>
-            {%- when 'summary' -%}
-              {%- assign summary = product.metafields.custom.summary.value | default: block.settings.text -%}
-              {%- if summary != blank -%}<div class="pdp__summary" {{ block.shopify_attributes }}>{{ summary }}</div>{%- endif -%}
-            {%- when 'pack_switch' -%}
-              {%- if variety != blank -%}
-                {%- liquid
-                  assign single = nil
-                  assign multi = nil
-                  for p in collections.all.products
-                    assign pt = p.title | downcase
-                    if pt contains variety and p.available
-                      if pt contains 'pack of' or pt contains 'multipack'
-                        if multi == nil
-                          assign multi = p
-                        endif
-                      elsif pt contains 'bundle' or pt contains 'variety' or pt contains '25 lb' or pt contains '1 lb'
-                      else
-                        if single == nil
-                          assign single = p
-                        endif
-                      endif
-                    endif
-                  endfor
-                -%}
-                {%- if single and multi -%}
-                  <div {{ block.shopify_attributes }}>
-                    <span class="pdp__label">{{ block.settings.label }}</span>
-                    <div class="pack-switch">
-                      <a href="{{ single.url }}"{% unless is_multi %} aria-current="true"{% endunless %}>Single bag <small>{{ single.price | money }}</small></a>
-                      <a href="{{ multi.url }}"{% if is_multi %} aria-current="true"{% endif %}>Multipack <small>{{ multi.price | money }}</small></a>
-                    </div>
-                  </div>
-                {%- endif -%}
-              {%- endif -%}
-            {%- when 'buy' -%}
-              <div {{ block.shopify_attributes }}>
-                {%- form 'product', product, data-product-form: '', novalidate: 'novalidate' -%}
-                  <input type="hidden" name="id" value="{{ current_variant.id }}">
-                  {%- unless product.has_only_default_variant -%}
-                    <div data-variant-picker>
-                      {%- for option in product.options_with_values -%}
-                        <fieldset style="border: 0; padding: 0; margin: 0 0 20px;">
-                          <legend class="pdp__label">{{ option.name }}</legend>
-                          <div class="pack-switch">
-                            {%- for value in option.values -%}
-                              <input type="radio" id="Opt-{{ section.id }}-{{ forloop.parentloop.index }}-{{ forloop.index }}" name="option-{{ forloop.parentloop.index }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %}>
-                              <label for="Opt-{{ section.id }}-{{ forloop.parentloop.index }}-{{ forloop.index }}">{{ value }}</label>
-                            {%- endfor -%}
-                          </div>
-                        </fieldset>
-                      {%- endfor -%}
-                    </div>
-                  {%- endunless -%}
-                  <div class="pdp__buy">
-                    <div class="qty">
-                      <button type="button" data-qty-step="-1" aria-label="Decrease quantity">−</button>
-                      <label class="visually-hidden" for="Qty-{{ section.id }}">Quantity</label>
-                      <input id="Qty-{{ section.id }}" type="number" name="quantity" value="1" min="1" inputmode="numeric">
-                      <button type="button" data-qty-step="1" aria-label="Increase quantity">+</button>
-                    </div>
-                    <button type="submit" class="btn btn--red" data-add-button data-label="{{ block.settings.label | escape }}" {% unless current_variant.available %}disabled{% endunless %}>
-                      {%- if current_variant.available -%}{{ block.settings.label }}{%- else -%}Sold out{%- endif -%}
-                    </button>
-                  </div>
-                  <p class="pdp__error" data-form-error role="alert"></p>
-                  {%- if block.settings.show_dynamic_checkout -%}{{ form | payment_button }}{%- endif -%}
-                {%- endform -%}
-                {%- if block.settings.note != blank -%}<p class="pdp__note">{{ block.settings.note }}</p>{%- endif -%}
-              </div>
-            {%- when 'trust' -%}
-              <ul class="pdp__trust" {{ block.shopify_attributes }}>
-                {%- assign items = block.settings.items | split: ',' -%}
-                {%- for i in items -%}<li>{{ i | strip }}</li>{%- endfor -%}
-              </ul>
-            {%- when 'description' -%}
-              {%- if product.description != blank -%}<div class="pdp__desc rte" {{ block.shopify_attributes }}>{{ product.description }}</div>{%- endif -%}
-            {%- when 'collapsible' -%}
-              <div class="pdp__details" {{ block.shopify_attributes }}>
-                <details>
-                  <summary>{{ block.settings.heading }}</summary>
-                  <div class="rte">{{ block.settings.content }}{{ block.settings.page.content }}</div>
-                </details>
-              </div>
-          {%- endcase -%}
+    {%- if product.media.size > 1 -%}
+      <ul class="o1-pdp__thumbs" aria-label="Product images">
+        {%- for media in product.media limit: 3 -%}
+          <li>
+            <button type="button" class="o1-pdp__thumb" data-gallery-thumb
+              data-src="{{ media | image_url: width: 1400 }}"
+              data-srcset="{{ media | image_url: width: 700 }} 700w, {{ media | image_url: width: 1400 }} 1400w"
+              data-alt="{{ media.alt | default: product.title | escape }}"
+              {% if media.aspect_ratio < 1.25 %}data-photo{% endif %}
+              aria-current="{% if media.id == first.id %}true{% else %}false{% endif %}"
+              aria-label="Show image {{ forloop.index }}">
+              {{ media | image_url: width: 420 | image_tag: loading: 'lazy', alt: '' }}
+            </button>
+          </li>
         {%- endfor -%}
-      </div>
+      </ul>
+    {%- endif -%}
+
+    <div class="o1-pdp__info">
+      <p class="o1-pdp__vendor">{{ section.settings.vendor_text | default: product.vendor }}</p>
+      <h1 class="hh o1-pdp__title">{{ product.title }}</h1>
+      <p class="o1-pdp__price" data-price>
+        {{ current_variant.price | money }}
+        {%- if current_variant.compare_at_price > current_variant.price -%}<s>{{ current_variant.compare_at_price | money }}</s>{%- endif -%}
+      </p>
+      {%- assign summary = product.metafields.custom.summary.value | default: section.settings.summary -%}
+      {%- if summary != blank -%}<p class="o1-pdp__summary">{{ summary }}</p>{%- endif -%}
+      <div class="o1-pdp__rule"></div>
+
+      {%- form 'product', product, data-product-form: '', novalidate: 'novalidate' -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+        {%- if product.has_only_default_variant -%}
+          {%- if variety != blank -%}
+            {%- liquid
+              assign single = nil
+              assign multi = nil
+              for p in collections.all.products
+                assign pt = p.title | downcase
+                if pt contains variety and p.available
+                  if pt contains 'pack of' or pt contains 'multipack'
+                    if multi == nil
+                      assign multi = p
+                    endif
+                  elsif pt contains 'bundle' or pt contains 'variety' or pt contains '25 lb' or pt contains '1 lb'
+                    continue
+                  else
+                    if single == nil
+                      assign single = p
+                    endif
+                  endif
+                endif
+              endfor
+            -%}
+            {%- if single and multi -%}
+              <span class="o1-pdp__label">Choose your pack</span>
+              <div class="o1-pdp__packs">
+                <a class="o1-pdp__pack" href="{{ single.url }}"{% unless is_multi %} aria-current="true"{% endunless %}>Single bag <small>{{ single.price | money }}</small></a>
+                <a class="o1-pdp__pack" href="{{ multi.url }}"{% if is_multi %} aria-current="true"{% endif %}>Multipack <small>{{ multi.price | money }}</small></a>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- else -%}
+          <div data-variant-picker>
+            {%- for option in product.options_with_values -%}
+              <fieldset style="border:0;padding:0;margin:0 0 18px">
+                <legend class="o1-pdp__label">{{ option.name }}</legend>
+                <div class="o1-pdp__packs" style="flex-wrap:wrap">
+                  {%- for value in option.values -%}
+                    <input type="radio" id="Opt-{{ forloop.parentloop.index }}-{{ forloop.index }}" name="option-{{ forloop.parentloop.index }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %}>
+                    <label class="o1-pdp__pack" for="Opt-{{ forloop.parentloop.index }}-{{ forloop.index }}">{{ value }}</label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.note != blank -%}<p class="o1-pdp__note">{{ section.settings.note }}</p>{%- endif -%}
+        <div class="o1-pdp__buy">
+          <div class="o1-qty">
+            <button type="button" data-qty-step="-1" aria-label="Decrease quantity">−</button>
+            <label class="visually-hidden" for="Qty">Quantity</label>
+            <input id="Qty" type="number" name="quantity" value="1" min="1" inputmode="numeric">
+            <button type="button" data-qty-step="1" aria-label="Increase quantity">+</button>
+          </div>
+          <button type="submit" class="pill o1-pdp__add" data-add-button data-label="Add to bag &nbsp;→" {% unless current_variant.available %}disabled{% endunless %}>
+            {%- if current_variant.available -%}ADD TO BAG &nbsp;→{%- else -%}SOLD OUT{%- endif -%}
+          </button>
+        </div>
+        <p class="o1-pdp__error" data-form-error role="alert"></p>
+      {%- endform -%}
+      {%- if section.settings.shipping != blank -%}<p class="o1-pdp__ship">{{ section.settings.shipping }}</p>{%- endif -%}
+      <ul class="o1-pdp__trust">
+        {%- assign items = section.settings.trust | split: ',' -%}
+        {%- for i in items -%}<li>{{ i | strip }}</li>{%- endfor -%}
+      </ul>
     </div>
   </div>
+
+  {%- if product.description != blank -%}
+    <div class="o1-pdp__desc">
+      <div class="o1-pdp__desc-rule"></div>
+      <h2>{{ section.settings.desc_title }}</h2>
+      <div class="rte">{{ product.description }}</div>
+    </div>
+  {%- endif -%}
+
   <script type="application/json" data-variants-json>
-    [{%- for v in product.variants -%}{"id":{{ v.id }},"options":{{ v.options | json }},"available":{{ v.available | json }},"price":{{ v.price | json }},"compare_at_price":{{ v.compare_at_price | default: 0 | json }},"featured_image":{% if v.featured_image %}{"src":{{ v.featured_image | image_url: width: 1200 | json }}}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
+    [{%- for v in product.variants -%}{"id":{{ v.id }},"options":{{ v.options | json }},"available":{{ v.available | json }},"price":{{ v.price | json }},"compare_at_price":{{ v.compare_at_price | default: 0 | json }},"featured_image":{% if v.featured_image %}{"src":{{ v.featured_image | image_url: width: 1400 | json }}}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
   </script>
+</section>
+
+<section class="o1 o1-dinner" aria-labelledby="Dinner-{{ section.id }}">
+  <div class="o1__canvas">
+    <div class="o1__abs o1-dinner__img">
+      {%- if section.settings.dinner_image != blank -%}
+        {{ section.settings.dinner_image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: section.settings.dinner_image.alt | escape }}
+      {%- else -%}
+        <img src="{{ 'ht-o1-curry.webp' | asset_url }}" alt="A rice dinner ready to serve" width="1400" height="1050" loading="lazy">
+      {%- endif -%}
+    </div>
+    <h2 class="o1__abs o1-dinner__title" id="Dinner-{{ section.id }}">{{ section.settings.dinner_title }}</h2>
+    <p class="o1__abs o1-dinner__text">{{ section.settings.dinner_text }}</p>
+    <a class="o1__abs pill o1-dinner__btn" href="{{ section.settings.dinner_url }}" target="_blank" rel="noopener">{{ section.settings.dinner_button }}</a>
+  </div>
 </section>
 
 {% schema %}
 {
-  "name": "Product information",
+  "name": "Product page",
   "class": "section-main-product",
-  "blocks": [
-    { "type": "vendor", "name": "Brand line", "limit": 1, "settings": [ { "type": "text", "id": "text", "label": "Text", "default": "Honestly Texas Rice" } ] },
-    { "type": "title", "name": "Title", "limit": 1 },
-    { "type": "price", "name": "Price", "limit": 1 },
-    { "type": "summary", "name": "Summary", "limit": 1, "settings": [
-      { "type": "text", "id": "text", "label": "Fallback text", "default": "An everyday classic, straight from our Texas farms.", "info": "Use the product metafield custom.summary for per-product text." }
-    ] },
-    { "type": "pack_switch", "name": "Single / multipack switch", "limit": 1, "settings": [
-      { "type": "text", "id": "label", "label": "Label", "default": "Choose your pack" }
-    ] },
-    { "type": "buy", "name": "Buy buttons", "limit": 1, "settings": [
-      { "type": "text", "id": "label", "label": "Button label", "default": "Add to bag →" },
-      { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show dynamic checkout buttons", "default": false },
-      { "type": "text", "id": "note", "label": "Note", "default": "Shipping rates calculated at checkout." }
-    ] },
-    { "type": "trust", "name": "Trust line", "limit": 1, "settings": [
-      { "type": "text", "id": "items", "label": "Items (comma separated)", "default": "Grown in Texas, Milled in Texas, Packed in Texas" }
-    ] },
-    { "type": "description", "name": "Description", "limit": 1 },
-    { "type": "collapsible", "name": "Collapsible tab", "settings": [
-      { "type": "text", "id": "heading", "label": "Heading", "default": "Cooking & storage" },
-      { "type": "richtext", "id": "content", "label": "Content" },
-      { "type": "page", "id": "page", "label": "Content from page" }
-    ] }
+  "settings": [
+    { "type": "color", "id": "main_color", "label": "Main image backdrop", "default": "#fff0a4" },
+    { "type": "text", "id": "vendor_text", "label": "Brand line", "default": "Honestly Texas Rice" },
+    { "type": "text", "id": "summary", "label": "Summary (fallback)", "default": "An everyday classic, straight from our Texas farms.", "info": "Use the product metafield custom.summary for per-product text." },
+    { "type": "text", "id": "note", "label": "Note under pack choice" },
+    { "type": "text", "id": "shipping", "label": "Shipping note", "default": "Shipping rates calculated at checkout." },
+    { "type": "text", "id": "trust", "label": "Trust line (comma separated)", "default": "Grown in Texas, Milled in Texas, Packed in Texas" },
+    { "type": "text", "id": "desc_title", "label": "Description heading", "default": "Grown with care" },
+    { "type": "header", "content": "What's for dinner" },
+    { "type": "image_picker", "id": "dinner_image", "label": "Image" },
+    { "type": "text", "id": "dinner_title", "label": "Heading", "default": "What’s for dinner?" },
+    { "type": "textarea", "id": "dinner_text", "label": "Text", "default": "From simple sides to the main event, this rice is ready for whatever is on your menu." },
+    { "type": "text", "id": "dinner_button", "label": "Button label", "default": "EXPLORE RECIPES  →" },
+    { "type": "text", "id": "dinner_url", "label": "Button link", "default": "https://www.usarice.com/thinkrice/recipes" }
   ]
 }
 {% endschema %}

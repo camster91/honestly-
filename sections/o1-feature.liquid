@@ -1,0 +1,26 @@
+<section class="o1 o1-feature" aria-labelledby="Feat-{{ section.id }}">
+  <div class="o1__canvas">
+    <div class="o1__abs o1-feature__img reveal">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 1000, 1400', sizes: '(min-width: 750px) 47vw, 90vw', alt: section.settings.image.alt | escape }}
+      {%- else -%}
+        <img src="{{ 'ht-o1-curry.webp' | asset_url }}" alt="Curry served over Honestly Texas rice" width="1400" height="1050" loading="lazy">
+      {%- endif -%}
+    </div>
+    <h2 class="o1__abs hh o1-feature__title" id="Feat-{{ section.id }}">{{ section.settings.title | newline_to_br }}</h2>
+    <div class="o1__abs o1-feature__text">{{ section.settings.text }}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image + text (red)",
+  "class": "section-o1-feature",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "textarea", "id": "title", "label": "Heading", "default": "Good rice.\nEvery day." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>From a quick weeknight side to the main event, Honestly Texas rice cooks up light, fluffy and full of flavor. Grown, dried, milled and packed right here in Texas.</p>" }
+  ],
+  "presets": [{ "name": "Image + text (red)" }]
+}
+{% endschema %}

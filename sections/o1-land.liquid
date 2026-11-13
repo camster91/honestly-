@@ -1,0 +1,28 @@
+<section class="o1 o1-land" aria-labelledby="Land-{{ section.id }}">
+  <div class="o1__canvas">
+    {%- if section.settings.eyebrow != blank -%}<p class="o1__abs o1-land__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h2 class="o1__abs hh o1-land__title" id="Land-{{ section.id }}">{{ section.settings.title }}</h2>
+    <div class="o1__abs o1-land__text">{{ section.settings.text }}</div>
+    <div class="o1__abs o1-land__img reveal">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '700, 1000, 1400', sizes: '(min-width: 750px) 45vw, 90vw', alt: section.settings.image.alt | escape }}
+      {%- else -%}
+        <img src="{{ 'ht-o1-field-wide.webp' | asset_url }}" alt="A Texas rice field at sunset" width="2072" height="759" loading="lazy">
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Land",
+  "class": "section-o1-land",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "02 / THE LAND" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "A TEXAS HARVEST" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Our rice grows in the Texas Gulf Coast, where long summers, rich soil and careful water management make for a great crop.</p><p>Our growers reuse rainwater, and in the off season they leave the fields as winter habitat for migrating waterfowl. After harvest the rice is dried, milled and packed in Brookshire, so it never leaves Texas until it heads to your table.</p>" },
+    { "type": "image_picker", "id": "image", "label": "Image" }
+  ],
+  "presets": [{ "name": "Land" }]
+}
+{% endschema %}

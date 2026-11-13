@@ -1,6 +1,6 @@
-<section class="section">
-  <div class="page-width">
-    <h1 class="h-display h-display--sm" style="margin-bottom: 40px;">Your bag</h1>
+<section class="o1-page">
+  <div class="o1-page__inner">
+    <h1 class="hh o1-page__title" style="margin-bottom: 40px;">Your bag</h1>
     {%- if cart.item_count > 0 -%}
       <form action="{{ routes.cart_url }}" method="post" class="cart-page__grid">
         <div>
@@ -13,7 +13,7 @@
                 <p class="cart-item__meta">{{ item.final_price | money }} each</p>
               </div>
               <div class="cart-item__row">
-                <div class="field" style="flex: none; width: 120px;">
+                <div class="o1-field" style="flex: none; width: 120px;">
                   <label for="Updates-{{ forloop.index }}">Quantity</label>
                   <input id="Updates-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0">
                 </div>
@@ -22,25 +22,25 @@
               </div>
             </div>
           {%- endfor -%}
-          <button type="submit" name="update" class="btn btn--outline" style="margin-top: 24px;">Update bag</button>
+          <button type="submit" name="update" class="pill o1-btn-blue" style="margin-top: 24px;">Update bag</button>
         </div>
         <aside class="cart-page__summary" aria-label="Order summary">
           <div class="drawer__subtotal"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></div>
           <p class="pdp__note" style="margin-top: 12px;">Shipping and taxes calculated at checkout.</p>
           {%- if section.settings.show_note -%}
-            <div class="field cart-page__note" style="margin-top: 16px;">
+            <div class="o1-field" style="margin-top: 16px;">
               <label for="CartNote">Order note</label>
               <textarea id="CartNote" name="note">{{ cart.note }}</textarea>
             </div>
           {%- endif -%}
-          <button type="submit" name="checkout" class="btn btn--primary">Checkout {% render 'icon', name: 'arrow' %}</button>
+          <button type="submit" name="checkout" class="pill o1-btn-blue">Checkout &nbsp;→</button>
           {%- if additional_checkout_buttons -%}<div style="margin-top: 12px;">{{ content_for_additional_checkout_buttons }}</div>{%- endif -%}
         </aside>
       </form>
     {%- else -%}
       <div class="empty-state" style="text-align: left; padding-top: 0;">
         <p class="body-lg" style="margin-bottom: 24px;">Your bag is empty. Start with a 2 lb bag of the rice you love.</p>
-        <a class="btn btn--primary" href="{{ routes.all_products_collection_url }}">Shop all rice {% render 'icon', name: 'arrow' %}</a>
+        <a class="pill o1-btn-blue" href="{{ routes.all_products_collection_url }}">Shop all rice &nbsp;→</a>
       </div>
     {%- endif -%}
   </div>

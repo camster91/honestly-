@@ -1,60 +1,45 @@
 <footer class="site-footer">
-  <div class="page-width">
-    <div class="site-footer__top">
-      <div class="site-footer__brand">
-        <a href="{{ routes.root_url }}" class="site-footer__logo"><img src="{{ 'ht-logo.svg' | asset_url }}" alt="{{ shop.name | escape }}" width="140" height="80" loading="lazy"></a>
-        {%- if section.settings.tagline != blank -%}<p class="site-footer__tag">{{ section.settings.tagline | newline_to_br }}</p>{%- endif -%}
-        {%- liquid
-          assign has_social = false
-          if settings.social_instagram != blank or settings.social_facebook != blank or settings.social_tiktok != blank
-            assign has_social = true
-          endif
-        -%}
-        {%- if has_social -%}
-          <div class="site-footer__social">
-            {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{% render 'icon', name: 'instagram' %}</a>{%- endif -%}
-            {%- if settings.social_facebook != blank -%}<a href="{{ settings.social_facebook }}" target="_blank" rel="noopener" aria-label="Facebook">{% render 'icon', name: 'facebook' %}</a>{%- endif -%}
-            {%- if settings.social_tiktok != blank -%}<a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener" aria-label="TikTok">{% render 'icon', name: 'tiktok' %}</a>{%- endif -%}
-          </div>
+  {%- if section.settings.show_band -%}{% render 'band' %}{%- endif -%}
+  <div class="o1 o1-footer">
+    <div class="o1__canvas">
+      <img class="o1__abs o1-footer__made" src="{{ 'ht-texas-made.svg' | asset_url }}" alt="Texas Made" width="144" height="187" loading="lazy">
+      <ul class="o1__abs o1-footer__links">
+        {%- assign menu = linklists[section.settings.menu] -%}
+        {%- if menu.links.size > 0 -%}
+          {%- for link in menu.links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}
+        {%- else -%}
+          <li><a href="{{ routes.all_products_collection_url }}">Our Rice</a></li>
+          <li><a href="/pages/about-us">About</a></li>
+          <li><a href="/pages/frequently-asked-questions">FAQ</a></li>
+          <li><a href="/pages/contact">Contact</a></li>
         {%- endif -%}
-      </div>
-
-      {%- for block in section.blocks -%}
-        {%- assign menu = linklists[block.settings.menu] -%}
-        <nav {{ block.shopify_attributes }} aria-label="{{ block.settings.heading | escape }}">
-          <p class="site-footer__heading">{{ block.settings.heading }}</p>
-          <ul class="site-footer__links">
-            {%- if menu.links.size > 0 -%}
-              {%- for link in menu.links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}
-            {%- elsif forloop.first -%}
-              <li><a href="{{ routes.all_products_collection_url }}">Shop rice</a></li>
-              <li><a href="/pages/about-us">Our story</a></li>
-              <li><a href="https://www.usarice.com/thinkrice/recipes" target="_blank" rel="noopener">Recipes</a></li>
-              <li><a href="#find-a-store">Find a store</a></li>
-            {%- else -%}
-              <li><a href="/pages/frequently-asked-questions">FAQ</a></li>
-              <li><a href="/pages/contact">Contact</a></li>
-              <li><a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">Shipping &amp; returns</a></li>
-            {%- endif -%}
-          </ul>
-        </nav>
-      {%- endfor -%}
-    </div>
-
-    <hr class="site-footer__divider">
-
-    <div class="site-footer__legal">
-      <p>&copy; {{ 'now' | date: '%Y' }} {{ section.settings.copyright | default: shop.name }}</p>
-      <ul>
-        {%- if shop.privacy_policy -%}<li><a href="{{ shop.privacy_policy.url }}">Privacy policy</a></li>{%- endif -%}
-        {%- if shop.terms_of_service -%}<li><a href="{{ shop.terms_of_service.url }}">Terms of service</a></li>{%- endif -%}
-        {%- if shop.refund_policy -%}<li><a href="{{ shop.refund_policy.url }}">Refund policy</a></li>{%- endif -%}
       </ul>
+      <img class="o1__abs o1-footer__seal" src="{{ 'ht-seal.svg' | asset_url }}" alt="Texas Rice Milling, Brookshire, TX" width="209" height="209" loading="lazy">
+      {%- if section.settings.text_1 != blank -%}<p class="o1__abs o1-footer__copy o1-footer__copy--1">{{ section.settings.text_1 }}</p>{%- endif -%}
+      <div class="o1__abs o1-footer__form">
+        {%- form 'customer', id: 'FooterNewsletter' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="o1-footer__field">
+            <label class="visually-hidden" for="FooterEmail">Your email</label>
+            <input id="FooterEmail" type="email" name="contact[email]" placeholder="Your email" autocomplete="email" required{% if form.errors %} aria-invalid="true" aria-describedby="FooterMsg"{% endif %}>
+            <button type="submit" aria-label="Sign up">&gt;</button>
+          </div>
+          {%- if form.posted_successfully? -%}
+            <p class="o1-footer__msg" id="FooterMsg" role="status">{{ section.settings.success }}</p>
+          {%- elsif form.errors -%}
+            <p class="o1-footer__msg o1-footer__msg--error" id="FooterMsg" role="alert">Please enter a valid email address.</p>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+      {%- if section.settings.text_2 != blank -%}<p class="o1__abs o1-footer__copy o1-footer__copy--2">{{ section.settings.text_2 }}</p>{%- endif -%}
+      <div class="o1__abs o1-footer__legal">
+        <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
+        {%- if shop.privacy_policy -%}<a href="{{ shop.privacy_policy.url }}">Privacy</a>{%- endif -%}
+        {%- if shop.terms_of_service -%}<a href="{{ shop.terms_of_service.url }}">Terms</a>{%- endif -%}
+        {%- if shop.refund_policy -%}<a href="{{ shop.refund_policy.url }}">Refunds</a>{%- endif -%}
+      </div>
+      <img class="o1__abs o1-footer__wordmark" src="{{ 'ht-wordmark-3d.svg' | asset_url }}" alt="" width="1363" height="358" loading="lazy">
     </div>
-
-    {%- if section.settings.show_wordmark -%}
-      <div class="site-footer__wordmark"><img src="{{ 'ht-wordmark.svg' | asset_url }}" alt="" width="1296" height="339" loading="lazy"></div>
-    {%- endif -%}
   </div>
 </footer>
 
@@ -62,21 +47,12 @@
 {
   "name": "Footer",
   "class": "section-footer",
-  "max_blocks": 3,
   "settings": [
-    { "type": "textarea", "id": "tagline", "label": "Tagline", "default": "Grown here. Milled here.\nMade for the family table." },
-    { "type": "text", "id": "copyright", "label": "Copyright name", "default": "Honestly Texas Rice" },
-    { "type": "checkbox", "id": "show_wordmark", "label": "Show large wordmark", "default": true }
-  ],
-  "blocks": [
-    {
-      "type": "menu",
-      "name": "Menu",
-      "settings": [
-        { "type": "text", "id": "heading", "label": "Heading", "default": "Shop & explore" },
-        { "type": "link_list", "id": "menu", "label": "Menu" }
-      ]
-    }
+    { "type": "checkbox", "id": "show_band", "label": "Show pattern band above footer", "default": true },
+    { "type": "link_list", "id": "menu", "label": "Menu" },
+    { "type": "text", "id": "text_1", "label": "Text above email", "default": "Recipes, rice stories and news from home." },
+    { "type": "text", "id": "text_2", "label": "Text below email", "default": "No spam. Just good rice." },
+    { "type": "text", "id": "success", "label": "Signup success message", "default": "Thanks! You're on the list." }
   ]
 }
 {% endschema %}

@@ -1,0 +1,49 @@
+<section class="o1 o1-recipes" aria-labelledby="Rec-{{ section.id }}">
+  <div class="o1__canvas">
+    <h2 class="o1-title" id="Rec-{{ section.id }}">{{ section.settings.title }}</h2>
+    {%- for block in section.blocks -%}
+      <a class="o1-recipe reveal" href="{{ block.settings.url | default: section.settings.more_url }}" target="_blank" rel="noopener" {{ block.shopify_attributes }}>
+        <span class="o1-recipe__img">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400, 600, 800', sizes: '(min-width: 750px) 27vw, 90vw', alt: block.settings.name | escape }}
+          {%- elsif block.settings.builtin != 'none' -%}
+            <img src="{{ block.settings.builtin | append: '.webp' | asset_url }}" alt="{{ block.settings.name | escape }}" width="628" height="626" loading="lazy">
+          {%- endif -%}
+        </span>
+        <span class="o1-prod__dot">{{ block.settings.label | newline_to_br }}</span>
+        <span class="visually-hidden">{{ block.settings.name }} recipe at USA Rice (opens in a new tab)</span>
+      </a>
+    {%- endfor -%}
+    {%- if section.settings.more_label != blank -%}
+      <a class="o1__abs pill o1-recipes__more" href="{{ section.settings.more_url }}" target="_blank" rel="noopener">{{ section.settings.more_label }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Recipes",
+  "class": "section-o1-recipes",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "textarea", "id": "title", "label": "Heading", "default": "Whats for dinner tonight?" },
+    { "type": "text", "id": "more_label", "label": "Button label", "default": "Find more delicious recipes at USARice.com" },
+    { "type": "text", "id": "more_url", "label": "Button link", "default": "https://www.usarice.com/thinkrice/recipes" }
+  ],
+  "blocks": [
+    { "type": "recipe", "name": "Recipe", "settings": [
+      { "type": "text", "id": "name", "label": "Recipe name", "default": "Recipe" },
+      { "type": "textarea", "id": "label", "label": "Circle label", "default": "Ft.\nLong Grain\nWhite Rice" },
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "select", "id": "builtin", "label": "Built-in image", "default": "none", "options": [
+        { "value": "none", "label": "None" },
+        { "value": "ht-o1-recipe-quesadilla", "label": "Quesadillas" },
+        { "value": "ht-o1-recipe-soup", "label": "Chicken & rice soup" },
+        { "value": "ht-o1-recipe-champorado", "label": "Champorado" }
+      ] },
+      { "type": "text", "id": "url", "label": "Recipe link" }
+    ] }
+  ],
+  "presets": [{ "name": "Recipes", "blocks": [{ "type": "recipe" }, { "type": "recipe" }, { "type": "recipe" }] }]
+}
+{% endschema %}

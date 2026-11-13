@@ -1,0 +1,35 @@
+<section class="o1 o1-people" aria-labelledby="People-{{ section.id }}">
+  <div class="o1__canvas">
+    {%- if section.settings.eyebrow != blank -%}<p class="o1__abs o1-people__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h2 class="o1__abs hh o1-people__title" id="People-{{ section.id }}">{{ section.settings.title | newline_to_br }}</h2>
+    <p class="o1__abs o1-people__text">{{ section.settings.text }}</p>
+    {%- for block in section.blocks -%}
+      <article class="o1-person reveal" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '450, 900', sizes: '(min-width: 750px) 30vw, 90vw', alt: block.settings.name | default: block.settings.image.alt | escape }}
+        {%- endif -%}
+        {%- if block.settings.name != blank -%}<p class="o1-person__cap">{{ block.settings.name }}</p>{%- endif -%}
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "People",
+  "class": "section-o1-people",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE PEOPLE / 01" },
+    { "type": "textarea", "id": "title", "label": "Heading", "default": "FROM OUR FARMERS\nTO YOUR FAMILY." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every grain starts with the people who grow it. Our story is connected to Texas growers, their communities, and a shared commitment to making good rice for everyday meals." }
+  ],
+  "blocks": [
+    { "type": "person", "name": "Person", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Photo" },
+      { "type": "text", "id": "name", "label": "Caption" }
+    ] }
+  ],
+  "presets": [{ "name": "People", "blocks": [{ "type": "person" }, { "type": "person" }, { "type": "person" }] }]
+}
+{% endschema %}

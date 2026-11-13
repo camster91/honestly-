@@ -1,77 +1,54 @@
 {%- liquid
-  assign left_menu = linklists[section.settings.menu_left]
-  assign right_menu = linklists[section.settings.menu_right]
+  assign menu = linklists[section.settings.menu]
 -%}
-<header class="site-header{% if section.settings.sticky %} is-sticky{% endif %}">
-  <div class="page-width site-header__inner">
-    <nav class="site-header__nav site-header__nav--left" aria-label="Shop">
+<header class="site-header">
+  <div class="site-header__canvas">
+    <nav class="site-header__nav" aria-label="Main">
       <button type="button" class="site-header__menu-btn" data-open-menu aria-controls="MobileMenu" aria-expanded="false">Menu</button>
-      {%- if left_menu.links.size > 0 -%}
-        {%- for link in left_menu.links -%}
-          <a class="site-header__link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+      {%- if menu.links.size > 0 -%}
+        {%- for link in menu.links -%}
+          <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
         {%- endfor -%}
       {%- else -%}
-        <a class="site-header__link" href="{{ routes.all_products_collection_url }}">Shop rice</a>
-        <a class="site-header__link" href="{{ section.settings.story_url | default: '/pages/about-us' }}">Our story</a>
+        <a href="{{ routes.all_products_collection_url }}"{% if request.page_type == 'collection' %} aria-current="page"{% endif %}>Our Rice</a>
+        <a href="{{ section.settings.about_url | default: '/pages/about-us' }}">About</a>
+        <a href="{{ section.settings.faq_url | default: '/pages/frequently-asked-questions' }}">FAQ</a>
+        <a href="{{ section.settings.contact_url | default: '/pages/contact' }}">Contact</a>
       {%- endif -%}
     </nav>
 
-    <a href="{{ routes.root_url }}" class="site-header__logo">
+    <a href="{{ routes.root_url }}" class="site-header__badge" aria-label="{{ shop.name | escape }} home">
       {%- if section.settings.logo != blank -%}
-        {{ section.settings.logo | image_url: width: 300 | image_tag: alt: shop.name, loading: 'eager', width: 142 }}
+        {{ section.settings.logo | image_url: width: 726 | image_tag: alt: shop.name, loading: 'eager' }}
       {%- else -%}
-        <img src="{{ 'ht-logo.svg' | asset_url }}" alt="{{ shop.name | escape }}" width="142" height="82">
+        <img src="{{ 'ht-badge.svg' | asset_url }}" alt="Honestly Texas: veteran, woman, family owned" width="363" height="233">
       {%- endif -%}
     </a>
 
-    <nav class="site-header__nav site-header__nav--right" aria-label="Utility">
-      {%- if right_menu.links.size > 0 -%}
-        {%- for link in right_menu.links -%}
-          <a class="site-header__link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}{% if link.type == 'http_link' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
-        {%- endfor -%}
-      {%- else -%}
-        <a class="site-header__link" href="{{ section.settings.recipes_url }}" target="_blank" rel="noopener">Recipes</a>
-        <a class="site-header__link" href="{{ section.settings.store_url | default: '#find-a-store' }}">Find a store</a>
-      {%- endif -%}
-      <a href="{{ routes.cart_url }}" data-open-cart aria-controls="CartDrawer" aria-expanded="false">Bag (<span data-cart-count>{{ cart.item_count }}</span>)</a>
-    </nav>
+    <a href="{{ routes.cart_url }}" class="site-header__cart" data-open-cart aria-controls="CartDrawer" aria-expanded="false" aria-label="Bag, {{ cart.item_count }} items">
+      <span>(<span data-cart-count>{{ cart.item_count }}</span>)</span>
+      <img src="{{ 'ht-cart.svg' | asset_url }}" alt="" width="33" height="33">
+    </a>
   </div>
 </header>
 
 <div class="mobile-menu" id="MobileMenu" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true">
-  <div class="mobile-menu__bar">
+  <div class="mobile-menu__top">
     <button type="button" data-close-panel>Close</button>
-    <a href="{{ routes.root_url }}" class="logo"><img src="{{ 'ht-logo.svg' | asset_url }}" alt="{{ shop.name | escape }}" width="92" height="53"></a>
-    <a class="bag" href="{{ routes.cart_url }}" data-open-cart>Bag (<span data-cart-count>{{ cart.item_count }}</span>)</a>
+    <button type="button" data-open-cart>Bag (<span data-cart-count>{{ cart.item_count }}</span>)</button>
   </div>
-  <div class="mobile-menu__body">
-    <a class="btn btn--primary btn--block" href="{{ routes.all_products_collection_url }}">Shop all rice {% render 'icon', name: 'arrow' %}</a>
-    <div>
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'menu_product' and block.settings.product != blank -%}
-          {%- assign p = block.settings.product -%}
-          <a class="mobile-menu__product" href="{{ p.url }}" {{ block.shopify_attributes }}>
-            {%- if p.featured_media -%}{{ p.featured_media | image_url: width: 120 | image_tag: alt: '', loading: 'lazy' }}{%- endif -%}
-            <span>{{ block.settings.label | default: p.title }}</span>
-            {% render 'icon', name: 'arrow' %}
-          </a>
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
-    {%- if section.settings.bundle != blank -%}
-      <a class="mobile-menu__try" href="{{ section.settings.bundle.url }}">{{ section.settings.bundle_label }} {% render 'icon', name: 'arrow' %}</a>
-    {%- endif -%}
-    <div class="mobile-menu__links">
-      <a href="{{ section.settings.story_url | default: '/pages/about-us' }}">Our story</a>
-      <a href="{{ section.settings.recipes_url }}" target="_blank" rel="noopener">Recipes {% render 'icon', name: 'external' %}</a>
-      <a href="{{ section.settings.store_url | default: '#find-a-store' }}">Find a store</a>
-    </div>
-    <div class="mobile-menu__links mobile-menu__links--row">
+  <img class="mobile-menu__badge" src="{{ 'ht-badge.svg' | asset_url }}" alt="" width="363" height="233">
+  <nav aria-label="Mobile">
+    {%- if menu.links.size > 0 -%}
+      {%- for link in menu.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+    {%- else -%}
+      <a href="{{ routes.all_products_collection_url }}">Our Rice</a>
+      <a href="{{ section.settings.about_url | default: '/pages/about-us' }}">About</a>
       <a href="{{ section.settings.faq_url | default: '/pages/frequently-asked-questions' }}">FAQ</a>
       <a href="{{ section.settings.contact_url | default: '/pages/contact' }}">Contact</a>
-    </div>
-    {%- if section.settings.tagline != blank -%}<p class="mobile-menu__tag">{{ section.settings.tagline | newline_to_br }}</p>{%- endif -%}
-  </div>
+    {%- endif -%}
+  </nav>
+  <div class="band mobile-menu__band"><img src="{{ 'ht-band.svg' | asset_url }}" alt="" width="1440" height="202" loading="lazy"></div>
 </div>
 
 {% schema %}
@@ -79,31 +56,11 @@
   "name": "Header",
   "class": "section-header",
   "settings": [
-    { "type": "image_picker", "id": "logo", "label": "Logo (optional)", "info": "Leave empty to use the original Honestly Texas script logo." },
-    { "type": "checkbox", "id": "sticky", "label": "Sticky header", "default": false },
-    { "type": "link_list", "id": "menu_left", "label": "Left menu", "info": "Leave empty to show Shop rice + Our story." },
-    { "type": "link_list", "id": "menu_right", "label": "Right menu", "info": "Leave empty to show Recipes + Find a store. Bag is always shown." },
-    { "type": "header", "content": "Links" },
-    { "type": "url", "id": "story_url", "label": "Our story page" },
-    { "type": "text", "id": "recipes_url", "label": "Recipes URL", "default": "https://www.usarice.com/thinkrice/recipes" },
-    { "type": "url", "id": "store_url", "label": "Find a store page" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "info": "Leave empty for Our Rice, About, FAQ, Contact." },
+    { "type": "image_picker", "id": "logo", "label": "Badge logo override" },
+    { "type": "url", "id": "about_url", "label": "About page" },
     { "type": "url", "id": "faq_url", "label": "FAQ page" },
-    { "type": "url", "id": "contact_url", "label": "Contact page" },
-    { "type": "header", "content": "Mobile menu" },
-    { "type": "product", "id": "bundle", "label": "Variety pack product" },
-    { "type": "text", "id": "bundle_label", "label": "Variety pack label", "default": "Try all three" },
-    { "type": "textarea", "id": "tagline", "label": "Tagline", "default": "Grown here. Milled here.\nMade for the family table." }
-  ],
-  "blocks": [
-    {
-      "type": "menu_product",
-      "name": "Menu product",
-      "limit": 6,
-      "settings": [
-        { "type": "product", "id": "product", "label": "Product" },
-        { "type": "text", "id": "label", "label": "Label" }
-      ]
-    }
+    { "type": "url", "id": "contact_url", "label": "Contact page" }
   ]
 }
 {% endschema %}

@@ -1,0 +1,28 @@
+<section class="o1 o1-farmers" aria-labelledby="Farm-{{ section.id }}">
+  {%- if section.settings.background != blank -%}
+    {{ section.settings.background | image_url: width: 2400 | image_tag: class: 'o1-farmers__bg', loading: 'lazy', widths: '750, 1440, 2400', sizes: '100vw', alt: '' }}
+  {%- else -%}
+    <img class="o1-farmers__bg" src="{{ 'ht-o1-field.webp' | asset_url }}" alt="" width="1440" height="891" loading="lazy">
+  {%- endif -%}
+  <div class="o1__canvas">
+    <h2 class="o1-title" id="Farm-{{ section.id }}">{{ section.settings.title | newline_to_br }}</h2>
+    {%- if section.settings.photos != blank -%}
+      {{ section.settings.photos | image_url: width: 2400 | image_tag: class: 'o1__abs o1-farmers__photos', loading: 'lazy', alt: section.settings.photos.alt | escape }}
+    {%- else -%}
+      <img class="o1__abs o1-farmers__photos" src="{{ 'ht-o1-farmers.webp' | asset_url }}" alt="Honestly Texas rice farmers and their families" width="1440" height="589" loading="lazy">
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Farmers",
+  "class": "section-o1-farmers",
+  "settings": [
+    { "type": "textarea", "id": "title", "label": "Heading", "default": "From our Farmers\nto your family" },
+    { "type": "image_picker", "id": "background", "label": "Background (field)" },
+    { "type": "image_picker", "id": "photos", "label": "Photo collage (transparent PNG, 1440 × 589)" }
+  ],
+  "presets": [{ "name": "Farmers" }]
+}
+{% endschema %}

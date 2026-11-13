@@ -1,0 +1,42 @@
+<section class="o1 o1-hero" aria-label="{{ section.settings.title | escape }}">
+  {%- if section.settings.image != blank -%}
+    {{ section.settings.image | image_url: width: 2400 | image_tag: class: 'o1-hero__bg', loading: 'eager', fetchpriority: 'high', widths: '750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: section.settings.image.alt | escape }}
+  {%- else -%}
+    <img class="o1-hero__bg" src="{{ 'ht-hero-rice-bowl.webp' | asset_url }}" alt="Hands serving herbed rice at a family table" width="1672" height="941" fetchpriority="high">
+  {%- endif -%}
+  <div class="o1__canvas">
+    <div class="o1__abs o1-hero__box1" aria-hidden="true"></div>
+    <div class="o1__abs o1-hero__box2" aria-hidden="true"></div>
+    <h1 class="o1__abs o1-hero__headline" style="margin:0">
+      <img src="{{ 'ht-hero-headline.svg' | asset_url }}" alt="{{ section.settings.title | escape }}" width="869" height="180" style="width:100%;height:100%">
+    </h1>
+    {%- if section.settings.button_1_label != blank -%}
+      <a class="o1__abs pill o1-hero__btn o1-hero__btn--1" href="{{ section.settings.button_1_link | default: routes.all_products_collection_url }}">{{ section.settings.button_1_label }}</a>
+    {%- endif -%}
+    {%- if section.settings.button_2_label != blank -%}
+      <a class="o1__abs pill o1-hero__btn o1-hero__btn--2" href="{{ section.settings.button_2_link | default: '/pages/about-us' }}">{{ section.settings.button_2_label }}</a>
+    {%- endif -%}
+    {%- if section.settings.show_sticker -%}
+      <img class="o1__abs o1-hero__sticker" src="{{ 'ht-sticker-heb.svg' | asset_url }}" alt="{{ section.settings.sticker_alt | escape }}" width="508" height="517">
+    {%- endif -%}
+  </div>
+</section>
+{% render 'band' %}
+
+{% schema %}
+{
+  "name": "Hero",
+  "class": "section-o1-hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "text", "id": "title", "label": "Headline (for screen readers / SEO)", "default": "Our rice, grown in Texas", "info": "The headline artwork is part of the design." },
+    { "type": "text", "id": "button_1_label", "label": "Button 1 label", "default": "Shop Our Rice" },
+    { "type": "url", "id": "button_1_link", "label": "Button 1 link" },
+    { "type": "text", "id": "button_2_label", "label": "Button 2 label", "default": "About" },
+    { "type": "url", "id": "button_2_link", "label": "Button 2 link" },
+    { "type": "checkbox", "id": "show_sticker", "label": "Show \"Now available in HEB\" sticker", "default": true },
+    { "type": "text", "id": "sticker_alt", "label": "Sticker text", "default": "Now available in HEB" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

@@ -1,30 +1,25 @@
 <div class="drawer" id="CartDrawer" role="dialog" aria-modal="true" aria-labelledby="CartDrawerTitle" aria-hidden="true" aria-busy="false">
   <div id="CartDrawerInner" style="display: contents;">
     <div class="drawer__head">
-      <h2 class="h3" id="CartDrawerTitle">Your bag ({{ cart.item_count }})</h2>
+      <h2 class="drawer__title" id="CartDrawerTitle">Your bag ({{ cart.item_count }})</h2>
       <button type="button" class="drawer__close" data-close-panel>Close</button>
     </div>
     <p class="drawer__status" id="CartDrawerStatus" role="alert"></p>
-
     {%- if cart.item_count > 0 -%}
       <div class="drawer__body">
         {%- for item in cart.items -%}
           <div class="cart-item" data-line="{{ forloop.index }}">
-            <a href="{{ item.url }}" tabindex="-1" aria-hidden="true">
-              {%- if item.image -%}{{ item.image | image_url: width: 160 | image_tag: alt: '', loading: 'lazy' }}{%- endif -%}
-            </a>
+            <a class="cart-item__img" href="{{ item.url }}" tabindex="-1" aria-hidden="true">{%- if item.image -%}{{ item.image | image_url: width: 200 | image_tag: alt: '', loading: 'lazy' }}{%- endif -%}</a>
             <div>
               <a class="cart-item__title" href="{{ item.url }}">{{ item.product.title }}</a>
               {%- unless item.product.has_only_default_variant -%}<p class="cart-item__meta">{{ item.variant.title }}</p>{%- endunless -%}
               <p class="cart-item__meta">{{ item.final_price | money }} each</p>
-              {%- for discount in item.line_level_discount_allocations -%}<p class="cart-item__meta">{{ discount.discount_application.title }} (−{{ discount.amount | money }})</p>{%- endfor -%}
             </div>
             <div class="cart-item__row">
               <div class="cart-qty">
-                <button type="button" data-cart-step="-1" aria-label="Decrease quantity of {{ item.product.title | escape }}" {% if item.quantity <= 1 %}disabled{% endif %}>−</button>
-                <label class="visually-hidden" for="DrawerQty-{{ forloop.index }}">Quantity of {{ item.product.title | escape }}</label>
-                <input id="DrawerQty-{{ forloop.index }}" type="number" min="0" value="{{ item.quantity }}" inputmode="numeric" data-cart-qty
-                  {% if item.variant.inventory_management == 'shopify' and item.variant.inventory_policy == 'deny' %}max="{{ item.variant.inventory_quantity }}"{% endif %}>
+                <button type="button" data-cart-step="-1" aria-label="Decrease quantity of {{ item.product.title | escape }}"{% if item.quantity <= 1 %} disabled{% endif %}>−</button>
+                <label class="visually-hidden" for="DQ-{{ forloop.index }}">Quantity of {{ item.product.title | escape }}</label>
+                <input id="DQ-{{ forloop.index }}" type="number" min="0" value="{{ item.quantity }}" inputmode="numeric" data-cart-qty>
                 <button type="button" data-cart-step="1" aria-label="Increase quantity of {{ item.product.title | escape }}">+</button>
               </div>
               <button type="button" class="cart-remove" data-cart-remove>Remove<span class="visually-hidden"> {{ item.product.title | escape }}</span></button>
@@ -34,39 +29,27 @@
         {%- endfor -%}
       </div>
       <div class="drawer__foot">
-        {%- for discount in cart.cart_level_discount_applications -%}
-          <div class="drawer__subtotal" style="font-weight: 500; margin-bottom: 8px;"><span>{{ discount.title }}</span><span>−{{ discount.total_allocated_amount | money }}</span></div>
-        {%- endfor -%}
         <div class="drawer__subtotal"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></div>
         <p>Shipping and taxes calculated at checkout.</p>
-        <form action="{{ routes.cart_url }}" method="post">
-          <button type="submit" name="checkout" class="btn btn--primary">Checkout {% render 'icon', name: 'arrow' %}</button>
-        </form>
+        <form action="{{ routes.cart_url }}" method="post"><button type="submit" name="checkout" class="pill drawer__checkout">Checkout &nbsp;→</button></form>
         <button type="button" class="drawer__continue" data-close-panel>Continue shopping</button>
       </div>
     {%- else -%}
       <div class="drawer__body">
         <div class="drawer__empty">
-          <p class="h3">Your bag is empty.</p>
+          <p class="drawer__title" style="color:var(--blue)">Your bag is empty.</p>
           <p>Start with a 2 lb bag of the rice you love, or try all three.</p>
-          <div class="drawer__empty-links">
-            <a class="btn btn--primary" href="{{ routes.all_products_collection_url }}">Shop all rice {% render 'icon', name: 'arrow' %}</a>
-            {%- if section.settings.bundle != blank -%}
-              <a class="btn btn--outline" href="{{ section.settings.bundle.url }}">Try all three {% render 'icon', name: 'arrow' %}</a>
-            {%- endif -%}
-          </div>
+          <a class="pill o1-btn-blue" href="{{ routes.all_products_collection_url }}">Shop our rice</a>
+          {%- if section.settings.bundle != blank -%}<a class="pill o1-btn-red" href="{{ section.settings.bundle.url }}">Try the variety pack</a>{%- endif -%}
         </div>
       </div>
     {%- endif -%}
   </div>
 </div>
-
 {% schema %}
 {
   "name": "Cart drawer",
   "class": "section-cart-drawer",
-  "settings": [
-    { "type": "product", "id": "bundle", "label": "Suggested bundle (empty bag)" }
-  ]
+  "settings": [ { "type": "product", "id": "bundle", "label": "Suggested bundle (empty bag)" } ]
 }
 {% endschema %}

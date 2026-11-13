@@ -1,0 +1,11 @@
+{% render 'band', color: section.settings.color %}
+{% schema %}
+{
+  "name": "Pattern band",
+  "class": "section-o1-band",
+  "settings": [
+    { "type": "select", "id": "color", "label": "Color", "default": "brown", "options": [ { "value": "brown", "label": "Brown" }, { "value": "red", "label": "Red" } ] }
+  ],
+  "presets": [{ "name": "Pattern band" }]
+}
+{% endschema %}

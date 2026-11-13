@@ -1,73 +1,81 @@
 {%- paginate collection.products by section.settings.per_page -%}
-<section class="collection-hero">
-  <div class="page-width">
+<section class="o1 o1-shop-hero" aria-hidden="true">
+  {%- if section.settings.image != blank -%}
+    {{ section.settings.image | image_url: width: 2400 | image_tag: class: 'o1-shop-hero__img', loading: 'eager', widths: '750, 1440, 2400', sizes: '100vw', alt: '' }}
+  {%- elsif collection.image -%}
+    {{ collection.image | image_url: width: 2400 | image_tag: class: 'o1-shop-hero__img', loading: 'eager', alt: '' }}
+  {%- else -%}
+    <div class="o1-shop-hero__checker"></div>
+  {%- endif -%}
+  <div class="o1__canvas">
+    <img class="o1__abs o1-shop-hero__made" src="{{ 'ht-texas-made.svg' | asset_url }}" alt="" width="94" height="122">
+  </div>
+</section>
+{% render 'band', color: 'red' %}
+
+<section class="o1-shop">
+  <div class="o1-shop__head">
     {%- liquid
-      assign heading = section.settings.heading | default: collection.title
-      if collection.handle == 'all' and section.settings.heading == blank
-        assign heading = 'Shop our rice'
+      assign heading = section.settings.heading
+      if heading == blank
+        if collection.handle == 'all'
+          assign heading = 'Shop our rice'
+        else
+          assign heading = collection.title
+        endif
       endif
     -%}
-    <h1 class="h-display">{{ heading }}</h1>
-    {%- if collection.description != blank and section.settings.show_description -%}<div class="collection-hero__desc rte">{{ collection.description }}</div>{%- endif -%}
-
-    {%- assign nav = linklists[section.settings.nav_menu] -%}
-    <nav class="collection-nav" aria-label="Rice categories">
+    <h1 class="hh o1-shop__title">{{ heading }}</h1>
+    <div class="o1-shop__rule o1-shop__rule--1"></div>
+    <nav class="o1-shop__filters" aria-label="Rice categories">
+      {%- assign nav = linklists[section.settings.nav_menu] -%}
       {%- if nav.links.size > 0 -%}
-        {%- for link in nav.links -%}<a href="{{ link.url }}"{% if link.url == collection.url or link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>{%- endfor -%}
+        {%- for link in nav.links -%}<a href="{{ link.url }}"{% if link.url == collection.url %} aria-current="page"{% endif %}>{{ link.title }}</a>{%- endfor -%}
       {%- else -%}
         <a href="{{ routes.all_products_collection_url }}"{% if collection.handle == 'all' %} aria-current="page"{% endif %}>Shop all</a>
-        {%- for c in collections -%}
-          {%- if c.handle != 'all' and c.handle != 'frontpage' and c.products_count > 0 -%}
-            <a href="{{ c.url }}"{% if c.handle == collection.handle %} aria-current="page"{% endif %}>{{ c.title }}</a>
+        {%- assign handles = 'enriched-long-grain-white-rice,brown-rice,jasmine-rice,multipacks' | split: ',' -%}
+        {%- assign labels = 'White rice,Brown rice,Jasmine,Multipacks' | split: ',' -%}
+        {%- for h in handles -%}
+          {%- assign c = collections[h] -%}
+          {%- if c.products_count > 0 -%}
+            <a href="{{ c.url }}"{% if collection.handle == h %} aria-current="page"{% endif %}>{{ labels[forloop.index0] }}</a>
           {%- endif -%}
         {%- endfor -%}
       {%- endif -%}
     </nav>
-
-    <div class="collection-toolbar">
-      <span>{{ collection.products_count }} {{ collection.products_count | pluralize: 'product', 'products' }}</span>
-      <label>
-        <span class="visually-hidden">Sort by</span>
-        <select data-sort aria-label="Sort products">
-          {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
-          {%- for option in collection.sort_options -%}
-            <option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>Sort: {{ option.name }}</option>
-          {%- endfor -%}
-        </select>
-      </label>
+    <div class="o1-shop__rule o1-shop__rule--2"></div>
+    <p class="o1-shop__count">{{ collection.products_count }} {{ collection.products_count | pluralize: 'product', 'products' }}</p>
+    <div class="o1-shop__sort">
+      <label class="visually-hidden" for="SortBy">Sort by</label>
+      <select id="SortBy" data-sort>
+        {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+        {%- for option in collection.sort_options -%}
+          <option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>Sort: {{ option.name }} ▾</option>
+        {%- endfor -%}
+      </select>
     </div>
   </div>
-</section>
 
-<section class="section" style="padding-top: 0;">
-  <div class="page-width">
-    {%- if collection.products.size > 0 -%}
-      <ul class="product-grid">
-        {%- for product in collection.products -%}
-          <li class="reveal">{% render 'product-card', product: product %}</li>
+  {%- if collection.products.size > 0 -%}
+    <ul class="o1-shop__grid">
+      {%- for product in collection.products -%}
+        <li class="reveal">{% render 'product-card', product: product %}</li>
+      {%- endfor -%}
+    </ul>
+    {%- if paginate.pages > 1 -%}
+      <nav class="o1-pagination" aria-label="Pagination">
+        {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" aria-label="Previous page">←</a>{%- endif -%}
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>
+          {%- elsif part.title == paginate.current_page -%}<span class="current" aria-current="page">{{ part.title }}</span>
+          {%- else -%}<span>{{ part.title }}</span>{%- endif -%}
         {%- endfor -%}
-      </ul>
-      {%- if paginate.pages > 1 -%}
-        <nav aria-label="Pagination">
-          <ul class="pagination">
-            {%- if paginate.previous -%}<li><a href="{{ paginate.previous.url }}" aria-label="Previous page">←</a></li>{%- endif -%}
-            {%- for part in paginate.parts -%}
-              {%- if part.is_link -%}<li><a href="{{ part.url }}">{{ part.title }}</a></li>
-              {%- elsif part.title == paginate.current_page -%}<li><span class="current" aria-current="page">{{ part.title }}</span></li>
-              {%- else -%}<li><span>{{ part.title }}</span></li>{%- endif -%}
-            {%- endfor -%}
-            {%- if paginate.next -%}<li><a href="{{ paginate.next.url }}" aria-label="Next page">→</a></li>{%- endif -%}
-          </ul>
-        </nav>
-      {%- endif -%}
-    {%- else -%}
-      <div class="empty-state">
-        <h2 class="h2">Nothing here yet.</h2>
-        <p>Check back soon, or browse all of our rice.</p>
-        <a class="btn btn--primary" href="{{ routes.all_products_collection_url }}">Shop all rice {% render 'icon', name: 'arrow' %}</a>
-      </div>
+        {%- if paginate.next -%}<a href="{{ paginate.next.url }}" aria-label="Next page">→</a>{%- endif -%}
+      </nav>
     {%- endif -%}
-  </div>
+  {%- else -%}
+    <p style="text-align:center;font-family:var(--font-inter);font-size:20px;padding:40px 20px">Nothing here yet. <a href="{{ routes.all_products_collection_url }}">Shop all rice</a>.</p>
+  {%- endif -%}
 </section>
 {%- endpaginate -%}
 
@@ -76,9 +84,9 @@
   "name": "Collection",
   "class": "section-main-collection",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading override", "info": "Leave empty to use the collection title." },
-    { "type": "checkbox", "id": "show_description", "label": "Show collection description", "default": true },
-    { "type": "link_list", "id": "nav_menu", "label": "Category menu", "info": "Leave empty to list all collections." },
+    { "type": "image_picker", "id": "image", "label": "Top image", "info": "Leave empty to use the collection image. The design shows an image placeholder here." },
+    { "type": "text", "id": "heading", "label": "Heading override" },
+    { "type": "link_list", "id": "nav_menu", "label": "Category menu" },
     { "type": "range", "id": "per_page", "label": "Products per page", "min": 6, "max": 48, "step": 3, "default": 24 }
   ]
 }

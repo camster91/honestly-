@@ -1,7 +1,7 @@
 {%- paginate blog.articles by 9 -%}
-<section class="section">
-  <div class="page-width">
-    <h1 class="h-display h-display--sm">{{ blog.title }}</h1>
+<section class="o1-page">
+  <div class="o1-page__inner">
+    <h1 class="hh o1-page__title">{{ blog.title }}</h1>
     {%- if blog.articles.size > 0 -%}
       <ul class="blog-grid">
         {%- for article in blog.articles -%}

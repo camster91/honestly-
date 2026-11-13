@@ -1,0 +1,28 @@
+<section class="o1 o1-values" aria-label="Why Honestly Texas">
+  <div class="o1-values__stars" style="background-image: url('{{ 'ht-o1-stars.png' | asset_url }}');" aria-hidden="true"></div>
+  <div class="o1__canvas">
+    {%- for block in section.blocks -%}
+      <article class="o1-card reveal" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 800 | image_tag: class: 'o1-card__img', loading: 'lazy', widths: '400, 600, 800', sizes: '(min-width: 750px) 28vw, 90vw', alt: block.settings.image.alt | escape }}
+        {%- endif -%}
+        <div class="o1-card__body"><p>{{ block.settings.text }}</p></div>
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Value cards",
+  "class": "section-o1-values",
+  "max_blocks": 3,
+  "blocks": [
+    { "type": "card", "name": "Card", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "textarea", "id": "text", "label": "Text", "default": "Honestly Texas growers are in Texas." }
+    ] }
+  ],
+  "presets": [{ "name": "Value cards", "blocks": [{ "type": "card" }, { "type": "card" }, { "type": "card" }] }]
+}
+{% endschema %}

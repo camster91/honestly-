@@ -1,7 +1,7 @@
-<section class="section">
-  <div class="page-width">
-    <h1 class="h-display h-display--sm" style="margin-bottom: 40px;">Shop our rice</h1>
-    <ul class="product-grid">
+<section class="o1-page">
+  <div class="o1-page__inner">
+    <h1 class="hh o1-page__title" style="margin-bottom: 40px;">Shop our rice</h1>
+    <ul class="o1-shop__grid" style="margin-top:40px">
       {%- for collection in collections -%}
         {%- if collection.products_count > 0 -%}
           {%- capture bg -%}{% render 'variety-color', title: collection.title %}{%- endcapture -%}

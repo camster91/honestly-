@@ -1,0 +1,63 @@
+<section class="o1 o1-products o1-products--{{ section.settings.layout }}" aria-labelledby="Prod-{{ section.id }}">
+  <div class="o1__canvas">
+    <h2 class="o1-title" id="Prod-{{ section.id }}">{{ section.settings.title }}</h2>
+    {%- if section.settings.text != blank -%}<p class="o1-lead">{{ section.settings.text }}</p>{%- endif -%}
+    {%- for block in section.blocks -%}
+      {%- assign p = block.settings.product -%}
+      <a class="o1-prod reveal" href="{{ p.url | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+        <span class="o1-prod__dot{% if block.settings.big_label %} o1-prod__dot--lg{% endif %}" style="background: {{ block.settings.color }}; color: {{ block.settings.text_color }};">{{ block.settings.label | newline_to_br }}</span>
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400, 700, 1000', sizes: '(min-width: 750px) 32vw, 80vw', alt: p.title | default: block.settings.label | escape }}
+        {%- elsif block.settings.builtin != 'none' -%}
+          <img src="{{ block.settings.builtin | append: '.webp' | asset_url }}" alt="{{ p.title | default: block.settings.label | escape }}" width="1072" height="666" loading="lazy">
+        {%- elsif p.featured_media -%}
+          {{ p.featured_media | image_url: width: 1000 | image_tag: loading: 'lazy', alt: p.title | escape }}
+        {%- endif -%}
+      </a>
+    {%- endfor -%}
+    {%- if section.settings.show_star -%}
+      <img class="o1__abs o1-products__star" src="{{ 'ht-star.svg' | asset_url }}" alt="" width="259" height="411" loading="lazy">
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product row",
+  "class": "section-o1-products",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "select", "id": "layout", "label": "Layout", "default": "singles", "options": [
+      { "value": "singles", "label": "Single bags (flat packs)" },
+      { "value": "multis", "label": "Multipacks (stacked packs)" }
+    ] },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Shop our rice" },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "checkbox", "id": "show_star", "label": "Show red star at the bottom left", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "textarea", "id": "label", "label": "Circle label", "default": "Long grain" },
+        { "type": "color", "id": "color", "label": "Circle color", "default": "#fff0a4" },
+        { "type": "color", "id": "text_color", "label": "Circle text color", "default": "#003da6" },
+        { "type": "checkbox", "id": "big_label", "label": "Larger label text", "default": false },
+        { "type": "image_picker", "id": "image", "label": "Pack image (transparent PNG)" },
+        { "type": "select", "id": "builtin", "label": "Built-in pack image", "default": "none", "options": [
+          { "value": "none", "label": "None (use product image)" },
+          { "value": "ht-o1-pack-white", "label": "White 2 lb" },
+          { "value": "ht-o1-pack-brown", "label": "Brown 2 lb" },
+          { "value": "ht-o1-pack-jasmine", "label": "Jasmine 2 lb" },
+          { "value": "ht-o1-multi-jasmine", "label": "Jasmine multipack" },
+          { "value": "ht-o1-multi-variety", "label": "Variety pack" },
+          { "value": "ht-o1-multi-brown", "label": "Brown multipack" }
+        ] }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Product row", "blocks": [{ "type": "product" }, { "type": "product" }, { "type": "product" }] }]
+}
+{% endschema %}
