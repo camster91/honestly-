@@ -1,0 +1,110 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Where is Honestly Texas rice grown?",
+            "answer": "<p>Our rice is grown in Texas, with local growers at the heart of our story.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "What varieties of rice do you offer?",
+            "answer": "<p>Explore long grain enriched white rice, long grain brown rice, jasmine rice and our multipacks and variety bundle.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "How should I store my rice?",
+            "answer": "<p>Keep unopened rice in a cool, dry place. Once opened, transfer it to a tightly sealed container.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Where can I buy Honestly Texas rice?",
+            "answer": "<p>Shop online any time right here. For stores near you, contact us and we’ll point you in the right direction.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "How do I cook long grain white rice?",
+            "answer": "<p>Cooking directions vary by product. Follow the instructions printed on your rice package.</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "question": "Can I purchase multipacks?",
+            "answer": "<p>Yes. Our shop includes 3-packs of each variety and a variety bundle with one bag each of enriched white, brown and jasmine.</p>"
+          }
+        },
+        "q7": {
+          "type": "question",
+          "settings": {
+            "question": "Is your rice grown and packaged in Texas?",
+            "answer": "<p>Yes. Our rice is grown, dried, milled and packaged in Texas.</p>"
+          }
+        },
+        "q8": {
+          "type": "question",
+          "settings": {
+            "question": "How can I ask a question about my order?",
+            "answer": "<p>Visit our Contact page and send our team your order number and question.</p>"
+          }
+        },
+        "q9": {
+          "type": "question",
+          "settings": {
+            "question": "Do you offer wholesale or retailer options?",
+            "answer": "<p>Business enquiries are welcome through our Contact page.</p>"
+          }
+        },
+        "q10": {
+          "type": "question",
+          "settings": {
+            "question": "Where can I find nutritional information?",
+            "answer": "<p>Check your product packaging for the latest ingredient and nutrition information.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9",
+        "q10"
+      ],
+      "settings": {
+        "pill": "FAQs",
+        "heading": "What can we help you find?",
+        "eyebrow": "Quick answers to common questions",
+        "open_all": true
+      }
+    },
+    "find_store": {
+      "type": "ht-find-store",
+      "settings": {
+        "heading": "Still have a question?",
+        "text": "Our team is happy to help.",
+        "button_label": "Contact us",
+        "button_link": "shopify://pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "find_store"
+  ]
+}

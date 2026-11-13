@@ -1,0 +1,78 @@
+{
+  "sections": {
+    "hero": {
+      "type": "ht-split",
+      "settings": {
+        "scheme": "blue",
+        "fallback": "ht-grower",
+        "fallback_alt": "A Texas rice grower beside his combine",
+        "ratio": "4/3",
+        "rounded": true,
+        "page_hero": true,
+        "eyebrow": "01 / The people",
+        "heading": "Rooted in\nnature.",
+        "text": "<p>Behind every harvest is a human story.</p><p>Meet the people connected to Texas rice, and explore the mill’s next chapter through their perspective.</p>",
+        "button_label": "Contact us",
+        "button_link": "shopify://pages/contact"
+      }
+    },
+    "people": {
+      "type": "ht-people",
+      "blocks": {
+        "p1": {
+          "type": "person",
+          "settings": {}
+        },
+        "p2": {
+          "type": "person",
+          "settings": {}
+        },
+        "p3": {
+          "type": "person",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {
+        "scheme": "wheat",
+        "eyebrow": "The people / 01",
+        "heading": "From our farmers\nto your family."
+      }
+    },
+    "page": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "harvest": {
+      "type": "ht-split",
+      "settings": {
+        "scheme": "red",
+        "fallback": "ht-meal",
+        "fallback_alt": "A family meal with Honestly Texas rice",
+        "ratio": "4/5",
+        "rounded": true,
+        "reverse": true,
+        "display_heading": true,
+        "heading": "A Texas harvest.",
+        "text": "<p>Our rice is grown on Texas farms, then dried, milled and packed in Brookshire. Every bag carries the care of the growers and millers who make it, from field to family table.</p>",
+        "button_label": "Shop our rice",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "newsletter": {
+      "type": "ht-newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "people",
+    "page",
+    "harvest",
+    "newsletter"
+  ]
+}

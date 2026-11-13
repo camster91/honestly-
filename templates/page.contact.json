@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-contact",
+      "blocks": {
+        "orders": {
+          "type": "card",
+          "settings": {
+            "title": "Order questions",
+            "text": "<p>Include your order number and we’ll take a look.</p>"
+          }
+        },
+        "wholesale": {
+          "type": "card",
+          "settings": {
+            "title": "Wholesale & retail",
+            "text": "<p>Interested in carrying Honestly Texas? Choose “Wholesale or retail” in the form.</p>"
+          }
+        },
+        "mill": {
+          "type": "card",
+          "settings": {
+            "title": "Our mill",
+            "text": "<p>Texas Rice Milling · Brookshire, TX</p>"
+          }
+        }
+      },
+      "block_order": [
+        "orders",
+        "wholesale",
+        "mill"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

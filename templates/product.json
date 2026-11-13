@@ -1,0 +1,33 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": { "type": "vendor", "settings": { "text": "Honestly Texas Rice" } },
+        "title": { "type": "title", "settings": {} },
+        "price": { "type": "price", "settings": {} },
+        "summary": { "type": "summary", "settings": { "text": "An everyday classic, straight from our Texas farms." } },
+        "pack": { "type": "pack_switch", "settings": { "label": "Choose your pack" } },
+        "buy": { "type": "buy", "settings": { "label": "Add to bag →", "show_dynamic_checkout": false, "note": "Shipping rates calculated at checkout." } },
+        "trust": { "type": "trust", "settings": { "items": "Grown in Texas, Milled in Texas, Packed in Texas" } },
+        "cook": { "type": "collapsible", "settings": { "heading": "Cooking & storage", "content": "<p>Cooking directions vary by variety. Follow the instructions printed on your bag.</p><p>Keep unopened rice in a cool, dry place. Once opened, store it in a tightly sealed container.</p>" } }
+      },
+      "block_order": ["vendor", "title", "price", "summary", "pack", "buy", "trust", "cook"],
+      "settings": {}
+    },
+    "description": { "type": "product-description", "settings": { "scheme": "cream", "heading": "Grown with care in Texas." } },
+    "dinner": {
+      "type": "ht-feature",
+      "settings": {
+        "scheme": "wheat",
+        "heading": "What’s for dinner?",
+        "text": "<p>From simple sides to the main event, this rice is ready for whatever is on your menu.</p>",
+        "button_label": "Explore recipes",
+        "button_link": "https://www.usarice.com/thinkrice/recipes",
+        "new_tab": true
+      }
+    },
+    "related": { "type": "ht-related", "settings": { "scheme": "cream", "heading": "More from our Texas fields.", "limit": 3 } }
+  },
+  "order": ["main", "description", "dinner", "related"]
+}

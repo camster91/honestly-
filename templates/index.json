@@ -1,0 +1,96 @@
+{
+  "sections": {
+    "hero": {
+      "type": "ht-hero",
+      "settings": {
+        "scheme": "cream",
+        "heading": "Good rice.\nTexas roots.",
+        "text": "<p>White, brown and jasmine rice. Grown in Texas, milled in Brookshire, made for your everyday table.</p>",
+        "button_label": "Shop Texas rice",
+        "button_link": "shopify://collections/all",
+        "link_label": "Our Texas story",
+        "stage_color": "#fff0a4",
+        "show_texas": true,
+        "caption": "Three varieties. Your everyday rice."
+      }
+    },
+    "varieties": {
+      "type": "ht-varieties",
+      "blocks": {
+        "white": { "type": "variety", "settings": { "product": "enriched-long-grain-white-rice-2lb", "fallback": "ht-pack-white", "color": "#fff0a4", "meta": "Long grain · 2 lb", "title": "Enriched white", "texture": "Light & fluffy", "use": "For family favorites, sides and sauces.", "unit": "bag", "button_label": "Choose white" } },
+        "brown": { "type": "variety", "settings": { "product": "long-grain-brown-rice", "fallback": "ht-pack-brown", "color": "#efe7cf", "meta": "Long grain · 2 lb", "title": "Brown", "texture": "Hearty & nutty", "use": "For grain bowls and satisfying sides.", "unit": "bag", "button_label": "Choose brown" } },
+        "jasmine": { "type": "variety", "settings": { "product": "jasmine-rice", "fallback": "ht-pack-jasmine", "color": "#e9e2f1", "meta": "Long grain · 2 lb", "title": "Jasmine", "texture": "Fragrant & tender", "use": "For curries, stir-fries and rice bowls.", "unit": "bag", "button_label": "Choose jasmine" } }
+      },
+      "block_order": ["white", "brown", "jasmine"],
+      "settings": {
+        "scheme": "cream",
+        "eyebrow": "Three varieties. Find your favorite.",
+        "heading": "Find your everyday rice.",
+        "text": "<p>Start with the texture you love. Choose a single 2 lb bag or explore our multipacks.</p>",
+        "link_label": "Shop all rice",
+        "link_url": "shopify://collections/all",
+        "note": "Shipping rates shown at checkout."
+      }
+    },
+    "bundle": {
+      "type": "ht-bundle",
+      "settings": {
+        "product": "rice-variety-bundle-6-lbs-total-enriched-white-rice-brown-rice-jasmine-rice",
+        "scheme": "red",
+        "caption": "White + brown + jasmine",
+        "eyebrow": "Your first taste of Honestly Texas",
+        "heading": "New here?\nTry all three.",
+        "text": "<p>One bag of enriched white, one brown and one jasmine. Find your favorite, one meal at a time.</p>",
+        "specs": "3 × 2 lb bags · 6 lb total",
+        "button_label": "View variety pack",
+        "note": "Shipping rates shown at checkout."
+      }
+    },
+    "roots": {
+      "type": "ht-split",
+      "settings": {
+        "scheme": "wheat",
+        "fallback": "ht-grower",
+        "fallback_alt": "A Texas rice grower standing beside his combine",
+        "ratio": "4/3",
+        "caption": "Real Texas growers. Real Texas roots.",
+        "eyebrow": "Our Texas roots / Brookshire, TX",
+        "heading": "Texas grown.\nBrookshire milled.",
+        "text": "<p>Our rice starts on Texas farms and is dried, milled and packed in Brookshire. Get to know the people and place behind every bag.</p><p>Our growers reuse rainwater and leave winter habitat for migrating waterfowl. Care that carries from field to table.</p>",
+        "button_label": "Meet our growers",
+        "button_link": "shopify://pages/about-us"
+      }
+    },
+    "recipes": {
+      "type": "ht-recipes",
+      "blocks": {
+        "feature": { "type": "feature", "settings": { "eyebrow": "With long-grain white rice", "title": "Chipotle chicken & rice quesadillas", "text": "A little rice. A very good dinner.", "product": "enriched-long-grain-white-rice-2lb", "button_label": "Shop white rice", "recipe_url": "https://www.usarice.com/thinkrice/recipes", "recipe_label": "Recipe at USA Rice" } },
+        "soup": { "type": "recipe", "settings": { "fallback": "ht-recipe-soup", "title": "Spicy chicken & rice soup", "text": "With brown rice", "recipe_url": "https://www.usarice.com/thinkrice/recipes", "recipe_label": "USA Rice recipe" } },
+        "champorado": { "type": "recipe", "settings": { "fallback": "ht-recipe-champorado", "title": "Vegan champorado", "text": "Jasmine + glutinous rice", "recipe_url": "https://www.usarice.com/thinkrice/recipes", "recipe_label": "USA Rice recipe" } }
+      },
+      "block_order": ["feature", "soup", "champorado"],
+      "settings": {
+        "scheme": "cream",
+        "eyebrow": "Start with rice. Make it yours.",
+        "heading": "Tonight starts with rice.",
+        "more_label": "More recipes at USA Rice",
+        "more_url": "https://www.usarice.com/thinkrice/recipes"
+      }
+    },
+    "find_store": {
+      "type": "ht-find-store",
+      "settings": { "heading": "A little Texas, closer to home.", "text": "Find Honestly Texas at a store near you.", "button_label": "Find a store", "button_link": "shopify://pages/contact" }
+    },
+    "newsletter": {
+      "type": "ht-newsletter",
+      "settings": {
+        "scheme": "yellow",
+        "heading": "Good things\nare growing.",
+        "text": "Recipes, rice stories and a little news from home. Straight to your inbox.",
+        "button_label": "Sign me up",
+        "consent": "By signing up, you agree to receive emails from Honestly Texas. Unsubscribe anytime."
+      }
+    }
+  },
+  "order": ["hero", "varieties", "bundle", "roots", "recipes", "find_store", "newsletter"]
+}
