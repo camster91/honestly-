@@ -487,6 +487,7 @@ body.is-locked { overflow: hidden; }
   .o1-card__img { height: calc(200 * var(--u)); }
 
   .o1-recipes { padding: calc(44 * var(--u)) calc(20 * var(--u)) calc(48 * var(--u)); }
+  .o1-recipes .o1-title, .o1-farmers .o1-title, .o1-socials .o1-title { line-height: 1.15 !important; }
   .o1-recipes .o1-title { left: auto; width: auto; top: auto; margin-bottom: calc(30 * var(--u)); }
   .o1-recipe { position: relative; left: auto !important; top: auto !important; width: 100%; height: calc(300 * var(--u)); margin: 0 0 calc(48 * var(--u)); }
   .o1-recipe .o1-prod__dot { top: calc(-36 * var(--u)) !important; left: auto !important; right: calc(-6 * var(--u)); width: calc(104 * var(--u)); height: calc(104 * var(--u)); font-size: calc(calc(13 * var(--u)) * var(--hh)); line-height: calc(15 * var(--u)); }
@@ -509,7 +510,9 @@ body.is-locked { overflow: hidden; }
   .o1-socials .o1-title { grid-column: 1 / -1; }
   .o1-socials__tile { position: relative; left: auto !important; top: auto; width: auto; height: auto; aspect-ratio: 1; }
   .o1-socials__tile:nth-of-type(5) { display: none; }
-  .o1-socials__sticker { position: absolute !important; right: 0 !important; left: auto !important; top: 0 !important; width: calc(120 * var(--u)) !important; height: calc(134 * var(--u)) !important; }
+  .o1-socials__sticker { position: absolute !important; right: 0 !important; left: auto !important; top: auto !important; bottom: calc(-50 * var(--u)); width: calc(110 * var(--u)) !important; height: calc(122 * var(--u)) !important; }
+  .o1-socials .o1__canvas { position: relative; }
+  .o1-socials .o1-title { padding: 0 calc(20 * var(--u)); }
 
   .o1-footer { padding: calc(36 * var(--u)) calc(20 * var(--u)) 0; }
   .o1-footer .o1__canvas { padding: 0; display: grid; grid-template-columns: calc(96 * var(--u)) 1fr; gap: calc(24 * var(--u)) calc(20 * var(--u)); align-items: start; }
@@ -518,7 +521,8 @@ body.is-locked { overflow: hidden; }
   .o1-footer__links li { height: auto; }
   .o1-footer__seal { display: none; }
   .o1-footer__copy, .o1-footer__form, .o1-footer__legal { grid-column: 1 / -1; font-size: calc(17 * var(--u)); line-height: calc(22 * var(--u)); }
-  .o1-footer__form { height: calc(64 * var(--u)) !important; }
+  .o1-footer__form { height: calc(64 * var(--u)) !important; width: 100% !important; }
+  .o1-footer__field { height: calc(64 * var(--u)); }
   .o1-footer__field input, .o1-footer__field button { font-size: calc(calc(20 * var(--u)) * var(--hh)); }
   .o1-footer__legal { font-size: calc(12 * var(--u)); }
   .o1-footer__wordmark { grid-column: 1 / -1; width: calc(100% + calc(40 * var(--u))) !important; margin: calc(10 * var(--u)) calc(-20 * var(--u)) 0; }
