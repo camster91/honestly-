@@ -19,6 +19,7 @@
   assign v = product.selected_or_first_available_variant
 -%}
 <div class="card" style="--card-bg: {{ bg | strip }};">
+  <div class="card__top">
   <a class="card__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
     {%- if product.featured_media -%}
       {{ product.featured_media | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', sizes: '(min-width: 990px) 33vw, (min-width: 481px) 50vw, 100vw', alt: product.featured_media.alt | escape }}
@@ -36,6 +37,7 @@
   {%- elsif product.available -%}
     <a class="card__quick" href="{{ product.url }}" aria-label="Choose options for {{ product.title | escape }}">{% render 'icon', name: 'plus' %}</a>
   {%- endif -%}
+  </div>
   {%- if label != blank -%}<p class="card__type">{{ label }}</p>{%- endif -%}
   <a class="card__title" href="{{ product.url }}">{{ product.title }}</a>
   <p class="card__price">
