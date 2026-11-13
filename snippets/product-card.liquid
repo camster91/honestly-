@@ -1,0 +1,46 @@
+{%- comment -%}
+  Usage: {% render 'product-card', product: product, eager: false %}
+{%- endcomment -%}
+{%- capture bg -%}{% render 'variety-color', title: product.title %}{%- endcapture -%}
+{%- liquid
+  assign t = product.title | downcase
+  assign label = product.type
+  if t contains 'bundle' or t contains 'variety'
+    assign label = 'Variety pack'
+  elsif t contains 'pack of'
+    assign label = 'Multipack'
+  elsif t contains 'jasmine'
+    assign label = 'Jasmine'
+  elsif t contains 'brown'
+    assign label = 'Brown rice'
+  elsif t contains 'white'
+    assign label = 'White rice'
+  endif
+  assign v = product.selected_or_first_available_variant
+-%}
+<div class="card" style="--card-bg: {{ bg | strip }};">
+  <a class="card__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+    {%- if product.featured_media -%}
+      {{ product.featured_media | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', sizes: '(min-width: 990px) 33vw, (min-width: 481px) 50vw, 100vw', alt: product.featured_media.alt | escape }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </a>
+  {%- unless product.available -%}
+    <span class="card__badge card__badge--soldout">Sold out</span>
+  {%- else -%}
+    {%- if product.compare_at_price > product.price -%}<span class="card__badge">Sale</span>{%- endif -%}
+  {%- endunless -%}
+  {%- if product.available and product.has_only_default_variant -%}
+    <button type="button" class="card__quick" data-quick-add="{{ v.id }}" aria-label="Add {{ product.title | escape }} to bag">{% render 'icon', name: 'plus' %}</button>
+  {%- elsif product.available -%}
+    <a class="card__quick" href="{{ product.url }}" aria-label="Choose options for {{ product.title | escape }}">{% render 'icon', name: 'plus' %}</a>
+  {%- endif -%}
+  {%- if label != blank -%}<p class="card__type">{{ label }}</p>{%- endif -%}
+  <a class="card__title" href="{{ product.url }}">{{ product.title }}</a>
+  <p class="card__price">
+    {%- if product.price_varies -%}From {% endif -%}
+    {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
+    {{ product.price | money }}
+  </p>
+</div>

@@ -1,0 +1,13 @@
+{%- comment -%}
+  Returns a background color for a rice product based on its title.
+  Usage: {%- capture bg -%}{% render 'variety-color', title: product.title %}{%- endcapture -%}
+{%- endcomment -%}
+{%- assign t = title | downcase -%}
+{%- if t contains 'bundle' or t contains 'variety' -%}#fff0a4
+{%- elsif t contains 'pack of' or t contains 'multipack' -%}
+  {%- if t contains 'jasmine' -%}#e9e2f1{%- elsif t contains 'brown' -%}#efe7cf{%- else -%}#fde3e0{%- endif -%}
+{%- elsif t contains 'jasmine' -%}#e9e2f1
+{%- elsif t contains 'brown' -%}#efe7cf
+{%- elsif t contains 'white' -%}#fff0a4
+{%- else -%}#efe7cf
+{%- endif -%}
