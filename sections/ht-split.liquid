@@ -1,0 +1,60 @@
+<section class="section scheme-{{ section.settings.scheme }} split{% if section.settings.reverse %} split--reverse{% endif %}{% if section.settings.page_hero %} page-hero{% endif %}" aria-labelledby="Split-{{ section.id }}">
+  <div class="page-width split__grid">
+    <div class="split__media reveal{% if section.settings.framed %} split__media--framed{% endif %}" style="--ratio: {{ section.settings.ratio }}; --media-radius: {% if section.settings.rounded %}var(--radius){% else %}0{% endif %};">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '500, 800, 1100, 1400', sizes: '(min-width: 990px) 45vw, 100vw', alt: section.settings.image.alt | escape }}
+      {%- elsif section.settings.fallback != 'none' -%}
+        <img src="{{ section.settings.fallback | append: '.webp' | asset_url }}" alt="{{ section.settings.fallback_alt | escape }}" width="1400" height="1050" loading="lazy">
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+      {%- if section.settings.caption != blank -%}<p class="split__caption">{{ section.settings.caption }}</p>{%- endif -%}
+    </div>
+    <div class="split__content">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      {%- if section.settings.page_hero -%}
+        <h1 class="h-display h-display--sm" id="Split-{{ section.id }}">{{ section.settings.heading | newline_to_br }}</h1>
+      {%- else -%}
+        <h2 class="{% if section.settings.display_heading %}h-display h-display--sm{% else %}h2{% endif %}" id="Split-{{ section.id }}">{{ section.settings.heading | newline_to_br }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="rte body-lg">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="btn {% if section.settings.scheme == 'red' or section.settings.scheme == 'blue' or section.settings.scheme == 'navy' %}btn--light{% else %}btn--primary{% endif %}" href="{{ section.settings.button_link }}">{{ section.settings.button_label }} {% render 'icon', name: 'arrow' %}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "class": "section-split",
+  "settings": [
+    { "type": "select", "id": "scheme", "label": "Background", "default": "wheat", "options": [
+      { "value": "cream", "label": "Cream" }, { "value": "yellow", "label": "Yellow" }, { "value": "wheat", "label": "Wheat" },
+      { "value": "lavender", "label": "Lavender" }, { "value": "red", "label": "Red" }, { "value": "blue", "label": "Blue" }, { "value": "navy", "label": "Navy" }
+    ] },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "select", "id": "fallback", "label": "Built-in image", "default": "none", "options": [
+      { "value": "none", "label": "None" }, { "value": "ht-grower", "label": "Texas grower" }, { "value": "ht-meal", "label": "Family meal" },
+      { "value": "ht-recipe-quesadilla", "label": "Quesadillas" }
+    ] },
+    { "type": "text", "id": "fallback_alt", "label": "Built-in image alt text", "default": "A Texas rice grower standing beside his combine" },
+    { "type": "select", "id": "ratio", "label": "Image shape", "default": "4/3", "options": [
+      { "value": "4/3", "label": "Landscape" }, { "value": "1/1", "label": "Square" }, { "value": "4/5", "label": "Portrait" }
+    ] },
+    { "type": "checkbox", "id": "rounded", "label": "Rounded image", "default": false },
+    { "type": "checkbox", "id": "framed", "label": "Red frame", "default": false },
+    { "type": "text", "id": "caption", "label": "Caption" },
+    { "type": "checkbox", "id": "reverse", "label": "Image on right", "default": false },
+    { "type": "checkbox", "id": "page_hero", "label": "Use as page heading (H1)", "default": false },
+    { "type": "checkbox", "id": "display_heading", "label": "Big uppercase heading", "default": false },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Texas grown.\nBrookshire milled." },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Image with text" }]
+}
+{% endschema %}

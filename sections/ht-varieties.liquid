@@ -1,0 +1,89 @@
+<section class="section scheme-{{ section.settings.scheme }}" aria-labelledby="Varieties-{{ section.id }}">
+  <div class="page-width">
+    <div class="heading-row">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        <h2 class="h2" id="Varieties-{{ section.id }}">{{ section.settings.heading }}</h2>
+      </div>
+      <div class="heading-row__aside">
+        {%- if section.settings.text != blank -%}<div class="body-sm">{{ section.settings.text }}</div>{%- endif -%}
+        {%- if section.settings.link_label != blank -%}
+          <a class="link-arrow" href="{{ section.settings.link_url | default: routes.all_products_collection_url }}">{{ section.settings.link_label }} {% render 'icon', name: 'arrow' %}</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="variety-grid">
+      {%- for block in section.blocks -%}
+        {%- assign p = block.settings.product -%}
+        {%- assign variant = p.selected_or_first_available_variant -%}
+        <article class="variety-card reveal" {{ block.shopify_attributes }}>
+          <a class="variety-card__media" href="{{ p.url | default: '#' }}" style="--card-bg: {{ block.settings.color }};" tabindex="-1" aria-hidden="true">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 750px) 33vw, 130px', alt: '' }}
+            {%- elsif block.settings.fallback != 'none' -%}
+              <img src="{{ block.settings.fallback | append: '.webp' | asset_url }}" alt="" width="1072" height="666" loading="lazy">
+            {%- elsif p.featured_media -%}
+              {{ p.featured_media | image_url: width: 900 | image_tag: loading: 'lazy', alt: '' }}
+            {%- endif -%}
+          </a>
+          {%- if block.settings.meta != blank -%}<p class="variety-card__meta">{{ block.settings.meta }}</p>{%- endif -%}
+          <h3 class="h3 variety-card__title"><a href="{{ p.url | default: '#' }}">{{ block.settings.title | default: p.title }}</a></h3>
+          {%- if block.settings.texture != blank -%}<p class="variety-card__texture">{{ block.settings.texture }}</p>{%- endif -%}
+          {%- if block.settings.use != blank -%}<p class="variety-card__use">{{ block.settings.use }}</p>{%- endif -%}
+          {%- if p != blank -%}
+            <p class="variety-card__price">{{ variant.price | money }} / {{ block.settings.unit }}</p>
+            <a class="btn btn--primary btn--block" href="{{ p.url }}">{{ block.settings.button_label | default: 'Shop now' }} {% render 'icon', name: 'arrow' %}</a>
+          {%- else -%}
+            <p class="variety-card__price">Choose a product in the theme editor</p>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.note != blank -%}<p class="shipping-note">{{ section.settings.note }}</p>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Rice varieties",
+  "class": "section-varieties",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "select", "id": "scheme", "label": "Background", "default": "cream", "options": [
+      { "value": "cream", "label": "Cream" }, { "value": "yellow", "label": "Yellow" }, { "value": "wheat", "label": "Wheat" }
+    ] },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Three varieties. Find your favorite." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find your everyday rice." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Start with the texture you love. Choose a single 2 lb bag or explore our multipacks.</p>" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop all rice" },
+    { "type": "url", "id": "link_url", "label": "Link" },
+    { "type": "text", "id": "note", "label": "Note under cards", "default": "Shipping rates shown at checkout." }
+  ],
+  "blocks": [
+    {
+      "type": "variety",
+      "name": "Variety",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "image_picker", "id": "image", "label": "Pack image (optional)" },
+        { "type": "select", "id": "fallback", "label": "Built-in pack image", "default": "none", "options": [
+          { "value": "none", "label": "Use product image" },
+          { "value": "ht-pack-white", "label": "Enriched white" },
+          { "value": "ht-pack-brown", "label": "Brown" },
+          { "value": "ht-pack-jasmine", "label": "Jasmine" }
+        ] },
+        { "type": "color", "id": "color", "label": "Card color", "default": "#fff0a4" },
+        { "type": "text", "id": "meta", "label": "Meta", "default": "Long grain · 2 lb" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "text", "id": "texture", "label": "Texture" },
+        { "type": "text", "id": "use", "label": "Best for" },
+        { "type": "text", "id": "unit", "label": "Price unit", "default": "bag" },
+        { "type": "text", "id": "button_label", "label": "Button label" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Rice varieties", "blocks": [{ "type": "variety" }, { "type": "variety" }, { "type": "variety" }] }]
+}
+{% endschema %}

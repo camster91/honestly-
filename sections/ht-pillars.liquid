@@ -1,0 +1,42 @@
+<section class="section scheme-{{ section.settings.scheme }} pillars" aria-label="{{ section.settings.heading | default: 'Our promise' | escape }}">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}<h2 class="h2" style="text-align: center; margin-bottom: 48px;">{{ section.settings.heading }}</h2>{%- endif -%}
+    <div class="pillars__grid">
+      {%- for block in section.blocks -%}
+        <div class="pillar reveal" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon != blank -%}
+            <div class="pillar__icon">{{ block.settings.icon | image_url: width: 220 | image_tag: loading: 'lazy', alt: '' }}</div>
+          {%- endif -%}
+          <h3 class="h3">{{ block.settings.title }}</h3>
+          {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand pillars",
+  "class": "section-pillars",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "select", "id": "scheme", "label": "Background", "default": "cream", "options": [
+      { "value": "cream", "label": "Cream" }, { "value": "yellow", "label": "Yellow" }, { "value": "wheat", "label": "Wheat" }
+    ] },
+    { "type": "text", "id": "heading", "label": "Heading" }
+  ],
+  "blocks": [
+    { "type": "pillar", "name": "Pillar", "settings": [
+      { "type": "image_picker", "id": "icon", "label": "Icon" },
+      { "type": "text", "id": "title", "label": "Title", "default": "Honestly Texas." },
+      { "type": "text", "id": "text", "label": "Text" }
+    ] }
+  ],
+  "presets": [{ "name": "Brand pillars", "blocks": [
+    { "type": "pillar", "settings": { "title": "Honestly Safe." } },
+    { "type": "pillar", "settings": { "title": "Honestly Sustainable." } },
+    { "type": "pillar", "settings": { "title": "Honestly Texas." } }
+  ] }]
+}
+{% endschema %}

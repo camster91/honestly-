@@ -1,0 +1,22 @@
+{%- if product.description != blank -%}
+<section class="section scheme-{{ section.settings.scheme }} text-band" style="padding-top: 0;" aria-labelledby="Desc-{{ section.id }}">
+  <div class="page-width">
+    <div class="text-band--rule" style="padding-top: 48px;">
+      <h2 class="h-display h-display--sm" id="Desc-{{ section.id }}" style="margin-bottom: 20px;">{{ section.settings.heading }}</h2>
+      <div class="rte text-band__body">{{ product.description }}</div>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product description",
+  "class": "section-product-description",
+  "settings": [
+    { "type": "select", "id": "scheme", "label": "Background", "default": "cream", "options": [ { "value": "cream", "label": "Cream" }, { "value": "wheat", "label": "Wheat" } ] },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Grown with care in Texas." }
+  ],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}

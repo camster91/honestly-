@@ -1,0 +1,101 @@
+{%- assign feature = section.blocks | where: 'type', 'feature' | first -%}
+<section class="section scheme-{{ section.settings.scheme }}" aria-labelledby="Recipes-{{ section.id }}">
+  <div class="page-width">
+    {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+    <h2 class="h-display h-display--sm recipes__title" id="Recipes-{{ section.id }}" style="text-transform: none;">{{ section.settings.heading }}</h2>
+    <div class="recipes__grid">
+      {%- if feature -%}
+        <article class="recipe-feature reveal" {{ feature.shopify_attributes }}>
+          {%- if feature.settings.image != blank -%}
+            {{ feature.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: feature.settings.title | escape }}
+          {%- else -%}
+            <img src="{{ 'ht-recipe-quesadilla.webp' | asset_url }}" alt="{{ feature.settings.title | escape }}" width="800" height="800" loading="lazy">
+          {%- endif -%}
+          <div>
+            {%- if feature.settings.eyebrow != blank -%}<span class="eyebrow">{{ feature.settings.eyebrow }}</span>{%- endif -%}
+            <h3 class="h3">{{ feature.settings.title }}</h3>
+            {%- if feature.settings.text != blank -%}<p>{{ feature.settings.text }}</p>{%- endif -%}
+            {%- if feature.settings.product != blank -%}
+              <a class="btn btn--primary" href="{{ feature.settings.product.url }}">{{ feature.settings.button_label }} {% render 'icon', name: 'arrow' %}</a>
+            {%- endif -%}
+            {%- if feature.settings.recipe_url != blank -%}
+              <div><a class="link-arrow" href="{{ feature.settings.recipe_url }}" target="_blank" rel="noopener">{{ feature.settings.recipe_label }} {% render 'icon', name: 'external' %}</a></div>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endif -%}
+      <div class="recipe-list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'recipe' -%}
+            <article class="recipe-mini reveal" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}
+              {%- elsif block.settings.fallback != 'none' -%}
+                <img src="{{ block.settings.fallback | append: '.webp' | asset_url }}" alt="" width="88" height="88" loading="lazy">
+              {%- endif -%}
+              <div>
+                <h3 class="h3">{{ block.settings.title }}</h3>
+                {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
+                {%- if block.settings.recipe_url != blank -%}
+                  <a class="link-arrow" href="{{ block.settings.recipe_url }}" target="_blank" rel="noopener">{{ block.settings.recipe_label }} {% render 'icon', name: 'external' %}</a>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- if section.settings.more_label != blank -%}
+      <div class="recipes__more"><a class="link-arrow" href="{{ section.settings.more_url }}" target="_blank" rel="noopener">{{ section.settings.more_label }} {% render 'icon', name: 'external' %}</a></div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Recipes",
+  "class": "section-recipes",
+  "max_blocks": 5,
+  "settings": [
+    { "type": "select", "id": "scheme", "label": "Background", "default": "cream", "options": [
+      { "value": "cream", "label": "Cream" }, { "value": "wheat", "label": "Wheat" }
+    ] },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Start with rice. Make it yours." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Tonight starts with rice." },
+    { "type": "text", "id": "more_label", "label": "More link label", "default": "More recipes at USA Rice" },
+    { "type": "text", "id": "more_url", "label": "More link URL", "default": "https://www.usarice.com/thinkrice/recipes" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Featured recipe",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "With long-grain white rice" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Chipotle chicken & rice quesadillas" },
+        { "type": "text", "id": "text", "label": "Text", "default": "A little rice. A very good dinner." },
+        { "type": "product", "id": "product", "label": "Product to shop" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop white rice" },
+        { "type": "text", "id": "recipe_url", "label": "Recipe URL" },
+        { "type": "text", "id": "recipe_label", "label": "Recipe link label", "default": "Recipe at USA Rice" }
+      ]
+    },
+    {
+      "type": "recipe",
+      "name": "Recipe",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "select", "id": "fallback", "label": "Built-in image", "default": "none", "options": [
+          { "value": "none", "label": "None" }, { "value": "ht-recipe-soup", "label": "Soup" }, { "value": "ht-recipe-champorado", "label": "Champorado" }
+        ] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Recipe" },
+        { "type": "text", "id": "text", "label": "Rice used" },
+        { "type": "text", "id": "recipe_url", "label": "Recipe URL" },
+        { "type": "text", "id": "recipe_label", "label": "Link label", "default": "USA Rice recipe" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Recipes", "blocks": [{ "type": "feature" }, { "type": "recipe" }, { "type": "recipe" }] }]
+}
+{% endschema %}

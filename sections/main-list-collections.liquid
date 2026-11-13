@@ -1,0 +1,24 @@
+<section class="section">
+  <div class="page-width">
+    <h1 class="h-display h-display--sm" style="margin-bottom: 40px;">Shop our rice</h1>
+    <ul class="product-grid">
+      {%- for collection in collections -%}
+        {%- if collection.products_count > 0 -%}
+          {%- capture bg -%}{% render 'variety-color', title: collection.title %}{%- endcapture -%}
+          <li class="card reveal" style="--card-bg: {{ bg | strip }};">
+            <a class="card__media" href="{{ collection.url }}" tabindex="-1" aria-hidden="true">
+              {%- assign img = collection.featured_image | default: collection.products.first.featured_media -%}
+              {%- if img -%}{{ img | image_url: width: 800 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+            </a>
+            <p class="card__type">{{ collection.products_count }} {{ collection.products_count | pluralize: 'product', 'products' }}</p>
+            <a class="card__title" href="{{ collection.url }}">{{ collection.title }}</a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Collections list", "class": "section-main-list-collections" }
+{% endschema %}

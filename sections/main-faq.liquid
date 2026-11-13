@@ -1,0 +1,61 @@
+<section class="faq-hero">
+  <div class="page-width">
+    <div class="faq-hero__panel">
+      <span class="pill">{{ section.settings.pill }}</span>
+      <h1 class="h-display">{{ section.settings.heading }}</h1>
+      <div class="faq-search">
+        {% render 'icon', name: 'search' %}
+        <label class="visually-hidden" for="FaqSearch-{{ section.id }}">Search FAQs</label>
+        <input id="FaqSearch-{{ section.id }}" type="search" placeholder="Search FAQs" data-faq-search="#FaqList-{{ section.id }}" autocomplete="off">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 48px;">
+  <div class="page-width">
+    {%- if section.settings.eyebrow != blank -%}<span class="eyebrow" style="color: var(--ht-red); margin-bottom: 32px;">{{ section.settings.eyebrow }}</span>{%- endif -%}
+    <div class="faq-list" id="FaqList-{{ section.id }}">
+      {%- for block in section.blocks -%}
+        <details class="faq-item" {{ block.shopify_attributes }}{% if section.settings.open_all %} open{% endif %}>
+          <summary>{{ block.settings.question }}</summary>
+          <div class="rte">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+    <p class="faq-empty" data-faq-empty hidden>No answers match that search. <a href="{{ section.settings.contact_url | default: '/pages/contact' }}">Ask us directly</a>.</p>
+    {%- if page.content != blank -%}<div class="rte" style="margin-top: 48px; max-width: 820px;">{{ page.content }}</div>{%- endif -%}
+  </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for block in section.blocks -%}
+    { "@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} } }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "class": "section-main-faq",
+  "settings": [
+    { "type": "text", "id": "pill", "label": "Label", "default": "FAQs" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What can we help you find?" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Quick answers to common questions" },
+    { "type": "checkbox", "id": "open_all", "label": "Open all answers by default", "default": true },
+    { "type": "url", "id": "contact_url", "label": "Contact page" }
+  ],
+  "blocks": [
+    { "type": "question", "name": "Question", "settings": [
+      { "type": "text", "id": "question", "label": "Question", "default": "Question" },
+      { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Answer</p>" }
+    ] }
+  ]
+}
+{% endschema %}

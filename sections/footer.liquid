@@ -1,0 +1,82 @@
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <a href="{{ routes.root_url }}" class="site-footer__logo"><img src="{{ 'ht-logo.svg' | asset_url }}" alt="{{ shop.name | escape }}" width="140" height="80" loading="lazy"></a>
+        {%- if section.settings.tagline != blank -%}<p class="site-footer__tag">{{ section.settings.tagline | newline_to_br }}</p>{%- endif -%}
+        {%- liquid
+          assign has_social = false
+          if settings.social_instagram != blank or settings.social_facebook != blank or settings.social_tiktok != blank
+            assign has_social = true
+          endif
+        -%}
+        {%- if has_social -%}
+          <div class="site-footer__social">
+            {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{% render 'icon', name: 'instagram' %}</a>{%- endif -%}
+            {%- if settings.social_facebook != blank -%}<a href="{{ settings.social_facebook }}" target="_blank" rel="noopener" aria-label="Facebook">{% render 'icon', name: 'facebook' %}</a>{%- endif -%}
+            {%- if settings.social_tiktok != blank -%}<a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener" aria-label="TikTok">{% render 'icon', name: 'tiktok' %}</a>{%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- assign menu = linklists[block.settings.menu] -%}
+        <nav {{ block.shopify_attributes }} aria-label="{{ block.settings.heading | escape }}">
+          <p class="site-footer__heading">{{ block.settings.heading }}</p>
+          <ul class="site-footer__links">
+            {%- if menu.links.size > 0 -%}
+              {%- for link in menu.links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}
+            {%- elsif forloop.first -%}
+              <li><a href="{{ routes.all_products_collection_url }}">Shop rice</a></li>
+              <li><a href="/pages/about-us">Our story</a></li>
+              <li><a href="https://www.usarice.com/thinkrice/recipes" target="_blank" rel="noopener">Recipes</a></li>
+              <li><a href="#find-a-store">Find a store</a></li>
+            {%- else -%}
+              <li><a href="/pages/frequently-asked-questions">FAQ</a></li>
+              <li><a href="/pages/contact">Contact</a></li>
+              <li><a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">Shipping &amp; returns</a></li>
+            {%- endif -%}
+          </ul>
+        </nav>
+      {%- endfor -%}
+    </div>
+
+    <hr class="site-footer__divider">
+
+    <div class="site-footer__legal">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ section.settings.copyright | default: shop.name }}</p>
+      <ul>
+        {%- if shop.privacy_policy -%}<li><a href="{{ shop.privacy_policy.url }}">Privacy policy</a></li>{%- endif -%}
+        {%- if shop.terms_of_service -%}<li><a href="{{ shop.terms_of_service.url }}">Terms of service</a></li>{%- endif -%}
+        {%- if shop.refund_policy -%}<li><a href="{{ shop.refund_policy.url }}">Refund policy</a></li>{%- endif -%}
+      </ul>
+    </div>
+
+    {%- if section.settings.show_wordmark -%}
+      <div class="site-footer__wordmark"><img src="{{ 'ht-wordmark.svg' | asset_url }}" alt="" width="1296" height="339" loading="lazy"></div>
+    {%- endif -%}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section-footer",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "textarea", "id": "tagline", "label": "Tagline", "default": "Grown here. Milled here.\nMade for the family table." },
+    { "type": "text", "id": "copyright", "label": "Copyright name", "default": "Honestly Texas Rice" },
+    { "type": "checkbox", "id": "show_wordmark", "label": "Show large wordmark", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Shop & explore" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,13 @@
+<article class="section">
+  <div class="page-width article">
+    <p class="eyebrow"><a href="{{ blog.url }}" style="text-decoration: none;">{{ blog.title }}</a> · <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%B %-d, %Y' }}</time></p>
+    <h1 class="h-display h-display--sm">{{ article.title }}</h1>
+    {%- if article.image -%}{{ article.image | image_url: width: 1600 | image_tag: class: 'article__hero', widths: '800, 1200, 1600', sizes: '(min-width: 990px) 820px, 100vw', alt: article.image.alt | default: article.title | escape }}{%- endif -%}
+    <div class="rte body-lg">{{ article.content }}</div>
+    <p style="margin-top: 48px;"><a class="link-arrow" href="{{ blog.url }}">Back to {{ blog.title }} {% render 'icon', name: 'arrow' %}</a></p>
+  </div>
+</article>
+
+{% schema %}
+{ "name": "Article", "class": "section-main-article" }
+{% endschema %}

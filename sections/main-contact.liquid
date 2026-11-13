@@ -1,0 +1,82 @@
+<section class="section">
+  <div class="page-width contact__grid">
+    <div class="contact__info">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow" style="color: var(--ht-red);">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h1 class="h-display h-display--sm">{{ section.settings.heading | newline_to_br }}</h1>
+      {%- if section.settings.text != blank -%}<div class="rte body-lg">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if page.content != blank -%}<div class="rte" style="margin-top: 16px;">{{ page.content }}</div>{%- endif -%}
+      <div class="contact__cards">
+        {%- for block in section.blocks -%}
+          <div class="contact__card" {{ block.shopify_attributes }}>
+            <strong>{{ block.settings.title }}</strong>
+            <div class="rte">{{ block.settings.text }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div>
+      {%- form 'contact', class: 'contact-form', novalidate: 'novalidate' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="form-message form-message--success" role="status">{{ section.settings.success }}</div>
+        {%- elsif form.errors -%}
+          <div class="form-message form-message--error" role="alert">
+            <div>Please check the highlighted fields.
+              <ul>{%- for field in form.errors -%}<li>{% if field == 'form' %}{{ form.errors.messages[field] }}{% else %}{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}{% endif %}</li>{%- endfor -%}</ul>
+            </div>
+          </div>
+        {%- endif -%}
+        <div class="row">
+          <div class="field">
+            <label for="ContactName">Name</label>
+            <input id="ContactName" type="text" name="contact[name]" autocomplete="name" value="{{ form.name }}">
+          </div>
+          <div class="field">
+            <label for="ContactEmail">Email <span aria-hidden="true">*</span></label>
+            <input id="ContactEmail" type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}"{% if form.errors contains 'email' %} aria-invalid="true"{% endif %}>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="ContactPhone">Phone</label>
+            <input id="ContactPhone" type="tel" name="contact[phone]" autocomplete="tel" value="{{ form.phone }}">
+          </div>
+          <div class="field">
+            <label for="ContactTopic">Topic</label>
+            <select id="ContactTopic" name="contact[topic]">
+              <option>A question about my order</option>
+              <option>Product question</option>
+              <option>Wholesale or retail</option>
+              <option>Something else</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="ContactBody">Message <span aria-hidden="true">*</span></label>
+          <textarea id="ContactBody" name="contact[body]" required{% if form.errors contains 'body' %} aria-invalid="true"{% endif %}>{{ form.body }}</textarea>
+        </div>
+        <div><button type="submit" class="btn btn--primary">{{ section.settings.button_label }} {% render 'icon', name: 'arrow' %}</button></div>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact",
+  "class": "section-main-contact",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Contact" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Howdy.\nHow can we help?" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Questions about an order, our rice or carrying Honestly Texas in your store? Send us a note and our team will get back to you.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send message" },
+    { "type": "text", "id": "success", "label": "Success message", "default": "Thanks for reaching out! We’ll get back to you soon." }
+  ],
+  "blocks": [
+    { "type": "card", "name": "Info card", "settings": [
+      { "type": "text", "id": "title", "label": "Title", "default": "Wholesale & retail" },
+      { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Business enquiries are welcome. Choose “Wholesale or retail” in the form.</p>" }
+    ] }
+  ]
+}
+{% endschema %}

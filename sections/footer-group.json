@@ -1,0 +1,16 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "shop": { "type": "menu", "settings": { "heading": "Shop & explore", "menu": "" } },
+        "help": { "type": "menu", "settings": { "heading": "Here to help", "menu": "" } }
+      },
+      "block_order": ["shop", "help"],
+      "settings": { "tagline": "Grown here. Milled here.\nMade for the family table.", "copyright": "Honestly Texas Rice", "show_wordmark": true }
+    }
+  },
+  "order": ["footer"]
+}

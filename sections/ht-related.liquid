@@ -1,0 +1,37 @@
+{%- liquid
+  assign heading = section.settings.heading
+  assign source = section.settings.collection | default: collections.all
+-%}
+<section class="section scheme-{{ section.settings.scheme }}" aria-labelledby="Related-{{ section.id }}">
+  <div class="page-width">
+    <div class="heading-row">
+      <h2 class="h2" id="Related-{{ section.id }}">{{ heading }}</h2>
+      <div class="heading-row__aside"><a class="link-arrow" href="{{ routes.all_products_collection_url }}">Shop all rice {% render 'icon', name: 'arrow' %}</a></div>
+    </div>
+    <ul class="product-grid">
+      {%- assign shown = 0 -%}
+      {%- for p in source.products -%}
+        {%- if p.id != product.id and shown < section.settings.limit and p.available -%}
+          {%- assign shown = shown | plus: 1 -%}
+          <li class="reveal">{% render 'product-card', product: p %}</li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "More rice",
+  "class": "section-related",
+  "settings": [
+    { "type": "select", "id": "scheme", "label": "Background", "default": "cream", "options": [
+      { "value": "cream", "label": "Cream" }, { "value": "wheat", "label": "Wheat" }
+    ] },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "More from our Texas fields." },
+    { "type": "collection", "id": "collection", "label": "Products from" },
+    { "type": "range", "id": "limit", "label": "Products", "min": 3, "max": 6, "step": 3, "default": 3 }
+  ],
+  "presets": [{ "name": "More rice" }]
+}
+{% endschema %}

@@ -1,0 +1,24 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": { "type": "announcement-bar", "settings": { "text": "Grown, milled & packed in Texas", "link": "" } },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "white": { "type": "menu_product", "settings": { "product": "enriched-long-grain-white-rice-2lb", "label": "Enriched white" } },
+        "brown": { "type": "menu_product", "settings": { "product": "long-grain-brown-rice", "label": "Brown rice" } },
+        "jasmine": { "type": "menu_product", "settings": { "product": "jasmine-rice", "label": "Jasmine rice" } }
+      },
+      "block_order": ["white", "brown", "jasmine"],
+      "settings": {
+        "sticky": false,
+        "recipes_url": "https://www.usarice.com/thinkrice/recipes",
+        "bundle": "rice-variety-bundle-6-lbs-total-enriched-white-rice-brown-rice-jasmine-rice",
+        "bundle_label": "Try all three",
+        "tagline": "Grown here. Milled here.\nMade for the family table."
+      }
+    }
+  },
+  "order": ["announcement", "header"]
+}
