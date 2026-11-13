@@ -10,7 +10,19 @@
   {
     "name": "Brand",
     "settings": [
-      { "type": "image_picker", "id": "favicon", "label": "Favicon", "info": "32 × 32px PNG" }
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "32 × 32px PNG"
+      },
+      {
+        "type": "checkbox",
+        "id": "brand_font_loaded",
+        "label": "Brand fonts uploaded",
+        "default": false,
+        "info": "Tick after adding HamburgHand-Bold.woff2 and Bermont-Black.woff2 to the theme assets. Removes the fallback font scaling."
+      }
     ]
   },
   {
