@@ -97,7 +97,7 @@ body.is-locked { overflow: hidden; }
 
 /* ---------- Home: hero ---------- */
 .o1-hero { height: 974u; background: #3a5b8f; }
-.o1-hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 57% 0; max-width: none; }
+.o1-hero__bg { position: absolute; left: calc(50% - 1039u); top: 0; width: 1800u; height: 1013u; object-fit: cover; max-width: none; }
 .o1-hero__box1 { left: 249u; top: 426u; width: 953u; height: 117u; border-radius: 14u; background: rgba(193, 2, 48, 0.69); }
 .o1-hero__box2 { left: 451.6u; top: 543u; width: 550.2u; height: 105.6u; border-radius: 0 0 14u 14u; background: rgba(193, 2, 48, 0.69); }
 .o1-hero__headline { left: 286u; top: 441.4u; width: 868.5u; height: 179u; }
@@ -132,18 +132,18 @@ body.is-locked { overflow: hidden; }
 /* multis (section top 2564) */
 .o1-products--multis .o1-prod { top: 231u; height: 400u; }
 .o1-products--multis .o1-prod:nth-of-type(1) { left: 111u; width: 323u; }
-.o1-products--multis .o1-prod:nth-of-type(1) img { left: 0; top: 60u; width: 323u; height: 354u; object-fit: contain; }
+.o1-products--multis .o1-prod:nth-of-type(1) img { left: 0; top: 60u; width: 323u; height: 354u; object-fit: fill; }
 .o1-products--multis .o1-prod:nth-of-type(1) .o1-prod__dot { left: 191u; top: 0; }
 .o1-products--multis .o1-prod:nth-of-type(2) { left: 526u; width: 416u; }
-.o1-products--multis .o1-prod:nth-of-type(2) img { left: 0; top: 28u; width: 416u; height: 362u; object-fit: contain; }
+.o1-products--multis .o1-prod:nth-of-type(2) img { left: 0; top: 28u; width: 416u; height: 362u; object-fit: cover; }
 .o1-products--multis .o1-prod:nth-of-type(2) .o1-prod__dot { left: 267u; top: 0; }
 .o1-products--multis .o1-prod:nth-of-type(3) { left: 995u; width: 337u; }
-.o1-products--multis .o1-prod:nth-of-type(3) img { left: 0; top: 28u; width: 337u; height: 362u; object-fit: contain; }
+.o1-products--multis .o1-prod:nth-of-type(3) img { left: 0; top: 28u; width: 337u; height: 362u; object-fit: fill; }
 .o1-products--multis .o1-prod:nth-of-type(3) .o1-prod__dot { left: 169u; top: 0; }
 .o1-products__star { left: 0; top: 599u; width: 259u; height: 411u; z-index: 3; pointer-events: none; }
 
 /* ---------- Home: values (red stars) ---------- */
-.o1-values { height: 640u; background: var(--red); }
+.o1-values { height: 629u; background: var(--red); }
 .o1-values__stars { position: absolute; inset: 0; background-size: 640u 640u; background-repeat: repeat; opacity: 0.3; }
 .o1-card { position: absolute; top: 70u; width: 390u; height: 435u; border-radius: 31u; background: var(--pink); overflow: hidden; }
 .o1-card:nth-of-type(1) { left: 102u; }
@@ -157,7 +157,7 @@ body.is-locked { overflow: hidden; }
 
 /* ---------- Home: dinner / recipes ---------- */
 .o1-recipes { height: 900u; background: var(--wheat); }
-.o1-recipes .o1-title { top: 50u; line-height: 74u; left: 439u; right: auto; width: 562u; }
+.o1-recipes .o1-title { top: 50u; line-height: 74u; white-space: nowrap; }
 .o1-recipe { position: absolute; top: 242.75u; width: 390u; height: 353.25u; display: block; text-decoration: none; }
 .o1-recipe:nth-of-type(1) { left: 87u; }
 .o1-recipe:nth-of-type(2) { left: 525.5u; top: 243.75u; }
@@ -175,7 +175,7 @@ body.is-locked { overflow: hidden; }
 .o1-farmers { height: 891u; background: #c58f5c; }
 .o1-farmers__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; max-width: none; }
 .o1-farmers .o1-title { top: 56u; line-height: 74u; color: var(--cream); }
-.o1-farmers__photos { left: 0; top: 229u; width: 1440u; height: 589u; }
+.o1-farmers__photos { left: -86u; top: 229u; width: 1613u; height: 589u; max-width: none; }
 
 /* ---------- Home: feature (red) ---------- */
 .o1-feature { height: 687u; background: var(--red); }
@@ -270,7 +270,7 @@ body.is-locked { overflow: hidden; }
 .o1-pdp__crumbs a:hover { text-decoration: underline; }
 .o1-pdp__main { position: absolute; left: 70u; top: 346u; width: 680u; height: 720u; border-radius: 12u; background: var(--card, var(--yellow)); overflow: hidden; }
 .o1-pdp__main img { position: absolute; left: 42u; top: 158u; width: 605u; height: 395u; object-fit: contain; mix-blend-mode: multiply; }
-.o1-pdp__main img.is-photo { inset: 0; width: 100%; height: 100%; object-fit: cover; mix-blend-mode: normal; }
+
 .o1-pdp__thumbs { position: absolute; left: 70u; top: 1091u; width: 680u; display: flex; gap: 19u; list-style: none; margin: 0; padding: 0; }
 .o1-pdp__thumb { width: 211u; height: 175u; border-radius: 6u; border: 0; padding: 16u 18u; cursor: pointer; background: var(--pink); flex: none; outline-offset: 2px; }
 .o1-pdp__thumbs li:nth-child(3n+2) .o1-pdp__thumb { background: var(--wheat); padding: 11u 11u; }
@@ -320,7 +320,7 @@ body.is-locked { overflow: hidden; }
 .o1-dinner__img img { width: 100%; height: 100%; object-fit: cover; border-radius: 13u; }
 
 /* ---------- Our story ---------- */
-.o1-story-hero { height: 1058u; background: var(--story-blue); }
+.o1-story-hero { height: 1058u; background: linear-gradient(var(--cream) 0 145u, var(--story-blue) 145u); }
 .o1-story-hero__stars { position: absolute; top: 139u; height: 918u; width: 918u; background-size: 918u 918u; opacity: .1; }
 .o1-story-hero__stars--1 { left: -231u; }
 .o1-story-hero__stars--2 { left: 687u; }
@@ -343,8 +343,9 @@ body.is-locked { overflow: hidden; }
 .o1-person__cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 12u 16u; background: linear-gradient(transparent, rgba(0,0,0,.6)); color: #fff; font-family: var(--font-inter); font-weight: 700; font-size: 16u; }
 .o1-land { height: 776u; background: var(--red); }
 .o1-land__eyebrow { left: 93u; top: 1u; font-family: var(--font-inter); font-weight: 700; font-size: 18u; color: var(--red); text-transform: uppercase; }
-.o1-land__title { left: 78u; top: 112u; width: 602u; font-size: calc(58u * var(--hh)); line-height: 1.21; color: #f9fae9; }
-.o1-land__text { left: 78u; top: 205u; width: 547u; font-family: var(--font-inter); font-size: 23u; line-height: 1.21; color: #f9fae9; }
+.o1-land__copy { left: 78u; top: 112u; width: 560u; }
+.o1-land__title { font-size: calc(58u * var(--hh)); line-height: 1.21; color: #f9fae9; white-space: nowrap; }
+.o1-land__text { margin-top: 23u; width: 547u; font-family: var(--font-inter); font-size: 23u; line-height: 1.21; color: #f9fae9; }
 .o1-land__text p + p { margin-top: 1.21em; }
 .o1-land__img { left: 712u; top: 70u; width: 645u; height: 600u; border-radius: 19u; overflow: hidden; }
 .o1-land__img img { width: 100%; height: 100%; object-fit: cover; }
@@ -460,7 +461,7 @@ body.is-locked { overflow: hidden; }
 
   .o1-hero { height: 720u !important; }
   .o1-hero .o1__canvas { height: 100%; padding: 0; }
-  .o1-hero__bg { object-position: 40% 0; }
+  .o1-hero__bg { left: 0; width: 100%; height: 100%; object-position: 30% 0; }
   .o1-hero .o1__abs { position: absolute; }
   .o1-hero__box1 { left: 16u !important; top: 300u !important; width: 358u !important; height: 56u !important; border-radius: 8u; }
   .o1-hero__box2 { left: 70u !important; top: 356u !important; width: 250u !important; height: 50u !important; border-radius: 0 0 8u 8u; }
@@ -493,7 +494,8 @@ body.is-locked { overflow: hidden; }
 
   .o1-farmers { padding: 44u 0 30u; }
   .o1-farmers .o1-title { top: auto; }
-  .o1-farmers__photos { width: 100% !important; margin-top: 20u; }
+  .o1-farmers__photos { width: 130% !important; margin: 20u 0 0 -15% !important; }
+  .o1-recipes .o1-title { white-space: normal; }
 
   .o1-feature { padding: 30u 20u 44u; }
   .o1-feature .o1__canvas { padding: 0; display: flex; flex-direction: column; gap: 22u; }
@@ -587,7 +589,10 @@ body.is-locked { overflow: hidden; }
   .o1-land { padding: 44u 20u; }
   .o1-land .o1__canvas { padding: 0; display: flex; flex-direction: column; gap: 16u; }
   .o1-land__eyebrow { display: none; }
-  .o1-land__title { font-size: calc(32u * var(--hh)); }
+  .o1-land__title { font-size: calc(32u * var(--hh)); white-space: normal; }
+  .o1-land__copy { width: auto !important; }
+  .o1-land__text { width: auto; }
+  .o1-story-hero { background: var(--story-blue); }
   .o1-land__text { font-size: 17u; }
   .o1-land__img { order: -1; width: 100% !important; height: 260u !important; }
 
