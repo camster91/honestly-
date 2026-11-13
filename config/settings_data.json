@@ -1,0 +1,13 @@
+{
+  "current": {
+    "sections": {
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": { "bundle": "rice-variety-bundle-6-lbs-total-enriched-white-rice-brown-rice-jasmine-rice" }
+      }
+    }
+  },
+  "presets": {
+    "Default": {}
+  }
+}
