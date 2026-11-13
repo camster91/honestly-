@@ -487,6 +487,7 @@ body.is-locked { overflow: hidden; }
   .o1-card__img { height: 200u; }
 
   .o1-recipes { padding: 44u 20u 48u; }
+  .o1-recipes .o1-title, .o1-farmers .o1-title, .o1-socials .o1-title { line-height: 1.15 !important; }
   .o1-recipes .o1-title { left: auto; width: auto; top: auto; margin-bottom: 30u; }
   .o1-recipe { position: relative; left: auto !important; top: auto !important; width: 100%; height: 300u; margin: 0 0 48u; }
   .o1-recipe .o1-prod__dot { top: -36u !important; left: auto !important; right: -6u; width: 104u; height: 104u; font-size: calc(13u * var(--hh)); line-height: 15u; }
@@ -509,7 +510,9 @@ body.is-locked { overflow: hidden; }
   .o1-socials .o1-title { grid-column: 1 / -1; }
   .o1-socials__tile { position: relative; left: auto !important; top: auto; width: auto; height: auto; aspect-ratio: 1; }
   .o1-socials__tile:nth-of-type(5) { display: none; }
-  .o1-socials__sticker { position: absolute !important; right: 0 !important; left: auto !important; top: 0 !important; width: 120u !important; height: 134u !important; }
+  .o1-socials__sticker { position: absolute !important; right: 0 !important; left: auto !important; top: auto !important; bottom: -50u; width: 110u !important; height: 122u !important; }
+  .o1-socials .o1__canvas { position: relative; }
+  .o1-socials .o1-title { padding: 0 20u; }
 
   .o1-footer { padding: 36u 20u 0; }
   .o1-footer .o1__canvas { padding: 0; display: grid; grid-template-columns: 96u 1fr; gap: 24u 20u; align-items: start; }
@@ -518,7 +521,8 @@ body.is-locked { overflow: hidden; }
   .o1-footer__links li { height: auto; }
   .o1-footer__seal { display: none; }
   .o1-footer__copy, .o1-footer__form, .o1-footer__legal { grid-column: 1 / -1; font-size: 17u; line-height: 22u; }
-  .o1-footer__form { height: 64u !important; }
+  .o1-footer__form { height: 64u !important; width: 100% !important; }
+  .o1-footer__field { height: 64u; }
   .o1-footer__field input, .o1-footer__field button { font-size: calc(20u * var(--hh)); }
   .o1-footer__legal { font-size: 12u; }
   .o1-footer__wordmark { grid-column: 1 / -1; width: calc(100% + 40u) !important; margin: 10u -20u 0; }
