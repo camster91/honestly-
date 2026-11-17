@@ -1,1 +1,63 @@
-{"sections":{"hero":{"type":"o1-story-hero","settings":{"label":"01 / THE PEOPLE","title":"Rooted in\nnature","button_label":"Contact us","button_link":"shopify://pages/contact"}},"people":{"type":"o1-people","blocks":{"p1":{"type":"person","settings":{"image":"shopify://shop_images/IMG_6788.jpg"}},"p2":{"type":"person","settings":{"image":"shopify://shop_images/IMG_3049.jpg"}},"p3":{"type":"person","settings":{"image":"shopify://shop_images/Honestly-Texas-Rice-Farmer-2.jpg"}}},"block_order":["p1","p2","p3"],"settings":{}},"land":{"type":"o1-land","settings":{"button_label":"Shop Rice","button_link":"shopify://collections/all"}}},"order":["hero","people","land"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "o1-story-hero",
+      "settings": {
+        "label": "01 / THE PEOPLE",
+        "title": "Rooted in\nnature",
+        "button_label": "Contact us",
+        "button_link": "shopify://pages/contact"
+      }
+    },
+    "people": {
+      "type": "o1-people",
+      "blocks": {
+        "p1": {
+          "type": "person",
+          "settings": {
+            "image": "shopify://shop_images/IMG_6788.jpg"
+          }
+        },
+        "p2": {
+          "type": "person",
+          "settings": {
+            "image": "shopify://shop_images/IMG_3049.jpg"
+          }
+        },
+        "p3": {
+          "type": "person",
+          "settings": {
+            "image": "shopify://shop_images/Honestly-Texas-Rice-Farmer-2.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {}
+    },
+    "land": {
+      "type": "o1-land",
+      "settings": {
+        "button_label": "Shop Rice",
+        "button_link": "shopify://collections/all"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "people",
+    "land"
+  ]
+}

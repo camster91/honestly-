@@ -1,1 +1,54 @@
-{"sections":{"main":{"type":"main-contact","blocks":{"orders":{"type":"card","settings":{"title":"Order questions","text":"<p>Need help with a purchase?<br>Send us your order details.</p>","link":"#ContactForm"}},"wholesale":{"type":"card","settings":{"title":"Wholesale & retail","text":"<p>Interested in carrying our rice?<br>Tell us about your business.</p>","link":"#ContactForm"}},"general":{"type":"card","settings":{"title":"General enquiries","text":"<p>Have a question or idea?<br>Start the conversation here.</p>","link":"#ContactForm"}}},"block_order":["orders","wholesale","general"],"settings":{"eyebrow":"Contact / Honestly Texas","heading":"Let’s talk rice.","text":"<p>Questions about our rice, your order or working together? We’d love to hear from you.</p>","form_title":"Send us a message","button_label":"Send message","success":"Thanks for reaching out! We’ll get back to you soon.","cards_title":"Other ways to connect","help_title":"A few helpful\nanswers.","help_text":"Looking for answers about our products, orders or where to find us?","help_button":"Explore the FAQ","help_link":"shopify://pages/frequently-asked-questions"}}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-contact",
+      "blocks": {
+        "orders": {
+          "type": "card",
+          "settings": {
+            "title": "Order questions",
+            "text": "<p>Need help with a purchase?<br>Send us your order details.</p>"
+          }
+        },
+        "wholesale": {
+          "type": "card",
+          "settings": {
+            "title": "Wholesale & retail",
+            "text": "<p>Interested in carrying our rice?<br>Tell us about your business.</p>"
+          }
+        },
+        "general": {
+          "type": "card",
+          "settings": {
+            "title": "General enquiries",
+            "text": "<p>Have a question or idea?<br>Start the conversation here.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "orders",
+        "wholesale",
+        "general"
+      ],
+      "settings": {
+        "eyebrow": "Contact / Honestly Texas",
+        "heading": "Let’s talk rice.",
+        "text": "<p>Questions about our rice, your order or working together? We’d love to hear from you.</p>",
+        "button_label": "Send message",
+        "success": "Thanks for reaching out! We’ll get back to you soon."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
