@@ -23,6 +23,13 @@
 </section>
 {% render 'band' %}
 
+{% stylesheet %}
+/* Wide screens (over 1440px): stretch the photo so it reaches the right edge */
+@media (min-width: 1441px) {
+  .o1-hero__bg { width: max(calc(1800 * var(--u)), calc(50vw + 1039 * var(--u))); object-position: left top; }
+}
+{% endstylesheet %}
+
 {% schema %}
 {
   "name": "Hero",
