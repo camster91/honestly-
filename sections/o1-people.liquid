@@ -5,8 +5,9 @@
     <p class="o1__abs o1-people__text">{{ section.settings.text }}</p>
     {%- for block in section.blocks -%}
       <article class="o1-person reveal" {{ block.shopify_attributes }}>
+        {%- assign person_alt = block.settings.name | default: block.settings.image.alt | default: 'Honestly Texas rice farmers' -%}
         {%- if block.settings.image != blank -%}
-          {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '450, 900', sizes: '(min-width: 750px) 30vw, 90vw', alt: block.settings.name | default: block.settings.image.alt | escape }}
+          {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '450, 900', sizes: '(min-width: 750px) 30vw, 90vw', alt: person_alt }}
         {%- endif -%}
         {%- if block.settings.name != blank -%}<p class="o1-person__cap">{{ block.settings.name }}</p>{%- endif -%}
       </article>

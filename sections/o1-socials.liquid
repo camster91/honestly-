@@ -2,9 +2,10 @@
   <div class="o1__canvas">
     <h2 class="o1-title" id="Soc-{{ section.id }}">{{ section.settings.title }}</h2>
     {%- for block in section.blocks -%}
-      <a class="o1-socials__tile" href="{{ block.settings.link | default: section.settings.profile_url }}" target="_blank" rel="noopener" {{ block.shopify_attributes }}>
+      {%- assign tile_alt = block.settings.image.alt | default: 'Honestly Texas on social media' -%}
+      <a class="o1-socials__tile" href="{{ block.settings.link | default: section.settings.profile_url }}" target="_blank" rel="noopener" aria-label="{{ tile_alt | escape }} (opens in a new tab)" {{ block.shopify_attributes }}>
         {%- if block.settings.image != blank -%}
-          {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 600', sizes: '(min-width: 750px) 18vw, 50vw', alt: block.settings.image.alt | default: 'Honestly Texas on social media' | escape }}
+          {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 600', sizes: '(min-width: 750px) 18vw, 50vw', alt: tile_alt }}
         {%- else -%}
           <span class="visually-hidden">Honestly Texas on social media</span>
         {%- endif -%}
