@@ -29,7 +29,7 @@
 
     <div class="o1-pdp__main" style="--card: {{ section.settings.main_color }};">
       {%- if pack != blank -%}
-        <img data-gallery-main class="o1-pdp__pack" src="{{ pack | append: '.webp' | asset_url }}" width="1072" height="666" fetchpriority="high" alt="{{ product.title | escape }}">
+        <img data-gallery-main class="o1-pdp__pack" src="{{ pack }}" width="1072" height="666" fetchpriority="high" alt="{{ product.title | escape }}">
       {%- elsif first -%}
         <img data-gallery-main
           src="{{ first | image_url: width: 1400 }}"

@@ -18,6 +18,12 @@
   if collection.handle == 'all' and section.settings.hide_merch
     assign hide_merch = true
   endif
+  assign use_order = false
+  if collection.handle == 'all' and section.settings.order != blank
+    if collection.sort_by == blank or collection.sort_by == 'manual'
+      assign use_order = true
+    endif
+  endif
   assign shown_count = collection.products_count
   if hide_merch
     assign shown_count = 0
@@ -65,6 +71,7 @@
       <label class="visually-hidden" for="SortBy">Sort by</label>
       <select id="SortBy" data-sort>
         {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+        {%- if use_order -%}{%- assign sort_by = 'manual' -%}{%- endif -%}
         {%- for option in collection.sort_options -%}
           <option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>Sort: {{ option.name }} ▾</option>
         {%- endfor -%}
@@ -74,7 +81,19 @@
 
   {%- if collection.products.size > 0 -%}
     <ul class="o1-shop__grid">
+      {%- if use_order -%}
+        {%- assign ordered = '' -%}
+        {%- for product in section.settings.order -%}
+          {%- assign ordered = ordered | append: ',' | append: product.handle -%}
+          <li class="reveal">{% render 'product-card', product: product %}</li>
+        {%- endfor -%}
+        {%- assign ordered = ordered | append: ',' -%}
+      {%- endif -%}
       {%- for product in collection.products -%}
+        {%- if use_order -%}
+          {%- assign key = ',' | append: product.handle | append: ',' -%}
+          {%- if ordered contains key -%}{%- continue -%}{%- endif -%}
+        {%- endif -%}
         {%- if hide_merch -%}
           {%- assign pt = product.title | downcase -%}
           {%- unless pt contains 'rice' -%}{%- continue -%}{%- endunless -%}
@@ -108,6 +127,7 @@
     { "type": "text", "id": "heading", "label": "Heading override" },
     { "type": "link_list", "id": "nav_menu", "label": "Category menu" },
     { "type": "checkbox", "id": "hide_merch", "label": "Hide merch on Shop all", "info": "Only products with \"rice\" in the title show on /collections/all. Merch lives in its own collection (handle: merch).", "default": true },
+    { "type": "product_list", "id": "order", "label": "Shop all: featured order", "info": "Shown first, in this order, when Shop all is sorted by Featured (the default). Other rice products follow.", "limit": 24 },
     { "type": "range", "id": "per_page", "label": "Products per page", "min": 6, "max": 48, "step": 3, "default": 24 }
   ]
 }
