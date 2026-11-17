@@ -4,16 +4,26 @@
     {%- if section.settings.text != blank -%}<p class="o1-lead">{{ section.settings.text }}</p>{%- endif -%}
     {%- for block in section.blocks -%}
       {%- assign p = block.settings.product -%}
-      <a class="o1-prod reveal" href="{{ p.url | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
-        <span class="o1-prod__dot{% if block.settings.big_label %} o1-prod__dot--lg{% endif %}" style="background: {{ block.settings.color }}; color: {{ block.settings.text_color }};">{{ block.settings.label | newline_to_br }}</span>
-        {%- if block.settings.image != blank -%}
-          {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400, 700, 1000', sizes: '(min-width: 750px) 32vw, 80vw', alt: p.title | default: block.settings.label | escape }}
-        {%- elsif block.settings.builtin != 'none' -%}
-          <img src="{{ block.settings.builtin | append: '.webp' | asset_url }}" alt="{{ p.title | default: block.settings.label | escape }}" width="1072" height="666" loading="lazy">
-        {%- elsif p.featured_media -%}
-          {{ p.featured_media | image_url: width: 1000 | image_tag: loading: 'lazy', alt: p.title | escape }}
+      <div class="o1-prod reveal" {{ block.shopify_attributes }}>
+        <a class="o1-prod__link" href="{{ p.url | default: routes.all_products_collection_url }}">
+          <span class="o1-prod__dot{% if block.settings.big_label %} o1-prod__dot--lg{% endif %}" style="background: {{ block.settings.color }}; color: {{ block.settings.text_color }};">{{ block.settings.label | newline_to_br }}</span>
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400, 700, 1000', sizes: '(min-width: 750px) 32vw, 80vw', alt: p.title | default: block.settings.label | escape }}
+          {%- elsif block.settings.builtin != 'none' -%}
+            <img src="{{ block.settings.builtin | append: '.webp' | asset_url }}" alt="{{ p.title | default: block.settings.label | escape }}" width="1072" height="666" loading="lazy">
+          {%- elsif p.featured_media -%}
+            {{ p.featured_media | image_url: width: 1000 | image_tag: loading: 'lazy', alt: p.title | escape }}
+          {%- endif -%}
+        </a>
+        {%- if section.settings.button_label != blank -%}
+          {%- assign v = p.selected_or_first_available_variant -%}
+          {%- if section.settings.button_action == 'cart' and p.available and v -%}
+            <button type="button" class="pill o1-prod__btn" data-quick-add="{{ v.id }}" aria-label="{{ section.settings.button_label | escape }}: {{ p.title | escape }}">{{ section.settings.button_label }}</button>
+          {%- else -%}
+            <a class="pill o1-prod__btn" href="{{ p.url | default: routes.all_products_collection_url }}"{% if p %} aria-label="{{ section.settings.button_label | escape }}: {{ p.title | escape }}"{% endif %}>{{ section.settings.button_label }}</a>
+          {%- endif -%}
         {%- endif -%}
-      </a>
+      </div>
     {%- endfor -%}
     {%- if section.settings.show_star -%}
       <img class="o1__abs o1-products__star" src="{{ 'ht-star.svg' | asset_url }}" alt="" width="259" height="411" loading="lazy">
@@ -33,6 +43,11 @@
     ] },
     { "type": "text", "id": "title", "label": "Heading", "default": "Shop our rice" },
     { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "text", "id": "button_label", "label": "Button label", "info": "Shown under each product. Leave empty to hide." },
+    { "type": "select", "id": "button_action", "label": "Button action", "default": "link", "options": [
+      { "value": "link", "label": "Go to product" },
+      { "value": "cart", "label": "Add to cart" }
+    ] },
     { "type": "checkbox", "id": "show_star", "label": "Show red star at the bottom left", "default": false }
   ],
   "blocks": [

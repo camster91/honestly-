@@ -11,6 +11,9 @@
     {%- else -%}
       <img class="o1__abs o1-farmers__photos" src="{{ 'ht-o1-farmers.webp' | asset_url }}" alt="Honestly Texas rice farmers and their families" width="1440" height="589" loading="lazy">
     {%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <a class="o1__abs pill o1-farmers__btn" href="{{ section.settings.button_link | default: '/pages/about-us' }}">{{ section.settings.button_label }}</a>
+    {%- endif -%}
   </div>
 </section>
 
@@ -20,6 +23,8 @@
   "class": "section-o1-farmers",
   "settings": [
     { "type": "textarea", "id": "title", "label": "Heading", "default": "From our Farmers\nto your family" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Learn More About Us" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
     { "type": "image_picker", "id": "background", "label": "Background (field)" },
     { "type": "image_picker", "id": "photos", "label": "Photo collage (transparent PNG, 1440 × 589)" }
   ],

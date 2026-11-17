@@ -4,6 +4,9 @@
     <div class="o1__abs o1-land__copy">
       <h2 class="hh o1-land__title" id="Land-{{ section.id }}">{{ section.settings.title }}</h2>
       <div class="o1-land__text">{{ section.settings.text }}</div>
+      {%- if section.settings.button_label != blank -%}
+        <a class="pill o1-land__btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
     </div>
     <div class="o1__abs o1-land__img reveal">
       {%- if section.settings.image != blank -%}
@@ -23,7 +26,9 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "02 / THE LAND" },
     { "type": "text", "id": "title", "label": "Heading", "default": "A TEXAS HARVEST" },
     { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Our rice grows in the Texas Gulf Coast, where long summers, rich soil and careful water management make for a great crop.</p><p>Our growers reuse rainwater, and in the off season they leave the fields as winter habitat for migrating waterfowl. After harvest the rice is dried, milled and packed in Brookshire, so it never leaves Texas until it heads to your table.</p>" },
-    { "type": "image_picker", "id": "image", "label": "Image" }
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop Rice" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
   ],
   "presets": [{ "name": "Land" }]
 }

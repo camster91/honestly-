@@ -6,9 +6,18 @@
         {%- if block.settings.image != blank -%}
           {{ block.settings.image | image_url: width: 800 | image_tag: class: 'o1-card__img', loading: 'lazy', widths: '400, 600, 800', sizes: '(min-width: 750px) 28vw, 90vw', alt: block.settings.image.alt | escape }}
         {%- endif -%}
+        {%- if block.settings.title != blank -%}<h3 class="hh o1-card__title">{{ block.settings.title | newline_to_br }}</h3>{%- endif -%}
+        {%- if block.settings.icon_image != blank -%}
+          {{ block.settings.icon_image | image_url: width: 240 | image_tag: class: 'o1-card__icon', loading: 'lazy', alt: '' }}
+        {%- elsif block.settings.icon != 'none' -%}
+          <img class="o1-card__icon o1-card__icon--{{ block.settings.icon }}" src="{{ 'ht-icon-' | append: block.settings.icon | append: '.svg' | asset_url }}" alt="" width="109" height="105" loading="lazy">
+        {%- endif -%}
         <div class="o1-card__body"><p>{{ block.settings.text }}</p></div>
       </article>
     {%- endfor -%}
+    {%- if section.settings.button_label != blank -%}
+      <a class="o1__abs pill o1-values__btn" href="{{ section.settings.button_link | default: '/pages/about-us' }}">{{ section.settings.button_label }}</a>
+    {%- endif -%}
   </div>
 </section>
 
@@ -17,9 +26,21 @@
   "name": "Value cards",
   "class": "section-o1-values",
   "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Learn More" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
   "blocks": [
     { "type": "card", "name": "Card", "settings": [
-      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "textarea", "id": "title", "label": "Title", "default": "Honestly\nSafe." },
+      { "type": "select", "id": "icon", "label": "Icon", "default": "safe", "options": [
+        { "value": "none", "label": "None" },
+        { "value": "safe", "label": "Shield (safe)" },
+        { "value": "sustainable", "label": "Leaf (sustainable)" },
+        { "value": "texas", "label": "Texas" }
+      ] },
+      { "type": "image_picker", "id": "icon_image", "label": "Custom icon (overrides icon)" },
+      { "type": "image_picker", "id": "image", "label": "Background image" },
       { "type": "textarea", "id": "text", "label": "Text", "default": "Honestly Texas growers are in Texas." }
     ] }
   ],

@@ -28,6 +28,7 @@
     {%- if settings.brand_font_loaded -%}<style>:root { --hh: 1; }</style>{%- endif -%}
 
     {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ 'theme-r3.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
 
     <script>

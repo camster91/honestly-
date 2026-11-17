@@ -1,0 +1,26 @@
+{%- comment -%}
+  Returns the built-in cut-out pack asset name for a rice product (or nothing).
+  Usage: {% capture pack %}{% render 'pack-image', product: product %}{% endcapture %}
+{%- endcomment -%}
+{%- liquid
+  assign t = product.title | downcase
+  assign out = ''
+  if t contains 'bundle' or t contains 'variety'
+    assign out = 'ht-o1-multi-variety'
+  elsif t contains 'pack of' or t contains 'multipack'
+    if t contains 'jasmine'
+      assign out = 'ht-o1-multi-jasmine'
+    elsif t contains 'brown'
+      assign out = 'ht-o1-multi-brown'
+    endif
+  elsif t contains 'rice'
+    if t contains 'jasmine'
+      assign out = 'ht-o1-pack-jasmine'
+    elsif t contains 'brown'
+      assign out = 'ht-o1-pack-brown'
+    elsif t contains 'white'
+      assign out = 'ht-o1-pack-white'
+    endif
+  endif
+  echo out
+-%}
