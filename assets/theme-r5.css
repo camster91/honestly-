@@ -1,0 +1,9 @@
+/* ---------- Small laptops (1024-1439px): keep small text readable ----------
+   The desktop layout scales with the screen, so tiny labels would drop below 11px. */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .o1-pcard__badge, .o1-faqp__capsule, .o1-footer__legal { font-size: max(11px, calc(12 * var(--u))); }
+  .o1-pcard__type, .o1-pdp__trust, .o1-ct__note, .o1-pdp__crumbs, .o1-ct__eyebrow, .o1-ct__field label { font-size: max(12px, calc(14 * var(--u))); }
+  .o1-shop__count, .o1-shop__sort select, .o1-pcard__price, .o1-pdp__label, .o1-pdp__pack small, .o1-pdp__ship, .o1-faqp__kicker, .o1-ct__req { font-size: max(12px, calc(15 * var(--u))); }
+  .o1-faq .rte, .o1-faqp .o1-faq .rte, .o1-ct__card div, .o1-ct__field input, .o1-ct__field select, .o1-ct__field textarea { font-size: max(14px, calc(16 * var(--u))); }
+  .o1-shop__filters a, .o1-pdp__vendor, .o1-pdp__pack, .o1-faqp .o1-faq summary, .o1-faq summary { font-size: max(13px, calc(17 * var(--u))); }
+}

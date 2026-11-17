@@ -1,0 +1,11 @@
+{%- comment -%} Pack size line for rice products, e.g. "2 lb bag". Usage: {% render 'pack-size', product: product %} {%- endcomment -%}
+{%- liquid
+  assign t = product.title | downcase
+  if t contains 'bundle' or t contains 'variety'
+    echo '3 × 2 lb bags · 6 lb total'
+  elsif t contains 'pack of 3'
+    echo '3 × 2 lb bags'
+  elsif t contains '2 lb'
+    echo '2 lb bag'
+  endif
+-%}

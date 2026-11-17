@@ -16,6 +16,9 @@
   endif
   assign v = product.selected_or_first_available_variant
 -%}
+{%- capture short_title -%}{% render 'display-title', product: product %}{%- endcapture -%}
+{%- capture size_line -%}{% render 'pack-size', product: product %}{%- endcapture -%}
+{%- assign size_line = size_line | strip | upcase -%}
 {%- capture pack -%}{% render 'pack-image', product: product %}{%- endcapture -%}
 {%- assign pack = pack | strip -%}
 <div class="o1-pcard" style="--card: {{ bg | strip }};">
@@ -34,8 +37,8 @@
     <a class="o1-pcard__add" href="{{ product.url }}" aria-label="Choose options for {{ product.title | escape }}">+</a>
   {%- endif -%}
   <div class="o1-pcard__text">
-  {%- if label != blank -%}<p class="o1-pcard__type">{{ label }}</p>{%- endif -%}
-  <a class="o1-pcard__title" href="{{ product.url }}">{{ product.title }}</a>
+  {%- if label != blank -%}<p class="o1-pcard__type">{{ label }}{% if size_line != blank %} · {{ size_line }}{% endif %}</p>{%- endif -%}
+  <a class="o1-pcard__title" href="{{ product.url }}">{{ short_title | strip }}</a>
   <p class="o1-pcard__price">
     {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
     {%- if product.price_varies -%}From {% endif -%}{{ product.price | money }}

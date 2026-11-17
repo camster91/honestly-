@@ -1,0 +1,12 @@
+{%- comment -%}
+  Short product name for headings and cards (cart, checkout and SEO keep the full title).
+  Set a product metafield custom.short_title to override. Usage: {% render 'display-title', product: product %}
+{%- endcomment -%}
+{%- liquid
+  assign short = product.metafields.custom.short_title.value
+  if short == blank
+    assign short = product.title | split: ' - ' | first
+    assign short = short | remove: ' (6 lbs total)' | remove: ' (6 LBS total)' | remove: ' 2 LBS' | remove: ' 2 lbs' | remove: ' 2LB' | replace: ' (Pack of 3)', ' Multipack' | replace: ' (pack of 3)', ' Multipack' | strip
+  endif
+  echo short
+-%}
