@@ -1,12 +1,13 @@
-<section class="o1-page">
+<section class="o1-page o1-faqp">
   <div class="o1-page__inner">
-    {%- if section.settings.eyebrow != blank -%}<p class="o1-page__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-    <h1 class="hh o1-page__title">{{ section.settings.heading }}</h1>
-    <div class="o1-faq-search">
+    {%- if section.settings.capsule != blank -%}<p class="o1-faqp__capsule">{{ section.settings.capsule }}</p>{%- endif -%}
+    <h1 class="hh o1-page__title o1-faqp__title">{{ section.settings.heading }}</h1>
+    <div class="o1-faq-search o1-faqp__search">
       {% render 'icon', name: 'search' %}
       <label class="visually-hidden" for="FaqSearch">Search FAQs</label>
       <input id="FaqSearch" type="search" placeholder="Search FAQs" data-faq-search="#FaqList" autocomplete="off">
     </div>
+    {%- if section.settings.eyebrow != blank -%}<p class="o1-faqp__kicker">{{ section.settings.eyebrow }}</p>{%- endif -%}
     <div class="o1-faq" id="FaqList">
       {%- for block in section.blocks -%}
         <details class="faq-item" {{ block.shopify_attributes }}{% if section.settings.open_all %} open{% endif %}>
@@ -26,12 +27,45 @@
   {%- endfor -%}
 ] }
 </script>
+{% stylesheet %}
+/* FAQ page (Figma 14:690). Units: 1440px artboard, see src/build.py */
+.o1-faqp { padding: calc(347 * var(--u)) 0 0; }
+.o1-faqp .o1-page__inner { width: calc(1274 * var(--u)); }
+.o1-faqp__capsule { display: inline-block; margin-left: calc(27 * var(--u)); padding: calc(7 * var(--u)) calc(9 * var(--u)); border-radius: calc(14 * var(--u)); background: var(--cream); font-family: var(--font-inter); font-weight: 700; font-size: calc(12 * var(--u)); color: var(--blue); }
+.o1-faqp .o1-faqp__title { margin: calc(22 * var(--u)) 0 0 calc(24 * var(--u)); font-size: calc(calc(57 * var(--u)) * var(--hh)); line-height: calc(55 * var(--u)); }
+.o1-faqp .o1-faqp__search { margin: calc(54 * var(--u)) 0 0 calc(26 * var(--u)); width: calc(420 * var(--u)); }
+.o1-faqp .o1-faqp__search input { height: calc(61 * var(--u)); border: 0; border-radius: calc(30 * var(--u)); background: var(--blue); color: var(--cream); padding: 0 calc(24 * var(--u)) 0 calc(56 * var(--u)); font-size: calc(17 * var(--u)); }
+.o1-faqp .o1-faqp__search input::placeholder { color: var(--cream); opacity: 1; }
+.o1-faqp .o1-faqp__search svg { left: calc(26 * var(--u)); color: var(--cream); width: calc(17 * var(--u)); height: calc(17 * var(--u)); }
+.o1-faqp__kicker { margin-top: calc(77 * var(--u)); font-family: var(--font-inter); font-weight: 700; font-size: calc(15 * var(--u)); color: var(--red); text-transform: uppercase; }
+.o1-faqp .o1-faq { margin-top: calc(41 * var(--u)); grid-template-columns: calc(612 * var(--u)) calc(612 * var(--u)); column-gap: calc(49 * var(--u)); }
+.o1-faqp .o1-faq details { min-height: calc(218 * var(--u)); border-top: calc(1.6 * var(--u)) solid var(--blue); }
+.o1-faqp .o1-faq summary { min-height: 0; padding: calc(24 * var(--u)) 0 0; align-items: flex-start; font-size: calc(18 * var(--u)); }
+.o1-faqp .o1-faq summary::after { content: "+"; width: calc(32 * var(--u)); text-align: center; font-size: calc(20 * var(--u)); line-height: 1; }
+.o1-faqp .o1-faq details[open] summary::after { content: "\2212"; }
+.o1-faqp .o1-faq .rte { padding: calc(34 * var(--u)) calc(20 * var(--u)) calc(30 * var(--u)) 0; font-size: calc(16 * var(--u)); line-height: 1.21; }
+@media (max-width: 749px) {
+  .o1-faqp { padding: calc(100 * var(--u)) 0 0; }
+  .o1-faqp .o1-page__inner { width: auto; }
+  .o1-faqp__capsule { margin-left: 0; }
+  .o1-faqp .o1-faqp__title { margin: calc(12 * var(--u)) 0 0; font-size: calc(calc(32 * var(--u)) * var(--hh)); line-height: 1.1; }
+  .o1-faqp .o1-faqp__search { margin: calc(22 * var(--u)) 0 0; width: 100%; }
+  .o1-faqp .o1-faqp__search input { height: calc(54 * var(--u)); }
+  .o1-faqp__kicker { margin-top: calc(32 * var(--u)); font-size: calc(13 * var(--u)); }
+  .o1-faqp .o1-faq { margin-top: calc(16 * var(--u)); grid-template-columns: 1fr; }
+  .o1-faqp .o1-faq details { min-height: 0; }
+  .o1-faqp .o1-faq summary { padding: calc(18 * var(--u)) 0; font-size: calc(17 * var(--u)); }
+  .o1-faqp .o1-faq .rte { padding: 0 0 calc(22 * var(--u)); }
+}
+{% endstylesheet %}
+
 {% schema %}
 {
   "name": "FAQ",
   "class": "section-main-faq",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Quick answers to common questions" },
+    { "type": "text", "id": "capsule", "label": "Small label", "default": "FAQs" },
+    { "type": "text", "id": "eyebrow", "label": "Kicker above the questions", "default": "Quick answers to common questions" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "What can we help you find?" },
     { "type": "checkbox", "id": "open_all", "label": "Open all answers", "default": true }
   ],
