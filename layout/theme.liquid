@@ -25,12 +25,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Questrial&family=Unbounded:wght@600&display=swap" rel="stylesheet">
-    {%- if settings.brand_font_loaded -%}<style>:root { --hh: 1; }</style>{%- endif -%}
+    {%- liquid
+      assign font_hh = 'HamburgHand-Bold.woff2' | file_url
+      assign font_bm = 'Bermont-Black.woff2' | file_url
+    -%}
+    <link rel="preload" href="{{ font_hh }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ font_bm }}" as="font" type="font/woff2" crossorigin>
 
     {{ 'theme.css' | asset_url | stylesheet_tag }}
     {{ 'theme-r3.css' | asset_url | stylesheet_tag }}
     {{ 'theme-r4.css' | asset_url | stylesheet_tag }}
     {{ 'theme-r5.css' | asset_url | stylesheet_tag }}
+    {%- comment -%} Brand fonts live in Content > Files (HamburgHand-Bold.woff2, Bermont-Black.woff2). These rules come after theme.css so they win. {%- endcomment -%}
+    <style>
+      @font-face { font-family: 'Hamburg Hand'; src: url('{{ font_hh }}') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+      @font-face { font-family: 'BERMONT'; src: url('{{ font_bm }}') format('woff2'); font-weight: 900; font-style: normal; font-display: swap; }
+      :root:root { --hh: 1; }
+    </style>
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
 
     <script>
