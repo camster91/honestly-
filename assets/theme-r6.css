@@ -1,0 +1,21 @@
+/* r6: Shopify policy pages (/policies/*) use Shopify's own markup, so give them the site's page layout. */
+.shopify-policy__container { background: var(--cream); color: var(--blue); max-width: none !important; width: auto; margin: 0 !important; padding: calc(330 * var(--u)) calc(80 * var(--u)) calc(120 * var(--u)) !important; }
+.shopify-policy__title, .shopify-policy__body { width: min(100%, calc(900 * var(--u))); margin: 0 auto; }
+.shopify-policy__title { text-align: left !important; }
+.shopify-policy__title h1 { font-family: var(--font-hh); font-weight: 700; text-transform: uppercase; font-size: calc(calc(61 * var(--u)) * var(--hh)); line-height: 1.05; color: var(--blue); margin: 0 0 calc(40 * var(--u)); }
+.shopify-policy__body .rte h2, .shopify-policy__body .rte h3 { color: var(--blue); }
+.shopify-policy__body .rte ul, .shopify-policy__body .rte ol { padding-left: 1.4em; margin: 1em 0; }
+.shopify-policy__body .rte li + li { margin-top: .4em; }
+@media (max-width: 749px) {
+  .shopify-policy__container { padding: calc(110 * var(--u)) calc(20 * var(--u)) calc(60 * var(--u)) !important; }
+  .shopify-policy__title h1 { font-size: calc(calc(34 * var(--u)) * var(--hh)); }
+  .shopify-policy__body .rte { font-size: 16px; }
+}
+@media (min-width: 750px) and (max-width: 1023px) {
+  .shopify-policy__container { padding: calc(150 * var(--u)) calc(24 * var(--u)) calc(60 * var(--u)) !important; }
+  .shopify-policy__title h1 { font-size: calc(calc(34 * var(--u)) * var(--hh)); }
+  .shopify-policy__body .rte { font-size: 16px; }
+}
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .shopify-policy__body .rte { font-size: max(16px, calc(20 * var(--u))); }
+}
