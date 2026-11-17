@@ -12,6 +12,7 @@
     "main": {
       "type": "main-collection",
       "settings": {
+        "image": "shopify://shop_images/ht-shop-banner.webp",
         "heading": "",
         "nav_menu": "",
         "hide_merch": true,
