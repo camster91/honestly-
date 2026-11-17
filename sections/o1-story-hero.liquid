@@ -1,4 +1,5 @@
 <section class="o1 o1-story-hero" aria-labelledby="Story-{{ section.id }}">
+  <div class="o1-story-hero__starfield" style="background-image:url('{{ 'ht-o1-stars.png' | asset_url }}')" aria-hidden="true"></div>
   <div class="o1__canvas">
     <div class="o1-story-hero__stars o1-story-hero__stars--1" style="position:absolute;background-image:url('{{ 'ht-o1-stars.png' | asset_url }}')" aria-hidden="true"></div>
     <div class="o1-story-hero__stars o1-story-hero__stars--2" style="position:absolute;background-image:url('{{ 'ht-o1-stars.png' | asset_url }}')" aria-hidden="true"></div>
@@ -18,6 +19,15 @@
   </div>
 </section>
 {% render 'band' %}
+
+{% stylesheet %}
+/* Star pattern repeats across the full width (same tile size and alignment as the design), so wide screens have no empty edges */
+.o1-story-hero__starfield { position: absolute; left: 0; right: 0; top: calc(139 * var(--u)); height: calc(918 * var(--u)); background-repeat: repeat-x; background-size: calc(918 * var(--u)) calc(918 * var(--u)); background-position: calc(50% - 951 * var(--u) + 459 * var(--u)) 0; opacity: .1; pointer-events: none; }
+.o1-story-hero .o1-story-hero__stars { display: none; }
+@media (max-width: 749px) {
+  .o1-story-hero__starfield { top: 0; bottom: 0; height: auto; background-repeat: repeat; }
+}
+{% endstylesheet %}
 
 {% schema %}
 {
