@@ -1,5 +1,7 @@
 {%- comment -%}
-  Returns the built-in cut-out pack asset name for a rice product (or nothing).
+  Returns the URL of the cut-out pack image for a rice product (or nothing).
+  Most cut-outs live in theme assets; the white multipack lives in Shopify Files
+  (Content > Files > ht-o1-multi-white.webp).
   Usage: {% capture pack %}{% render 'pack-image', product: product %}{% endcapture %}
 {%- endcomment -%}
 {%- liquid
@@ -12,6 +14,8 @@
       assign out = 'ht-o1-multi-jasmine'
     elsif t contains 'brown'
       assign out = 'ht-o1-multi-brown'
+    elsif t contains 'white'
+      assign out = 'ht-o1-multi-white'
     endif
   elsif t contains 'rice'
     if t contains 'jasmine'
@@ -22,5 +26,9 @@
       assign out = 'ht-o1-pack-white'
     endif
   endif
-  echo out
+  if out == 'ht-o1-multi-white'
+    echo 'ht-o1-multi-white.webp' | file_url
+  elsif out != blank
+    echo out | append: '.webp' | asset_url
+  endif
 -%}

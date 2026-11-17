@@ -21,7 +21,7 @@
 <div class="o1-pcard" style="--card: {{ bg | strip }};">
   <a class="o1-pcard__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
     {%- if pack != blank -%}
-      <img class="o1-pcard__pack" src="{{ pack | append: '.webp' | asset_url }}" alt="" width="1072" height="666" loading="lazy">
+      <img class="o1-pcard__pack" src="{{ pack }}" alt="" width="1072" height="666" loading="lazy">
     {%- elsif product.featured_media -%}
       {{ product.featured_media | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400, 600, 800', sizes: '(min-width: 750px) 28vw, 90vw', alt: '' }}
     {%- endif -%}
