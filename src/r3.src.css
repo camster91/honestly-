@@ -1,0 +1,143 @@
+/* ---------- Round 3: design gaps (buttons, card titles, recipe names, contact) ---------- */
+.o1-prod__link { position: absolute; inset: 0; display: block; text-decoration: none; }
+.o1-prod__btn { position: absolute; width: 210u; height: 54u; padding: 14u 20u; background: var(--blue); color: var(--cream); font-size: calc(18u * var(--hh)); line-height: 1.45; text-transform: none; white-space: nowrap; z-index: 3; }
+.o1-products--singles .o1-prod:nth-of-type(1) .o1-prod__btn { left: 153u; top: 369u; }
+.o1-products--singles .o1-prod:nth-of-type(2) .o1-prod__btn { left: 145u; top: 369u; }
+.o1-products--singles .o1-prod:nth-of-type(3) .o1-prod__btn { left: 131u; top: 369u; }
+.o1-products--multis .o1-prod:nth-of-type(1) .o1-prod__btn { left: 59u; top: 419u; }
+.o1-products--multis .o1-prod:nth-of-type(2) .o1-prod__btn { left: 82u; top: 419u; }
+.o1-products--multis .o1-prod:nth-of-type(3) .o1-prod__btn { left: 65u; top: 419u; }
+
+.o1-card__title { position: absolute; left: 0; right: 0; top: 28u; z-index: 1; text-align: center; color: var(--cream); font-size: calc(33u * var(--hh)); line-height: 37u; letter-spacing: -0.01em; }
+.o1-card__icon { position: absolute; left: 50%; z-index: 1; height: auto; transform: translateX(-50%); }
+.o1-card__icon--safe { top: 115u; width: 85u; }
+.o1-card__icon--sustainable { top: 118u; width: 92u; }
+.o1-card__icon--texas { top: 113u; width: 109u; }
+.o1-values__btn { left: 615u; top: 536u; width: 210u; height: 51u; padding: 14u 20u; background: var(--cream); color: var(--red); font-size: calc(16u * var(--hh)); line-height: 1.45; text-transform: none; }
+
+.o1-recipe__link { position: absolute; inset: 0; display: block; text-decoration: none; }
+.o1-recipe__name { position: absolute; top: 381u; width: 226u; text-align: center; font-family: var(--font-helv); font-weight: 700; font-size: 22u; line-height: 27u; letter-spacing: -0.01em; color: var(--navy); text-transform: capitalize; text-decoration: none; }
+.o1-recipe__name:hover { text-decoration: underline; }
+.o1-recipe:nth-of-type(1) .o1-recipe__name { left: 73u; }
+.o1-recipe:nth-of-type(2) .o1-recipe__name { left: 81.5u; }
+.o1-recipe:nth-of-type(3) .o1-recipe__name { left: 90u; }
+.o1-recipe__btn { top: 457u; }
+.o1-recipe:nth-of-type(1) .o1-recipe__btn { left: 83u; }
+.o1-recipe:nth-of-type(2) .o1-recipe__btn { left: 82.5u; }
+.o1-recipe:nth-of-type(3) .o1-recipe__btn { left: 96u; }
+
+.o1-farmers__btn { left: 608u; top: 793u; width: 247u; height: 54u; padding: 14u 16u; background: var(--blue); color: var(--cream); font-size: calc(18u * var(--hh)); line-height: 1.45; text-transform: none; white-space: nowrap; z-index: 2; }
+.o1-land__btn { margin-top: 48u; min-width: 210u; height: 54u; padding: 14u 30u; background: var(--cream); color: var(--blue); font-size: calc(18u * var(--hh)); line-height: 1.45; text-transform: none; }
+
+/* Shop cards: text flows so long titles never hit the price */
+.o1-pcard__text { position: absolute; left: 5u; top: 400u; width: 390u; }
+.o1-pcard__text .o1-pcard__type, .o1-pcard__text .o1-pcard__title, .o1-pcard__text .o1-pcard__price { position: static; width: auto; display: block; }
+.o1-pcard__text .o1-pcard__title { margin-top: 18u; line-height: 1.25; }
+.o1-pcard__text .o1-pcard__type + .o1-pcard__title { margin-top: 18u; }
+.o1-pcard__text .o1-pcard__title:first-child { margin-top: 33u; }
+.o1-pcard__text .o1-pcard__price { margin-top: 18u; }
+.o1-pcard__media img.o1-pcard__pack { left: 22u; top: 40u; width: 360u; height: 290u; mix-blend-mode: normal; }
+
+/* Shop: room for long titles in the last row */
+.o1-shop { padding-bottom: 200u; }
+
+/* PDP: cut-out pack (img shares the .o1-pdp__pack class name with the pack buttons, so reset those styles) fills the main tile like the design */
+.o1-pdp__main img.o1-pdp__pack { display: block; padding: 0; border-radius: 0; background: none; }
+.o1-pdp__main img.o1-pdp__pack:not([srcset]) { left: 22u; top: 110u; width: 636u; height: 500u; mix-blend-mode: normal; }
+.o1-pdp__main img.o1-pdp__pack[srcset] { left: 42u; top: 158u; width: 605u; height: 395u; }
+
+/* Contact (Figma 14:55) */
+.o1-ct { background: var(--cream); }
+.o1-ct__inner { width: 1440u; margin: 0 auto; padding: 277u 70u 90u; }
+.o1-ct__eyebrow { margin-left: 11u; font-family: var(--font-inter); font-weight: 700; font-size: 14u; color: var(--red); text-transform: uppercase; }
+.o1-ct__title { margin: 41u 0 0 3u; font-size: calc(76u * var(--hh)); line-height: 1.21; color: var(--blue); }
+.o1-ct__lead { margin: 22u 0 0 12u; font-family: var(--font-inter); font-size: 22u; line-height: 1.21; color: var(--blue); }
+.o1-ct__lead p { margin: 0; }
+.o1-ct__box { margin-top: 70u; background: var(--red); border-radius: 24u; padding: 43u 43u 58u 38u; color: var(--cream); }
+.o1-ct__box h2 { margin-left: -1u; font-family: var(--font-inter); font-weight: 700; font-size: 35u; line-height: 1.21; text-transform: uppercase; }
+.o1-ct__req { margin: 22u 0 0 1u; font-family: var(--font-inter); font-size: 15u; }
+.o1-ct__grid { margin-top: 34u; display: grid; grid-template-columns: 571u 616u; column-gap: 32u; }
+.o1-ct__col { display: grid; row-gap: 37u; align-content: start; }
+.o1-ct__field { display: grid; gap: 15u; }
+.o1-ct__field label { margin-left: 1u; font-family: var(--font-inter); font-weight: 700; font-size: 14u; text-transform: uppercase; }
+.o1-ct__field input, .o1-ct__field select, .o1-ct__field textarea { width: 100%; height: 69u; border: 0; border-radius: 8u; background: var(--cream); color: var(--blue); padding: 0 20u; font-family: var(--font-inter); font-size: 16u; }
+.o1-ct__field select { appearance: none; cursor: pointer; background-image: linear-gradient(45deg, transparent 50%, var(--blue) 50%), linear-gradient(135deg, var(--blue) 50%, transparent 50%); background-position: calc(100% - 26u) 50%, calc(100% - 20u) 50%; background-size: 6u 6u; background-repeat: no-repeat; }
+.o1-ct__field textarea { height: 485u; padding: 26u 24u; font-size: 17u; resize: vertical; }
+.o1-ct__field ::placeholder { color: rgba(0, 61, 166, .5); }
+.o1-ct__field [aria-invalid="true"] { box-shadow: inset 0 0 0 3u var(--yellow); }
+.o1-ct__submit { margin-top: 35u; width: 100%; height: 89u; border: 0; border-radius: 45u; background: var(--yellow); color: var(--blue); font-family: var(--font-inter); font-weight: 700; font-size: 21u; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 14u; transition: transform .15s ease, box-shadow .15s ease; }
+.o1-ct__submit:hover { transform: translateY(-2u); box-shadow: 0 6u 14u rgba(0,0,0,.18); }
+.o1-ct__submit .icon-arrow { width: 18u; height: 18u; }
+.o1-ct__note { margin: 34u 0 0 1u; font-family: var(--font-inter); font-size: 13u; }
+.o1-ct__note a { color: inherit; }
+.o1-ct__msg { margin-top: 24u; padding: 16u 20u; border-radius: 8u; background: var(--cream); color: var(--blue); font-family: var(--font-inter); font-weight: 700; font-size: 17u; }
+.o1-ct__other { margin: 90u 0 0 13u; font-family: var(--font-inter); font-weight: 700; font-size: 18u; color: var(--red); text-transform: uppercase; }
+.o1-ct__cards { margin: 33u 0 0 5u; display: grid; grid-template-columns: 403u 403u 407u; column-gap: 39u; }
+.o1-ct__card { min-height: 185u; border-radius: 17u; padding: 35u 28u 28u; background: var(--yellow); color: var(--blue); text-decoration: none; display: block; transition: transform .15s ease; }
+a.o1-ct__card:hover { transform: translateY(-3u); }
+.o1-ct__card:nth-child(2) { background: var(--red); color: var(--cream); }
+.o1-ct__card:nth-child(3) { background: #f7f4e9; }
+.o1-ct__card h3 { font-family: var(--font-inter); font-weight: 700; font-size: 22u; line-height: 1.21; text-transform: uppercase; }
+.o1-ct__card div { margin-top: 19u; font-family: var(--font-inter); font-size: 17u; line-height: 1.21; }
+.o1-ct__card p { margin: 0; }
+
+.o1-help { position: relative; height: 585u; background: var(--blue); overflow: hidden; }
+.o1-help__canvas { position: relative; width: 1440u; height: 100%; margin: 0 auto; }
+.o1-help__title { position: absolute; left: 80u; top: 157u; width: 437u; font-size: calc(45u * var(--hh)); line-height: 1.0127; color: var(--cream); }
+.o1-help__text { position: absolute; left: 81u; top: 285u; width: 418u; font-family: var(--font-inter); font-size: 20u; line-height: 1.21; color: var(--cream); }
+.o1-help__btn { position: absolute; left: 80u; top: 380u; width: 308u; height: 63u; border-radius: 100u; background: var(--yellow); color: var(--blue); font-family: var(--font-inter); font-weight: 700; font-size: 17u; text-transform: uppercase; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 12u; transition: transform .15s ease, box-shadow .15s ease; }
+.o1-help__btn:hover { transform: translateY(-2u); box-shadow: 0 6u 14u rgba(0,0,0,.25); }
+.o1-help__btn .icon-arrow { width: 17u; height: 17u; }
+.o1-help__img { position: absolute; top: 89u; width: 446u; height: 416u; border: 13u solid var(--ivory-2); border-radius: 18u; background: #d9d9d9; overflow: hidden; }
+.o1-help__img img { width: 100%; height: 100%; object-fit: cover; max-width: none; }
+.o1-help__img--1 { left: 558u; }
+.o1-help__img--2 { left: 1033u; }
+
+@media (max-width: 749px) {
+  .o1-prod { height: auto !important; }
+  .o1-prod__link { position: relative; height: 230u; }
+  .o1-prod__btn, .o1-values__btn, .o1-farmers__btn, .o1-recipe__btn { position: relative !important; left: auto !important; top: auto !important; display: flex; margin: 10u auto 0; width: 200u !important; height: 48u !important; padding: 0 12u; font-size: calc(15u * var(--hh)); }
+  .o1-farmers__btn { width: 230u !important; margin-top: 18u; }
+  .o1-values__btn { margin-top: 4u; }
+  .o1-card__title { top: 22u; font-size: calc(24u * var(--hh)); line-height: 28u; }
+  .o1-card__icon { top: 92u !important; width: auto !important; height: 64u; }
+  .o1-recipe { height: auto !important; }
+  .o1-recipe__link { position: relative; height: 300u; }
+  .o1-recipe__name { position: static; display: block; width: auto; margin-top: 14u; font-size: 18u; line-height: 23u; }
+  .o1-land__btn { margin-top: 24u; height: 48u; font-size: calc(15u * var(--hh)); }
+
+  .o1-pcard__text { position: static; width: 100%; }
+  .o1-pcard__text .o1-pcard__title, .o1-pcard__text .o1-pcard__price { margin-top: 10u; }
+  .o1-pcard__media img.o1-pcard__pack { left: 4%; top: 8%; width: 92%; height: 80%; }
+  .o1-pdp__main img.o1-pdp__pack:not([srcset]) { left: 4%; top: 8%; width: 92%; height: 84%; }
+  .o1-pdp__main img.o1-pdp__pack[srcset] { left: 6%; top: 18%; width: 88%; height: 64%; }
+  .o1-shop { padding-bottom: 50u; }
+
+  .o1-ct__inner { width: auto; padding: 110u 20u 50u; }
+  .o1-ct__eyebrow, .o1-ct__title, .o1-ct__lead, .o1-ct__other { margin-left: 0; }
+  .o1-ct__title { margin-top: 14u; font-size: calc(38u * var(--hh)); }
+  .o1-ct__lead { margin-top: 14u; font-size: 17u; }
+  .o1-ct__box { margin-top: 30u; padding: 28u 18u 26u; border-radius: 18u; }
+  .o1-ct__box h2 { font-size: 24u; }
+  .o1-ct__grid { grid-template-columns: 1fr; row-gap: 20u; margin-top: 22u; }
+  .o1-ct__col { row-gap: 20u; }
+  .o1-ct__field { gap: 8u; }
+  .o1-ct__field input, .o1-ct__field select { height: 54u; }
+  .o1-ct__field textarea { height: 200u; padding: 16u 20u; }
+  .o1-ct__submit { margin-top: 22u; height: 60u; font-size: 17u; }
+  .o1-ct__note { margin-top: 18u; }
+  .o1-ct__other { margin-top: 44u; }
+  .o1-ct__cards { margin: 16u 0 0; grid-template-columns: 1fr; row-gap: 14u; }
+  .o1-ct__card { min-height: 0; padding: 22u 20u; }
+  .o1-ct__card h3 { font-size: 18u; }
+  .o1-ct__card div { margin-top: 10u; font-size: 16u; }
+
+  .o1-help { height: auto; padding: 44u 20u 40u; }
+  .o1-help__canvas { width: auto; display: flex; flex-direction: column; gap: 16u; }
+  .o1-help__title, .o1-help__text, .o1-help__btn, .o1-help__img { position: relative; left: auto; top: auto; }
+  .o1-help__title { width: auto; font-size: calc(32u * var(--hh)); }
+  .o1-help__text { width: auto; font-size: 17u; }
+  .o1-help__btn { width: 260u; height: 54u; font-size: 15u; }
+  .o1-help__img { width: 100%; height: 240u; border-width: 8u; }
+  .o1-help__img--2 { display: none; }
+}

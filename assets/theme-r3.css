@@ -38,8 +38,13 @@
 .o1-pcard__text .o1-pcard__price { margin-top: calc(18 * var(--u)); }
 .o1-pcard__media img.o1-pcard__pack { left: calc(22 * var(--u)); top: calc(40 * var(--u)); width: calc(360 * var(--u)); height: calc(290 * var(--u)); mix-blend-mode: normal; }
 
-/* PDP: cut-out pack fills the main tile like the design */
+/* Shop: room for long titles in the last row */
+.o1-shop { padding-bottom: calc(200 * var(--u)); }
+
+/* PDP: cut-out pack (img shares the .o1-pdp__pack class name with the pack buttons, so reset those styles) fills the main tile like the design */
+.o1-pdp__main img.o1-pdp__pack { display: block; padding: 0; border-radius: 0; background: none; }
 .o1-pdp__main img.o1-pdp__pack:not([srcset]) { left: calc(22 * var(--u)); top: calc(110 * var(--u)); width: calc(636 * var(--u)); height: calc(500 * var(--u)); mix-blend-mode: normal; }
+.o1-pdp__main img.o1-pdp__pack[srcset] { left: calc(42 * var(--u)); top: calc(158 * var(--u)); width: calc(605 * var(--u)); height: calc(395 * var(--u)); }
 
 /* Contact (Figma 14:55) */
 .o1-ct { background: var(--cream); }
@@ -105,6 +110,8 @@ a.o1-ct__card:hover { transform: translateY(calc(-3 * var(--u))); }
   .o1-pcard__text .o1-pcard__title, .o1-pcard__text .o1-pcard__price { margin-top: calc(10 * var(--u)); }
   .o1-pcard__media img.o1-pcard__pack { left: 4%; top: 8%; width: 92%; height: 80%; }
   .o1-pdp__main img.o1-pdp__pack:not([srcset]) { left: 4%; top: 8%; width: 92%; height: 84%; }
+  .o1-pdp__main img.o1-pdp__pack[srcset] { left: 6%; top: 18%; width: 88%; height: 64%; }
+  .o1-shop { padding-bottom: calc(50 * var(--u)); }
 
   .o1-ct__inner { width: auto; padding: calc(110 * var(--u)) calc(20 * var(--u)) calc(50 * var(--u)); }
   .o1-ct__eyebrow, .o1-ct__title, .o1-ct__lead, .o1-ct__other { margin-left: 0; }
