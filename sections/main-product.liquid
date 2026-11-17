@@ -17,13 +17,17 @@
 -%}
 {%- capture pack -%}{% render 'pack-image', product: product %}{%- endcapture -%}
 {%- assign pack = pack | strip -%}
+{%- assign is_rice = false -%}
+{%- if t contains 'rice' -%}{%- assign is_rice = true -%}{%- endif -%}
+{%- capture short_title -%}{% render 'display-title', product: product %}{%- endcapture -%}
+{%- capture size_line -%}{% render 'pack-size', product: product %}{%- endcapture -%}
 <section class="o1-pdp" data-product>
   <div class="o1-pdp__canvas" data-gallery>
     <nav aria-label="Breadcrumb">
       <ol class="o1-pdp__crumbs" style="list-style:none;margin:0;padding:0">
         <li><a href="{{ routes.all_products_collection_url }}">Shop all</a></li>
         <li aria-hidden="true">/</li>
-        <li aria-current="page">{{ product.title }}</li>
+        <li aria-current="page">{{ short_title | strip }}</li>
       </ol>
     </nav>
 
@@ -59,12 +63,15 @@
 
     <div class="o1-pdp__info">
       <p class="o1-pdp__vendor">{{ section.settings.vendor_text | default: product.vendor }}</p>
-      <h1 class="hh o1-pdp__title">{{ product.title }}</h1>
+      <h1 class="hh o1-pdp__title">{{ short_title | strip }}</h1>
+      {%- assign size_line = size_line | strip -%}
+      {%- if size_line != blank -%}<p class="o1-pdp__size">{{ size_line }}</p>{%- endif -%}
       <p class="o1-pdp__price" data-price>
         {{ current_variant.price | money }}
         {%- if current_variant.compare_at_price > current_variant.price -%}<s>{{ current_variant.compare_at_price | money }}</s>{%- endif -%}
       </p>
-      {%- assign summary = product.metafields.custom.summary.value | default: section.settings.summary -%}
+      {%- assign summary = product.metafields.custom.summary.value -%}
+      {%- if summary == blank and is_rice -%}{%- assign summary = section.settings.summary -%}{%- endif -%}
       {%- if summary != blank -%}<p class="o1-pdp__summary">{{ summary }}</p>{%- endif -%}
       <div class="o1-pdp__rule"></div>
 
@@ -130,17 +137,19 @@
         <p class="o1-pdp__error" data-form-error role="alert"></p>
       {%- endform -%}
       {%- if section.settings.shipping != blank -%}<p class="o1-pdp__ship">{{ section.settings.shipping }}</p>{%- endif -%}
+      {%- if is_rice -%}
       <ul class="o1-pdp__trust">
         {%- assign items = section.settings.trust | split: ',' -%}
         {%- for i in items -%}<li>{{ i | strip }}</li>{%- endfor -%}
       </ul>
+      {%- endif -%}
     </div>
   </div>
 
   {%- if product.description != blank -%}
     <div class="o1-pdp__desc">
       <div class="o1-pdp__desc-rule"></div>
-      <h2>{{ section.settings.desc_title }}</h2>
+      <h2>{% if is_rice %}{{ section.settings.desc_title }}{% else %}Details{% endif %}</h2>
       <div class="rte">{{ product.description }}</div>
     </div>
   {%- endif -%}
@@ -150,6 +159,7 @@
   </script>
 </section>
 
+{%- if is_rice -%}
 <section class="o1 o1-dinner" aria-labelledby="Dinner-{{ section.id }}">
   <div class="o1__canvas">
     <div class="o1__abs o1-dinner__img">
@@ -164,11 +174,16 @@
     <a class="o1__abs pill o1-dinner__btn" href="{{ section.settings.dinner_url }}" target="_blank" rel="noopener">{{ section.settings.dinner_button }}</a>
   </div>
 </section>
+{%- endif -%}
 
 {% stylesheet %}
 /* Mobile: the main image tile kept its desktop left/top offsets and slid off-screen */
 @media (max-width: 749px) {
   .o1-pdp__main { left: auto !important; top: auto !important; }
+}
+.o1-pdp__size { margin-top: calc(10 * var(--u)); font-family: var(--font-inter); font-weight: 700; font-size: calc(17 * var(--u)); text-transform: uppercase; letter-spacing: .02em; color: var(--blue); }
+@media (max-width: 1023px) {
+  .o1-pdp__size { font-size: 14px; margin-top: 8px; }
 }
 {% endstylesheet %}
 
@@ -182,7 +197,7 @@
     { "type": "text", "id": "summary", "label": "Summary (fallback)", "default": "An everyday classic, straight from our Texas farms.", "info": "Use the product metafield custom.summary for per-product text." },
     { "type": "text", "id": "note", "label": "Note under pack choice" },
     { "type": "text", "id": "shipping", "label": "Shipping note", "default": "Shipping rates calculated at checkout." },
-    { "type": "text", "id": "trust", "label": "Trust line (comma separated)", "default": "Grown in Texas, Milled in Texas, Packed in Texas" },
+    { "type": "text", "id": "trust", "label": "Trust line (comma separated, rice products only)", "default": "Grown in Texas, Milled in Texas, Packed in Texas" },
     { "type": "text", "id": "desc_title", "label": "Description heading", "default": "Grown with care" },
     { "type": "header", "content": "What's for dinner" },
     { "type": "image_picker", "id": "dinner_image", "label": "Image" },
