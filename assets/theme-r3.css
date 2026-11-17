@@ -1,0 +1,136 @@
+/* ---------- Round 3: design gaps (buttons, card titles, recipe names, contact) ---------- */
+.o1-prod__link { position: absolute; inset: 0; display: block; text-decoration: none; }
+.o1-prod__btn { position: absolute; width: calc(210 * var(--u)); height: calc(54 * var(--u)); padding: calc(14 * var(--u)) calc(20 * var(--u)); background: var(--blue); color: var(--cream); font-size: calc(calc(18 * var(--u)) * var(--hh)); line-height: 1.45; text-transform: none; white-space: nowrap; z-index: 3; }
+.o1-products--singles .o1-prod:nth-of-type(1) .o1-prod__btn { left: calc(153 * var(--u)); top: calc(369 * var(--u)); }
+.o1-products--singles .o1-prod:nth-of-type(2) .o1-prod__btn { left: calc(145 * var(--u)); top: calc(369 * var(--u)); }
+.o1-products--singles .o1-prod:nth-of-type(3) .o1-prod__btn { left: calc(131 * var(--u)); top: calc(369 * var(--u)); }
+.o1-products--multis .o1-prod:nth-of-type(1) .o1-prod__btn { left: calc(59 * var(--u)); top: calc(419 * var(--u)); }
+.o1-products--multis .o1-prod:nth-of-type(2) .o1-prod__btn { left: calc(82 * var(--u)); top: calc(419 * var(--u)); }
+.o1-products--multis .o1-prod:nth-of-type(3) .o1-prod__btn { left: calc(65 * var(--u)); top: calc(419 * var(--u)); }
+
+.o1-card__title { position: absolute; left: 0; right: 0; top: calc(28 * var(--u)); z-index: 1; text-align: center; color: var(--cream); font-size: calc(calc(33 * var(--u)) * var(--hh)); line-height: calc(37 * var(--u)); letter-spacing: -0.01em; }
+.o1-card__icon { position: absolute; left: 50%; z-index: 1; height: auto; transform: translateX(-50%); }
+.o1-card__icon--safe { top: calc(115 * var(--u)); width: calc(85 * var(--u)); }
+.o1-card__icon--sustainable { top: calc(118 * var(--u)); width: calc(92 * var(--u)); }
+.o1-card__icon--texas { top: calc(113 * var(--u)); width: calc(109 * var(--u)); }
+.o1-values__btn { left: calc(615 * var(--u)); top: calc(536 * var(--u)); width: calc(210 * var(--u)); height: calc(51 * var(--u)); padding: calc(14 * var(--u)) calc(20 * var(--u)); background: var(--cream); color: var(--red); font-size: calc(calc(16 * var(--u)) * var(--hh)); line-height: 1.45; text-transform: none; }
+
+.o1-recipe__link { position: absolute; inset: 0; display: block; text-decoration: none; }
+.o1-recipe__name { position: absolute; top: calc(381 * var(--u)); width: calc(226 * var(--u)); text-align: center; font-family: var(--font-helv); font-weight: 700; font-size: calc(22 * var(--u)); line-height: calc(27 * var(--u)); letter-spacing: -0.01em; color: var(--navy); text-transform: capitalize; text-decoration: none; }
+.o1-recipe__name:hover { text-decoration: underline; }
+.o1-recipe:nth-of-type(1) .o1-recipe__name { left: calc(73 * var(--u)); }
+.o1-recipe:nth-of-type(2) .o1-recipe__name { left: calc(81.5 * var(--u)); }
+.o1-recipe:nth-of-type(3) .o1-recipe__name { left: calc(90 * var(--u)); }
+.o1-recipe__btn { top: calc(457 * var(--u)); }
+.o1-recipe:nth-of-type(1) .o1-recipe__btn { left: calc(83 * var(--u)); }
+.o1-recipe:nth-of-type(2) .o1-recipe__btn { left: calc(82.5 * var(--u)); }
+.o1-recipe:nth-of-type(3) .o1-recipe__btn { left: calc(96 * var(--u)); }
+
+.o1-farmers__btn { left: calc(608 * var(--u)); top: calc(793 * var(--u)); width: calc(247 * var(--u)); height: calc(54 * var(--u)); padding: calc(14 * var(--u)) calc(16 * var(--u)); background: var(--blue); color: var(--cream); font-size: calc(calc(18 * var(--u)) * var(--hh)); line-height: 1.45; text-transform: none; white-space: nowrap; z-index: 2; }
+.o1-land__btn { margin-top: calc(48 * var(--u)); min-width: calc(210 * var(--u)); height: calc(54 * var(--u)); padding: calc(14 * var(--u)) calc(30 * var(--u)); background: var(--cream); color: var(--blue); font-size: calc(calc(18 * var(--u)) * var(--hh)); line-height: 1.45; text-transform: none; }
+
+/* Shop cards: text flows so long titles never hit the price */
+.o1-pcard__text { position: absolute; left: calc(5 * var(--u)); top: calc(400 * var(--u)); width: calc(390 * var(--u)); }
+.o1-pcard__text .o1-pcard__type, .o1-pcard__text .o1-pcard__title, .o1-pcard__text .o1-pcard__price { position: static; width: auto; display: block; }
+.o1-pcard__text .o1-pcard__title { margin-top: calc(18 * var(--u)); line-height: 1.25; }
+.o1-pcard__text .o1-pcard__type + .o1-pcard__title { margin-top: calc(18 * var(--u)); }
+.o1-pcard__text .o1-pcard__title:first-child { margin-top: calc(33 * var(--u)); }
+.o1-pcard__text .o1-pcard__price { margin-top: calc(18 * var(--u)); }
+.o1-pcard__media img.o1-pcard__pack { left: calc(22 * var(--u)); top: calc(40 * var(--u)); width: calc(360 * var(--u)); height: calc(290 * var(--u)); mix-blend-mode: normal; }
+
+/* PDP: cut-out pack fills the main tile like the design */
+.o1-pdp__main img.o1-pdp__pack:not([srcset]) { left: calc(22 * var(--u)); top: calc(110 * var(--u)); width: calc(636 * var(--u)); height: calc(500 * var(--u)); mix-blend-mode: normal; }
+
+/* Contact (Figma 14:55) */
+.o1-ct { background: var(--cream); }
+.o1-ct__inner { width: calc(1440 * var(--u)); margin: 0 auto; padding: calc(277 * var(--u)) calc(70 * var(--u)) calc(90 * var(--u)); }
+.o1-ct__eyebrow { margin-left: calc(11 * var(--u)); font-family: var(--font-inter); font-weight: 700; font-size: calc(14 * var(--u)); color: var(--red); text-transform: uppercase; }
+.o1-ct__title { margin: calc(41 * var(--u)) 0 0 calc(3 * var(--u)); font-size: calc(calc(76 * var(--u)) * var(--hh)); line-height: 1.21; color: var(--blue); }
+.o1-ct__lead { margin: calc(22 * var(--u)) 0 0 calc(12 * var(--u)); font-family: var(--font-inter); font-size: calc(22 * var(--u)); line-height: 1.21; color: var(--blue); }
+.o1-ct__lead p { margin: 0; }
+.o1-ct__box { margin-top: calc(70 * var(--u)); background: var(--red); border-radius: calc(24 * var(--u)); padding: calc(43 * var(--u)) calc(43 * var(--u)) calc(58 * var(--u)) calc(38 * var(--u)); color: var(--cream); }
+.o1-ct__box h2 { margin-left: calc(-1 * var(--u)); font-family: var(--font-inter); font-weight: 700; font-size: calc(35 * var(--u)); line-height: 1.21; text-transform: uppercase; }
+.o1-ct__req { margin: calc(22 * var(--u)) 0 0 calc(1 * var(--u)); font-family: var(--font-inter); font-size: calc(15 * var(--u)); }
+.o1-ct__grid { margin-top: calc(34 * var(--u)); display: grid; grid-template-columns: calc(571 * var(--u)) calc(616 * var(--u)); column-gap: calc(32 * var(--u)); }
+.o1-ct__col { display: grid; row-gap: calc(37 * var(--u)); align-content: start; }
+.o1-ct__field { display: grid; gap: calc(15 * var(--u)); }
+.o1-ct__field label { margin-left: calc(1 * var(--u)); font-family: var(--font-inter); font-weight: 700; font-size: calc(14 * var(--u)); text-transform: uppercase; }
+.o1-ct__field input, .o1-ct__field select, .o1-ct__field textarea { width: 100%; height: calc(69 * var(--u)); border: 0; border-radius: calc(8 * var(--u)); background: var(--cream); color: var(--blue); padding: 0 calc(20 * var(--u)); font-family: var(--font-inter); font-size: calc(16 * var(--u)); }
+.o1-ct__field select { appearance: none; cursor: pointer; background-image: linear-gradient(45deg, transparent 50%, var(--blue) 50%), linear-gradient(135deg, var(--blue) 50%, transparent 50%); background-position: calc(100% - calc(26 * var(--u))) 50%, calc(100% - calc(20 * var(--u))) 50%; background-size: calc(6 * var(--u)) calc(6 * var(--u)); background-repeat: no-repeat; }
+.o1-ct__field textarea { height: calc(485 * var(--u)); padding: calc(26 * var(--u)) calc(24 * var(--u)); font-size: calc(17 * var(--u)); resize: vertical; }
+.o1-ct__field ::placeholder { color: rgba(0, 61, 166, .5); }
+.o1-ct__field [aria-invalid="true"] { box-shadow: inset 0 0 0 calc(3 * var(--u)) var(--yellow); }
+.o1-ct__submit { margin-top: calc(35 * var(--u)); width: 100%; height: calc(89 * var(--u)); border: 0; border-radius: calc(45 * var(--u)); background: var(--yellow); color: var(--blue); font-family: var(--font-inter); font-weight: 700; font-size: calc(21 * var(--u)); text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: calc(14 * var(--u)); transition: transform .15s ease, box-shadow .15s ease; }
+.o1-ct__submit:hover { transform: translateY(calc(-2 * var(--u))); box-shadow: 0 calc(6 * var(--u)) calc(14 * var(--u)) rgba(0,0,0,.18); }
+.o1-ct__submit .icon-arrow { width: calc(18 * var(--u)); height: calc(18 * var(--u)); }
+.o1-ct__note { margin: calc(34 * var(--u)) 0 0 calc(1 * var(--u)); font-family: var(--font-inter); font-size: calc(13 * var(--u)); }
+.o1-ct__note a { color: inherit; }
+.o1-ct__msg { margin-top: calc(24 * var(--u)); padding: calc(16 * var(--u)) calc(20 * var(--u)); border-radius: calc(8 * var(--u)); background: var(--cream); color: var(--blue); font-family: var(--font-inter); font-weight: 700; font-size: calc(17 * var(--u)); }
+.o1-ct__other { margin: calc(90 * var(--u)) 0 0 calc(13 * var(--u)); font-family: var(--font-inter); font-weight: 700; font-size: calc(18 * var(--u)); color: var(--red); text-transform: uppercase; }
+.o1-ct__cards { margin: calc(33 * var(--u)) 0 0 calc(5 * var(--u)); display: grid; grid-template-columns: calc(403 * var(--u)) calc(403 * var(--u)) calc(407 * var(--u)); column-gap: calc(39 * var(--u)); }
+.o1-ct__card { min-height: calc(185 * var(--u)); border-radius: calc(17 * var(--u)); padding: calc(35 * var(--u)) calc(28 * var(--u)) calc(28 * var(--u)); background: var(--yellow); color: var(--blue); text-decoration: none; display: block; transition: transform .15s ease; }
+a.o1-ct__card:hover { transform: translateY(calc(-3 * var(--u))); }
+.o1-ct__card:nth-child(2) { background: var(--red); color: var(--cream); }
+.o1-ct__card:nth-child(3) { background: #f7f4e9; }
+.o1-ct__card h3 { font-family: var(--font-inter); font-weight: 700; font-size: calc(22 * var(--u)); line-height: 1.21; text-transform: uppercase; }
+.o1-ct__card div { margin-top: calc(19 * var(--u)); font-family: var(--font-inter); font-size: calc(17 * var(--u)); line-height: 1.21; }
+.o1-ct__card p { margin: 0; }
+
+.o1-help { position: relative; height: calc(585 * var(--u)); background: var(--blue); overflow: hidden; }
+.o1-help__canvas { position: relative; width: calc(1440 * var(--u)); height: 100%; margin: 0 auto; }
+.o1-help__title { position: absolute; left: calc(80 * var(--u)); top: calc(157 * var(--u)); width: calc(437 * var(--u)); font-size: calc(calc(45 * var(--u)) * var(--hh)); line-height: 1.0127; color: var(--cream); }
+.o1-help__text { position: absolute; left: calc(81 * var(--u)); top: calc(285 * var(--u)); width: calc(418 * var(--u)); font-family: var(--font-inter); font-size: calc(20 * var(--u)); line-height: 1.21; color: var(--cream); }
+.o1-help__btn { position: absolute; left: calc(80 * var(--u)); top: calc(380 * var(--u)); width: calc(308 * var(--u)); height: calc(63 * var(--u)); border-radius: calc(100 * var(--u)); background: var(--yellow); color: var(--blue); font-family: var(--font-inter); font-weight: 700; font-size: calc(17 * var(--u)); text-transform: uppercase; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: calc(12 * var(--u)); transition: transform .15s ease, box-shadow .15s ease; }
+.o1-help__btn:hover { transform: translateY(calc(-2 * var(--u))); box-shadow: 0 calc(6 * var(--u)) calc(14 * var(--u)) rgba(0,0,0,.25); }
+.o1-help__btn .icon-arrow { width: calc(17 * var(--u)); height: calc(17 * var(--u)); }
+.o1-help__img { position: absolute; top: calc(89 * var(--u)); width: calc(446 * var(--u)); height: calc(416 * var(--u)); border: calc(13 * var(--u)) solid var(--ivory-2); border-radius: calc(18 * var(--u)); background: #d9d9d9; overflow: hidden; }
+.o1-help__img img { width: 100%; height: 100%; object-fit: cover; max-width: none; }
+.o1-help__img--1 { left: calc(558 * var(--u)); }
+.o1-help__img--2 { left: calc(1033 * var(--u)); }
+
+@media (max-width: 749px) {
+  .o1-prod { height: auto !important; }
+  .o1-prod__link { position: relative; height: calc(230 * var(--u)); }
+  .o1-prod__btn, .o1-values__btn, .o1-farmers__btn, .o1-recipe__btn { position: relative !important; left: auto !important; top: auto !important; display: flex; margin: calc(10 * var(--u)) auto 0; width: calc(200 * var(--u)) !important; height: calc(48 * var(--u)) !important; padding: 0 calc(12 * var(--u)); font-size: calc(calc(15 * var(--u)) * var(--hh)); }
+  .o1-farmers__btn { width: calc(230 * var(--u)) !important; margin-top: calc(18 * var(--u)); }
+  .o1-values__btn { margin-top: calc(4 * var(--u)); }
+  .o1-card__title { top: calc(22 * var(--u)); font-size: calc(calc(24 * var(--u)) * var(--hh)); line-height: calc(28 * var(--u)); }
+  .o1-card__icon { top: calc(92 * var(--u)) !important; width: auto !important; height: calc(64 * var(--u)); }
+  .o1-recipe { height: auto !important; }
+  .o1-recipe__link { position: relative; height: calc(300 * var(--u)); }
+  .o1-recipe__name { position: static; display: block; width: auto; margin-top: calc(14 * var(--u)); font-size: calc(18 * var(--u)); line-height: calc(23 * var(--u)); }
+  .o1-land__btn { margin-top: calc(24 * var(--u)); height: calc(48 * var(--u)); font-size: calc(calc(15 * var(--u)) * var(--hh)); }
+
+  .o1-pcard__text { position: static; width: 100%; }
+  .o1-pcard__text .o1-pcard__title, .o1-pcard__text .o1-pcard__price { margin-top: calc(10 * var(--u)); }
+  .o1-pcard__media img.o1-pcard__pack { left: 4%; top: 8%; width: 92%; height: 80%; }
+  .o1-pdp__main img.o1-pdp__pack:not([srcset]) { left: 4%; top: 8%; width: 92%; height: 84%; }
+
+  .o1-ct__inner { width: auto; padding: calc(110 * var(--u)) calc(20 * var(--u)) calc(50 * var(--u)); }
+  .o1-ct__eyebrow, .o1-ct__title, .o1-ct__lead, .o1-ct__other { margin-left: 0; }
+  .o1-ct__title { margin-top: calc(14 * var(--u)); font-size: calc(calc(38 * var(--u)) * var(--hh)); }
+  .o1-ct__lead { margin-top: calc(14 * var(--u)); font-size: calc(17 * var(--u)); }
+  .o1-ct__box { margin-top: calc(30 * var(--u)); padding: calc(28 * var(--u)) calc(18 * var(--u)) calc(26 * var(--u)); border-radius: calc(18 * var(--u)); }
+  .o1-ct__box h2 { font-size: calc(24 * var(--u)); }
+  .o1-ct__grid { grid-template-columns: 1fr; row-gap: calc(20 * var(--u)); margin-top: calc(22 * var(--u)); }
+  .o1-ct__col { row-gap: calc(20 * var(--u)); }
+  .o1-ct__field { gap: calc(8 * var(--u)); }
+  .o1-ct__field input, .o1-ct__field select { height: calc(54 * var(--u)); }
+  .o1-ct__field textarea { height: calc(200 * var(--u)); padding: calc(16 * var(--u)) calc(20 * var(--u)); }
+  .o1-ct__submit { margin-top: calc(22 * var(--u)); height: calc(60 * var(--u)); font-size: calc(17 * var(--u)); }
+  .o1-ct__note { margin-top: calc(18 * var(--u)); }
+  .o1-ct__other { margin-top: calc(44 * var(--u)); }
+  .o1-ct__cards { margin: calc(16 * var(--u)) 0 0; grid-template-columns: 1fr; row-gap: calc(14 * var(--u)); }
+  .o1-ct__card { min-height: 0; padding: calc(22 * var(--u)) calc(20 * var(--u)); }
+  .o1-ct__card h3 { font-size: calc(18 * var(--u)); }
+  .o1-ct__card div { margin-top: calc(10 * var(--u)); font-size: calc(16 * var(--u)); }
+
+  .o1-help { height: auto; padding: calc(44 * var(--u)) calc(20 * var(--u)) calc(40 * var(--u)); }
+  .o1-help__canvas { width: auto; display: flex; flex-direction: column; gap: calc(16 * var(--u)); }
+  .o1-help__title, .o1-help__text, .o1-help__btn, .o1-help__img { position: relative; left: auto; top: auto; }
+  .o1-help__title { width: auto; font-size: calc(calc(32 * var(--u)) * var(--hh)); }
+  .o1-help__text { width: auto; font-size: calc(17 * var(--u)); }
+  .o1-help__btn { width: calc(260 * var(--u)); height: calc(54 * var(--u)); font-size: calc(15 * var(--u)); }
+  .o1-help__img { width: 100%; height: calc(240 * var(--u)); border-width: calc(8 * var(--u)); }
+  .o1-help__img--2 { display: none; }
+}

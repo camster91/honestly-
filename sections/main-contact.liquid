@@ -1,50 +1,118 @@
-<section class="o1-page">
-  <div class="o1-page__inner o1-contact">
-    <div>
-      {%- if section.settings.eyebrow != blank -%}<p class="o1-page__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-      <h1 class="hh o1-page__title">{{ section.settings.heading | newline_to_br }}</h1>
-      <div class="rte">{{ section.settings.text }}</div>
-      {%- if page.content != blank -%}<div class="rte" style="margin-top:16px">{{ page.content }}</div>{%- endif -%}
-      {%- for block in section.blocks -%}
-        <div class="o1-info-card rte" {{ block.shopify_attributes }}><strong>{{ block.settings.title }}</strong>{{ block.settings.text }}</div>
-      {%- endfor -%}
-    </div>
-    {%- form 'contact', class: 'o1-form', novalidate: 'novalidate' -%}
-      {%- if form.posted_successfully? -%}
-        <p class="o1-msg o1-msg--ok" role="status">{{ section.settings.success }}</p>
-      {%- elsif form.errors -%}
-        <div class="o1-msg o1-msg--err" role="alert">Please check: {% for field in form.errors %}{% if field == 'form' %}{{ form.errors.messages[field] }}{% else %}{{ form.errors.translated_fields[field] }} {{ form.errors.messages[field] }}{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}</div>
-      {%- endif -%}
-      <div class="row">
-        <div class="o1-field"><label for="CName">Name</label><input id="CName" type="text" name="contact[name]" autocomplete="name" value="{{ form.name }}"></div>
-        <div class="o1-field"><label for="CEmail">Email *</label><input id="CEmail" type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}"{% if form.errors contains 'email' %} aria-invalid="true"{% endif %}></div>
-      </div>
-      <div class="row">
-        <div class="o1-field"><label for="CPhone">Phone</label><input id="CPhone" type="tel" name="contact[phone]" autocomplete="tel" value="{{ form.phone }}"></div>
-        <div class="o1-field"><label for="CTopic">Topic</label>
-          <select id="CTopic" name="contact[topic]"><option>A question about my order</option><option>Product question</option><option>Wholesale or retail</option><option>Something else</option></select>
+{%- comment -%} Contact page (Figma 14:55 "Let's talk rice"). {%- endcomment -%}
+<section class="o1-ct">
+  <div class="o1-ct__inner">
+    {%- if section.settings.eyebrow != blank -%}<p class="o1-ct__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h1 class="hh o1-ct__title">{{ section.settings.heading | newline_to_br }}</h1>
+    {%- if section.settings.text != blank -%}<div class="o1-ct__lead">{{ section.settings.text }}</div>{%- endif -%}
+    {%- if page.content != blank -%}<div class="o1-ct__lead rte">{{ page.content }}</div>{%- endif -%}
+
+    <div class="o1-ct__box">
+      <h2 id="ContactFormTitle">{{ section.settings.form_title }}</h2>
+      <p class="o1-ct__req">Fields marked * are required.</p>
+      {%- form 'contact', id: 'ContactForm', novalidate: 'novalidate', aria-labelledby: 'ContactFormTitle' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="o1-ct__msg" role="status">{{ section.settings.success }}</p>
+        {%- elsif form.errors -%}
+          <div class="o1-ct__msg" role="alert">Please check: {% for field in form.errors %}{% if field == 'form' %}{{ form.errors.messages[field] }}{% else %}{{ form.errors.translated_fields[field] }} {{ form.errors.messages[field] }}{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}</div>
+        {%- endif -%}
+        <div class="o1-ct__grid">
+          <div class="o1-ct__col">
+            <div class="o1-ct__field">
+              <label for="CName">Your name *</label>
+              <input id="CName" type="text" name="contact[name]" autocomplete="name" required placeholder="Enter your name" value="{{ form.name }}">
+            </div>
+            <div class="o1-ct__field">
+              <label for="CEmail">Email address *</label>
+              <input id="CEmail" type="email" name="contact[email]" autocomplete="email" required placeholder="you@example.com" value="{{ form.email }}"{% if form.errors contains 'email' %} aria-invalid="true"{% endif %}>
+            </div>
+            <div class="o1-ct__field">
+              <label for="CSubject">Subject</label>
+              <select id="CSubject" name="contact[subject]">
+                <option value="">What would you like to discuss?</option>
+                <option>A question about my order</option>
+                <option>Product question</option>
+                <option>Wholesale or retail</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="o1-ct__field">
+              <label for="CPhone">Phone (optional)</label>
+              <input id="CPhone" type="tel" name="contact[phone]" autocomplete="tel" placeholder="Phone number" value="{{ form.phone }}">
+            </div>
+          </div>
+          <div class="o1-ct__field">
+            <label for="CBody">Message *</label>
+            <textarea id="CBody" name="contact[body]" required placeholder="Tell us a little about how we can help."{% if form.errors contains 'body' %} aria-invalid="true"{% endif %}>{{ form.body }}</textarea>
+          </div>
         </div>
+        <button type="submit" class="o1-ct__submit">{{ section.settings.button_label }} {% render 'icon', name: 'arrow' %}</button>
+        <p class="o1-ct__note">We’ll use your details to respond to your enquiry. <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy policy</a>.</p>
+      {%- endform -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      {%- if section.settings.cards_title != blank -%}<h2 class="o1-ct__other">{{ section.settings.cards_title }}</h2>{%- endif -%}
+      <div class="o1-ct__cards">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.link != blank -%}<a class="o1-ct__card" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>{%- else -%}<div class="o1-ct__card" {{ block.shopify_attributes }}>{%- endif -%}
+            <h3>{{ block.settings.title }}</h3>
+            <div>{{ block.settings.text }}</div>
+          {%- if block.settings.link != blank -%}</a>{%- else -%}</div>{%- endif -%}
+        {%- endfor -%}
       </div>
-      <div class="o1-field"><label for="CBody">Message *</label><textarea id="CBody" name="contact[body]" required{% if form.errors contains 'body' %} aria-invalid="true"{% endif %}>{{ form.body }}</textarea></div>
-      <div><button type="submit" class="pill o1-btn-red">{{ section.settings.button_label }}</button></div>
-    {%- endform -%}
+    {%- endif -%}
   </div>
 </section>
+
+{%- if section.settings.help_title != blank -%}
+<section class="o1-help" aria-labelledby="Help-{{ section.id }}">
+  <div class="o1-help__canvas">
+    <h2 class="hh o1-help__title" id="Help-{{ section.id }}">{{ section.settings.help_title | newline_to_br }}</h2>
+    <p class="o1-help__text">{{ section.settings.help_text }}</p>
+    <a class="o1-help__btn" href="{{ section.settings.help_link | default: '/pages/frequently-asked-questions' }}">{{ section.settings.help_button }} {% render 'icon', name: 'arrow' %}</a>
+    <div class="o1-help__img o1-help__img--1">
+      {%- if section.settings.help_image_1 != blank -%}
+        {{ section.settings.help_image_1 | image_url: width: 900 | image_tag: loading: 'lazy', alt: section.settings.help_image_1.alt | escape }}
+      {%- else -%}
+        <img src="{{ 'ht-grower.webp' | asset_url }}" alt="" width="900" height="840" loading="lazy">
+      {%- endif -%}
+    </div>
+    <div class="o1-help__img o1-help__img--2">
+      {%- if section.settings.help_image_2 != blank -%}
+        {{ section.settings.help_image_2 | image_url: width: 900 | image_tag: loading: 'lazy', alt: section.settings.help_image_2.alt | escape }}
+      {%- else -%}
+        <img src="{{ 'ht-o1-field.webp' | asset_url }}" alt="" width="1440" height="891" loading="lazy">
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "Contact",
   "class": "section-main-contact",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Contact" },
-    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Howdy.\nHow can we help?" },
-    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Questions about an order, our rice or carrying Honestly Texas in your store? Send us a note and our team will get back to you.</p>" },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send message  →" },
-    { "type": "text", "id": "success", "label": "Success message", "default": "Thanks for reaching out! We’ll get back to you soon." }
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Contact / Honestly Texas" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Let’s talk rice." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Questions about our rice, your order or working together? We’d love to hear from you.</p>" },
+    { "type": "text", "id": "form_title", "label": "Form heading", "default": "Send us a message" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send message" },
+    { "type": "text", "id": "success", "label": "Success message", "default": "Thanks for reaching out! We’ll get back to you soon." },
+    { "type": "text", "id": "cards_title", "label": "Cards heading", "default": "Other ways to connect" },
+    { "type": "header", "content": "FAQ band" },
+    { "type": "textarea", "id": "help_title", "label": "Heading", "default": "A few helpful\nanswers.", "info": "Leave empty to hide the band." },
+    { "type": "text", "id": "help_text", "label": "Text", "default": "Looking for answers about our products, orders or where to find us?" },
+    { "type": "text", "id": "help_button", "label": "Button label", "default": "Explore the FAQ" },
+    { "type": "url", "id": "help_link", "label": "Button link" },
+    { "type": "image_picker", "id": "help_image_1", "label": "Image 1" },
+    { "type": "image_picker", "id": "help_image_2", "label": "Image 2" }
   ],
   "blocks": [
     { "type": "card", "name": "Info card", "settings": [
       { "type": "text", "id": "title", "label": "Title", "default": "Wholesale & retail" },
-      { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Choose “Wholesale or retail” in the form.</p>" }
+      { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Interested in carrying our rice?</p>" },
+      { "type": "url", "id": "link", "label": "Link" }
     ] }
   ]
 }
